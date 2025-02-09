@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-// A Subcategory with a name, location, important links, notes, and attachments that are all toggleable
+// A Subcategory with a parent category, priority level, and descriptive tags
 public class Subcategory extends Category {
     
     // REQUIRES: 
@@ -15,60 +15,39 @@ public class Subcategory extends Category {
     // REQUIRES: 
     // MODIFIES: 
     // EFFECTS: 
-    public void addLink(String newUrl) {
+    public void addTag(String name) {
 
     }
 
     // REQUIRES: 
     // MODIFIES: 
     // EFFECTS: 
-    public void removeLink(String removedUrl) {
+    public void removeTag(String name) {
 
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
-    public void addNote(String newNote) {
+    /*
+     * GETTERS/SETTERS
+     */
 
-    }
-
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
-    public void removeNote(String removedUrl) {
-
-    }
-
-    public String getName() {
-        return "";
-    }
-
-    public String getLocation() {
-        return "";
-    }
-
-    public List<String> getLinks() {
+    public Category getParentCategory() {
         return null;
     }
 
-    public List<String> getNotes() {
+    public int getPriorityLevel() {
+        return -1;
+    }
+
+    public List<String> getTags() {
         return null;
     }
 
-    // TODO: Figure out how to get attachments to work
-
-    public void setName(String name) {
+    public void setParentCategory(Category parentCategory) {
 
     }
 
-    public void setLocation(String location) {
+    public void setPriorityLevel(int priorityLevel) {
 
     }
-
-    public void setNote(String note) {
-
-    }
-
 
 }

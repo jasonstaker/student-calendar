@@ -12,7 +12,25 @@ public class Event {
 
     }
 
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public boolean isRecurring() {
+        return false;
+    }
+
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public boolean occursOn(Day day) {
+        return false;
+    }
+
     // TODO: events are SUPER complex so add constructors as needed
+
+    /*
+     * GETTERS/SETTERS
+     */
 
     public String getName() {
         return "";

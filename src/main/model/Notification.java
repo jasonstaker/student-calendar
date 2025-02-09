@@ -12,7 +12,32 @@ public class Notification {
 
     }
 
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS:
+    public void sendNotification() {
+
+    }
+
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS:
+    public boolean hasReminderOn(Day day) {
+        return false;
+    }
+
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS:
+    public String getUrgencyAsString() {
+        return "";
+    }
+
     // TODO: notification are SUPER complex so add constructors as needed
+
+    /*
+     * GETTERS/SETTERS
+     */
 
     public String getTitle() {
         return "";

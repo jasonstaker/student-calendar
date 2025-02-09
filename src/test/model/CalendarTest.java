@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TestSample {
+public class CalendarTest {
     
     @BeforeEach
-    void runBefore() {
+    void setup() {
 
     }
 
     @Test
-    void sampleTest() {
+    void testCalendarConstructor() {
         assertTrue(true);
     }
 }

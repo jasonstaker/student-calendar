@@ -12,6 +12,17 @@ public class Month {
 
     }
 
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public boolean hasDay() {
+        return false;
+    }
+
+    /*
+     * GETTERS/SETTERS
+     */
+
     public int getMonthNumber() {
         return -1;
     }

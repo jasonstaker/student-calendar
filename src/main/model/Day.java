@@ -33,6 +33,24 @@ public class Day {
 
     }
 
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public void clearEvents() {
+
+    }
+
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public boolean isActive() {
+        return false;
+    }
+
+    /*
+     * GETTERS/SETTERS
+     */
+
     public Month getMonth() {
         return null;
     }

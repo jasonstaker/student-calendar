@@ -10,6 +10,38 @@ public class Time {
 
     }
 
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public String timeToString() {
+        return "";
+    }
+
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public boolean equals(Time newTime) {
+        return false;
+    }
+
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public boolean isBefore(Time newTime) {
+        return false;
+    }
+
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public boolean isAfter(Time newTime) {
+        return false;
+    }
+
+    /*
+     * GETTERS/SETTERS
+     */
+
     public int getHour() {
         return -1;
     }
