@@ -2,31 +2,35 @@ package model;
 
 import java.util.List;
 
-// An Event that has a Category and/or Subcategory, time, name, and reccuring status
+// An Event that has a Category and/or Subcategory, time, name, and reccuring days
 public class Event {
     
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
-    public Event() {
-
+    // EFFECTS: initializes an Event with given category, subcategory, time, name, and recurring days
+    public Event(Category category, Subcategory subcategory, Time time, String name, List<Day> recurringDays) {
+        
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: returns true if the event happens more than once
     public boolean isRecurring() {
         return false;
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: returns true if the this Event occurs on the given day
     public boolean occursOn(Day day) {
         return false;
     }
 
-    // TODO: events are SUPER complex so add constructors as needed
+    // MODIFIES: this
+    // EFFECTS: adds the given day to the reccuring days if it is not there, nothing otherwise
+    public void addRecurringDay(Day addDay) {
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes the given day from the recurring days if it exists, nothing otherwise
+    public void removeRecurringDay(Day removedDay) {
+
+    }
 
     /*
      * GETTERS/SETTERS
