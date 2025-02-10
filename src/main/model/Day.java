@@ -22,17 +22,17 @@ public class Day {
     // EFFECTS: adds the given event to the events for this Day, sorted by starting time
     public void addEvent(Event newEvent) {
         int index = 0;
-        int newHour = newEvent.getStartTime().getHour();
-        int newMinute = newEvent.getStartTime().getMinute();
+        Time newTime = newEvent.getStartTime();
 
-        for(int i = 0; i < events.size(); i++) {
-            int hour = events.get(i).getStartTime().getHour();
-            int minute = events.get(i).getStartTime().getMinute();
+        for (int i = 0; i < events.size(); i++) {
+            Time time = events.get(i).getStartTime();
             
-            if((newHour == hour && newMinute >= minute) || (newHour > hour)) {
-                index = ++i;
+            index = i;
+            
+            if (newTime.isBefore(time) || newTime.equals(time)) {
                 break;
             }
+
         }
 
         events.add(index, newEvent);
