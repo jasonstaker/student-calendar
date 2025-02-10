@@ -1,27 +1,41 @@
 package model;
 
 import java.util.List;
+import java.util.ArrayList;
 
-// An Event that has a Category and/or Subcategory, time, name, and reccuring days
+// An Event that has a Category and/or Subcategory, start time, end time, name, and reccuring days
 public class Event {
+
+    Category category;
+    Subcategory subcategory;
+    Time startTime;
+    Time endTime;
+    String name;
+    List<Day> recurringDays;
     
     // EFFECTS: initializes an Event with given category, subcategory, time, name, and recurring days
-    public Event(Category category, Subcategory subcategory, Time time, String name, List<Day> recurringDays) {
-        
+    public Event(Category category, Subcategory subcategory, Time startTime, 
+                Time endTime, String name, List<Day> recurringDays) {
+        this.category = category;
+        this.subcategory = subcategory;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.name = name;
+        this.recurringDays = recurringDays;
     }
 
     // EFFECTS: returns true if the event happens more than once
     public boolean isRecurring() {
-        return false;
+        return recurringDays.size() > 1;
     }
 
     // EFFECTS: returns true if the this Event occurs on the given day
     public boolean occursOn(Day day) {
-        return false;
+        return recurringDays.contains(day);
     }
 
     // MODIFIES: this
-    // EFFECTS: adds the given day to the reccuring days if it is not there, nothing otherwise
+    // EFFECTS: adds the given day to the reccuring days in ascending order if it is not there, nothing otherwise
     public void addRecurringDay(Day addDay) {
 
     }
@@ -29,7 +43,7 @@ public class Event {
     // MODIFIES: this
     // EFFECTS: removes the given day from the recurring days if it exists, nothing otherwise
     public void removeRecurringDay(Day removedDay) {
-
+        recurringDays.remove(removedDay);
     }
 
     /*
@@ -37,51 +51,51 @@ public class Event {
      */
 
     public String getName() {
-        return "";
+        return name;
     }
 
     public Category getCategory() {
-        return null;
+        return category;
     }
 
     public Subcategory getSubcategory() {
-        return null;
+        return subcategory;
     }
 
     public List<Day> getRecurringDays() {
-        return null;
+        return recurringDays;
     }
 
     public Time getStartTime() {
-        return null;
+        return startTime;
     }
 
     public Time getEndTime() {
-        return null;
+        return endTime;
     }
 
     public void setName(String name) {
-
+        this.name = name;
     }
 
     public void setCategory(Category category)  {
-
+        this.category = category;
     }
 
     public void setSubcategory(Subcategory subcategory) {
-
+        this.subcategory = subcategory;
     }
 
     public void setRecurringDays(List<Day> recurringDays) {
-
+        this.recurringDays = recurringDays;
     }
 
     public void setStartTime(Time startTime) {
-
+        this.startTime = startTime;
     }
 
     public void setEndTime(Time endTime) {
-
+        this.endTime = endTime;
     }
 
 }
