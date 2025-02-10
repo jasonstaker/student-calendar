@@ -24,8 +24,8 @@ public class DayTest {
         day = new Day(month, 5);
 
         recurringDays = new ArrayList<Day>();
-        e1 = new Event(null, null, new Time(1,0), "", recurringDays);
-        e2 = new Event(null, null, new Time(2,0), "", recurringDays);
+        e1 = new Event(null, null, new Time(1,0), null, "", recurringDays);
+        e2 = new Event(null, null, new Time(2,0), null, "", recurringDays);
     }
 
     @Test
