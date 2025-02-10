@@ -1,72 +1,93 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // A Category with a name and a list of subcategories
 // Also contains a location, important links, notes, and attachments that are all toggleable
 public class Category {
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    private String name;
+    private List<Subcategory> subcategories;
+    private String location;
+    private List<String> links;
+    private List<String> notes;
+
+    // EFFECTS: initializes an empty Category with default values
     public Category() {
-
+        name = "";
+        subcategories = new ArrayList<Subcategory>();
+        location = "";
+        links = new ArrayList<String>();
+        notes = new ArrayList<String>();
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: initializes an empty Category with default values and a given name
     public Category(String name) {
-
+        this.name = name;
+        subcategories = new ArrayList<Subcategory>();
+        location = "";
+        links = new ArrayList<String>();
+        notes = new ArrayList<String>();
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: initializes an empty Category with default values, a given name, and a given list of subcategories
     public Category(String name, List<Subcategory> subcategories) {
-
+        this.name = name;
+        this.subcategories = subcategories;
+        location = "";
+        links = new ArrayList<String>();
+        notes = new ArrayList<String>();
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: adds the given subcategory to the list of subcategories in this Category
     public void addSubcategory(Subcategory newSubcategory) {
-
+        subcategories.add(newSubcategory);
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: removes the given subcategory from the subcategories in this Category if it exists, nothing otherwise
     public void removeSubcategory(Subcategory removedSubcategory) {
-        
+        subcategories.remove(removedSubcategory);
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: adds the given URL to the links in this Category
     public void addLink(String newUrl) {
-
+        links.add(newUrl);
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: removes the given URL from the links in this Category if it exists, nothing otherwise
     public void removeLink(String removedUrl) {
-
+        links.remove(removedUrl);
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // REQUIRES: 0 <= index < links.size(), not used when links is empty
+    // MODIFIES: this
+    // EFFECTS: removes the link at index of the links in this Category
+    public void removeLink(int index) {
+        links.remove(index);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds the given note to the notes in this Category
     public void addNote(String newNote) {
-
+        notes.add(newNote);
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
-    public void removeNote(String removedUrl) {
+    // MODIFIES: this
+    // EFFECTS: removes the given note from the notes in this Category if it exists, nothing otherwise
+    public void removeNote(String removedNote) {
+        notes.remove(removedNote);
+    }
 
+    // REQUIRES: 0 <= index < notes.size(), not used when notes is empty
+    // MODIFIES: this
+    // EFFECTS: removes the note at index of the notes in this Category
+    public void removeNote(int index) {
+        notes.remove(index);
     }
 
     /*
@@ -74,38 +95,38 @@ public class Category {
      */
 
     public String getName() {
-        return "";
+        return name;
     }
 
     public List<Subcategory> getSubcategories() {
-        return null;
+        return subcategories;
     }
 
     public String getLocation() {
-        return "";
+        return location;
     }
 
     public List<String> getLinks() {
-        return null;
+        return links;
     }
 
     public List<String> getNotes() {
-        return null;
+        return notes;
     }
 
     // TODO: Figure out how to get attachments to work
 
 
     public void setLocation(String location) {
-
+        this.location = location;
     }
 
-    public void setNote(String note) {
-
+    public void setNotes(List<String> notes) {
+        this.notes = notes;
     }
 
     public void setName(String name) {
-
+        this.name = name;
     }
 
 }

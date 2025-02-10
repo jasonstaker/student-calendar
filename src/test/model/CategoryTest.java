@@ -1,6 +1,5 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -187,7 +186,7 @@ public class CategoryTest {
     void testRemoveNoteStringDeep() {
         category1.addNote("note1");
         category1.addNote("note2");
-        category1.removeNote("url2");
+        category1.removeNote("note2");
 
         assertEquals("note1", category1.getNotes().get(0));
         assertEquals(1, category1.getNotes().size());
