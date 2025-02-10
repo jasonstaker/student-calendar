@@ -1,50 +1,58 @@
 package model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 // A Day that stores the month, day number, and any events that are starting, ongoing, and/or ending
 public class Day {
     
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
-    public Day() {
+    Month month;
+    int dayNumber;
+    List<Event> events;
 
-    }
-
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // REQUIRES: 0 < dayNumber <= the last day number for the given month
+    // EFFECTS: initializes a Day with no events, a given month, and a given dayNumber
     public Day(Month month, int dayNumber) {
-
+        this.month = month;
+        this.dayNumber = dayNumber;
+        events = new ArrayList<Event>();
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this 
+    // EFFECTS: adds the given event to the events for this Day, sorted by starting time
     public void addEvent(Event newEvent) {
+        int index = 0;
+        int newHour = newEvent.getStartTime().getHour();
+        int newMinute = newEvent.getStartTime().getMinute();
 
+        for(int i = 0; i < events.size(); i++) {
+            int hour = events.get(i).getStartTime().getHour();
+            int minute = events.get(i).getStartTime().getMinute();
+            
+            if((newHour == hour && newMinute >= minute) || (newHour > hour)) {
+                index = ++i;
+                break;
+            }
+        }
+
+        events.add(index, newEvent);
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this 
+    // EFFECTS: removes the given event to the events for this Day if it exists, nothing otherwise
     public void removeEvent(Event removedEvent) {
-
+        events.remove(removedEvent);
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: removes all the events from this Day
     public void clearEvents() {
-
+        events = new ArrayList<Event>();
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: returns true if there are any events on this Day, false otherwise
     public boolean isActive() {
-        return false;
+        return (events.size() > 0);
     }
 
     /*
@@ -52,23 +60,23 @@ public class Day {
      */
 
     public Month getMonth() {
-        return null;
+        return month;
     }
 
     public int getDayNumber() {
-        return -1;
+        return dayNumber;
     }
 
     public List<Event> getEvents() {
-        return null;
+        return events;
     }
 
     public void setMonth(Month month) {
-
+        this.month = month;
     }
 
     public void setDayNumber(int dayNumber) {
-
+        this.dayNumber = dayNumber;
     }
 
 }
