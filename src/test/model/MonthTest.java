@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +23,8 @@ public class MonthTest {
     @Test
     void testMonthConstructor() {
         assertEquals(4, month1.getMonthNumber());
-        assertEquals(new ArrayList<Day>(), month1.getDays());
+        assertEquals(31, month1.getDays().size());
+        assertEquals("May", month1.getName());
     }
 
     @Test
