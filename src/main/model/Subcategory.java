@@ -5,23 +5,19 @@ import java.util.List;
 // A Subcategory with a parent category, priority level, and descriptive tags
 public class Subcategory extends Category {
     
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: initializes a Subcategory with default values
     public Subcategory() {
 
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: adds a tag with the given name to the tags of this Subcategory
     public void addTag(String name) {
 
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: removes a tag with the given name from the tags if it is present, nothing otherwise
     public void removeTag(String name) {
 
     }
