@@ -22,6 +22,8 @@ public class SubcategoryTest {
         tagList.add("tag1");
         tagList.add("tag2");
 
+        category = new Category();
+
         subcategory = new Subcategory(category, 1, tagList);
     }
 
@@ -47,14 +49,14 @@ public class SubcategoryTest {
 
     @Test
     void testRemoveTag() {
-        subcategory.addTag("tag2");
+        subcategory.removeTag("tag2");
         assertEquals(1, subcategory.getTags().size());
         assertEquals("tag1", subcategory.getTags().get(0));
     }
 
     @Test
     void testRemoveTagFail() {
-        subcategory.addTag("tag3");
+        subcategory.removeTag("tag3");
         assertEquals(2, subcategory.getTags().size());
     }
 
@@ -91,7 +93,7 @@ public class SubcategoryTest {
     void testIsParentAbstract() {
         Category parentSubcategory = new Subcategory(null, 1, null);
         subcategory.setParentCategory(parentSubcategory);
-        assertFalse(subcategory.isParent(parentSubcategory));
+        assertTrue(subcategory.isParent(parentSubcategory));
     }
 
 }
