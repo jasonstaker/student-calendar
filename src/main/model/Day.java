@@ -18,24 +18,28 @@ public class Day {
         events = new ArrayList<Event>();
     }
 
-    // MODIFIES: this 
+    // MODIFIES: this
     // EFFECTS: adds the given event to the events for this Day, sorted by starting time
     public void addEvent(Event newEvent) {
         int index = 0;
-        Time newTime = newEvent.getStartTime();
 
         for (int i = 0; i < events.size(); i++) {
-            Time time = events.get(i).getStartTime();
+            Event event = events.get(i);
             
-            index = i;
-            
-            if (newTime.isBefore(time) || newTime.equals(time)) {
+            if (newEvent.getStartTime().isBefore(event.getStartTime())) {
                 break;
             }
 
+            index++;
+
         }
 
-        events.add(index, newEvent);
+        if(index == events.size()) {
+            events.add(newEvent);
+        } else {
+            events.add(index, newEvent);
+        }
+
     }
 
     // MODIFIES: this 
