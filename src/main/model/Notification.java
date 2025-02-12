@@ -5,30 +5,25 @@ import java.util.List;
 // A Notification with a title, urgency level, event, reminder date(s), and message
 public class Notification {
     
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: initializes a Notification with default values
     public Notification() {
 
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS:
-    public void sendNotification() {
-
+    // EFFECTS: returns a String representation of a Notification
+    public String notificationToString() {
+        return "";
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS:
+    // EFFECTS: returns true if the Notification is set to remind the user on a given Day
     public boolean hasReminderOn(Day day) {
         return false;
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS:
+    // EFFECTS: returns the urgency level of the Notification as a string
+    //          1: "Low"
+    //          2: "Medium"
+    //          3; "High"
     public String getUrgencyAsString() {
         return "";
     }
