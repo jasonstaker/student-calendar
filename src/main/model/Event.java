@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-import java.util.ArrayList;
 
 // An Event that has a Category and/or Subcategory, start time, end time, name, and reccuring days
 public class Event {
@@ -22,6 +21,11 @@ public class Event {
         this.endTime = endTime;
         this.name = name;
         this.recurringDays = recurringDays;
+
+        for(Day d: recurringDays) {
+            d.addEvent(this);
+        }
+        
     }
 
     // EFFECTS: returns true if the event happens more than once
@@ -42,15 +46,19 @@ public class Event {
         for (int i = 0; i < recurringDays.size(); i++) {
             Day day = recurringDays.get(i);
             
-            index = i;
-            
-            if (addDay.isBefore(day) || addDay.equals(day)) {
+            if (addDay.isBefore(day)) {
                 break;
             }
 
+            index++;
+
         }
 
-        recurringDays.add(index, addDay);
+        if(index == recurringDays.size()) {
+            recurringDays.add(addDay);
+        } else {
+            recurringDays.add(index, addDay);
+        }
     }
 
     // MODIFIES: this

@@ -38,8 +38,6 @@ public class EventTest {
         event = new Event(c, sc, st, et, "test", rd);
     }
 
-    // #TODO: make a isbefore for day and month, and a function for time difference
-
     @Test
     void testEventConstructor() {
         assertEquals(c, event.getCategory());
@@ -48,73 +46,10 @@ public class EventTest {
         assertEquals(et, event.getEndTime());
         assertEquals("test", event.getName());
         assertEquals(rd, event.getRecurringDays());
-<<<<<<< HEAD
-=======
-    }
 
-    @Test
-    void testIsRecurringPass() {
-        event.addRecurringDay(day2);
-
-        assertTrue(event.isRecurring());
-    }
-
-    @Test
-    void testIsRecurringFail() {
-        assertFalse(event.isRecurring());
-    }
-
-    @Test
-    void testOccursOnSinglePass() {
-        assertTrue(event.occursOn(day1));
-    }
-
-    @Test
-    void testOccursOnSingleFail() {
-        assertFalse(event.occursOn(day2));
-    }
-
-    @Test
-    void testOccursOnMultiplePass() {
-        event.addRecurringDay(day2);
-
-        assertTrue(event.occursOn(day2));
-    }
-
-    @Test
-    void testOccursOnMultipleFail() {
-        event.addRecurringDay(day1);
-
-        assertFalse(event.occursOn(day2));
-    }
-
-    @Test
-    void testAddRecurringDay() {
-        event.addRecurringDay(day2);
-
-        assertEquals(2, event.getRecurringDays().size());
-        assertEquals(day2, event.getRecurringDays().get(1));
-    }
-
-    @Test
-    void testAddRecurringDayComplex() {
-        Day day3 = new Day(new Month(0), 1);
-        
-        event.addRecurringDay(day2);
-        event.addRecurringDay(day3);
-
-        assertEquals(3, event.getRecurringDays().size());
-        assertEquals(day3, event.getRecurringDays().get(0));
-        assertEquals(day1, event.getRecurringDays().get(1));
-        assertEquals(day2, event.getRecurringDays().get(2));
-    }
-
-    @Test
-    void testRemoveRecurringDay() {
-        event.removeRecurringDay(day1);
-
-        assertEquals(0, event.getRecurringDays().size());
->>>>>>> 9564e5b5453d679af516686ae164c8416afc92e7
+        for(Day d: rd) {
+            assertEquals(event, d.getEvents().get(0));
+        }
     }
 
     @Test
