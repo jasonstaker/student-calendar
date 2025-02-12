@@ -21,8 +21,8 @@ public class CategoryTest {
 
     @BeforeEach
     void setup() {
-        subcategory1 = new Subcategory();
-        subcategory2 = new Subcategory();
+        subcategory1 = new Subcategory(null, 1, null);
+        subcategory2 = new Subcategory(null, 2, null);
 
         scList = new ArrayList<Subcategory>();
         scList.add(subcategory1);

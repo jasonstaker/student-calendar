@@ -24,7 +24,7 @@ public class EventTest {
     @BeforeEach
     void setup() {
         c = new Category();
-        sc = new Subcategory();
+        sc = new Subcategory(null, 2, null);
         st = new Time(1, 4);
         st = new Time(2, 4);
 
