@@ -5,9 +5,9 @@ import java.util.List;
 // A Subcategory with a parent category, priority level, and descriptive tags
 public class Subcategory extends Category {
 
-    Category parentCategory;
-    int priorityLevel;
-    List<String> tags;
+    private Category parentCategory;
+    private int priorityLevel;
+    private List<String> tags;
     
     // REQUIRES: priorityLevel is 1, 2, or 3
     // EFFECTS: initializes a Subcategory with default values

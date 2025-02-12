@@ -5,11 +5,11 @@ import java.util.List;
 // A Notification with a title, urgency level, event, reminder date(s), and message
 public class Notification {
 
-    String title;
-    int urgencyLevel;
-    Event event;
-    List<Day> reminderDates;
-    String message;
+    private String title;
+    private int urgencyLevel;
+    private Event event;
+    private List<Day> reminderDates;
+    private String message;
     
     // REQUIRES: urgencyLevel is 1, 2, or 3
     // EFFECTS: initializes a Notification with default values
