@@ -57,19 +57,19 @@ public class NotificationTest {
 
     @Test
     void testGetUrgencyAsStringLow() {
-        assertEquals("Low", notification.getUrgencyLevel());
+        assertEquals("Low", notification.getUrgencyAsString());
     }
 
     @Test
     void testGetUrgencyAsStringMedium() {
         notification.setUrgencyLevel(2);
-        assertEquals("Medium", notification.getUrgencyLevel());
+        assertEquals("Medium", notification.getUrgencyAsString());
     }
 
     @Test
     void testGetUrgencyAsStringHigh() {
         notification.setUrgencyLevel(3);
-        assertEquals("High", notification.getUrgencyLevel());
+        assertEquals("High", notification.getUrgencyAsString());
     }
 
     @Test
@@ -96,12 +96,12 @@ public class NotificationTest {
         notification.addReminderDate(day3);
 
         assertEquals(day1, notification.getReminderDays().get(0));
-        assertEquals(day1, notification.getReminderDays().get(1));
-        assertEquals(day1, notification.getReminderDays().get(2));
-        assertEquals(day1, notification.getReminderDays().get(3));
-        assertEquals(day1, notification.getReminderDays().get(4));
-        assertEquals(day1, notification.getReminderDays().get(5));
-        assertEquals(day1, notification.getReminderDays().get(6));
+        assertEquals(day2, notification.getReminderDays().get(1));
+        assertEquals(day3, notification.getReminderDays().get(2));
+        assertEquals(day4, notification.getReminderDays().get(3));
+        assertEquals(day5, notification.getReminderDays().get(4));
+        assertEquals(day6, notification.getReminderDays().get(5));
+        assertEquals(day7, notification.getReminderDays().get(6));
         assertEquals(7, notification.getReminderDays().size());
     }
     
