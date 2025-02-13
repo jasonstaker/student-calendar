@@ -6,13 +6,15 @@ import java.util.ArrayList;
 // A Day that stores the month, day number, and any events that are starting, ongoing, and/or ending
 public class Day {
     
-    Month month;
-    int dayNumber;
-    List<Event> events;
+    private Year year;
+    private Month month;
+    private int dayNumber;
+    private List<Event> events;
 
     // REQUIRES: 0 < dayNumber <= the last day number for the given month
     // EFFECTS: initializes a Day with no events, a given month, and a given dayNumber
-    public Day(Month month, int dayNumber) {
+    public Day(Year year, Month month, int dayNumber) {
+        this.year = year;
         this.month = month;
         this.dayNumber = dayNumber;
         events = new ArrayList<Event>();
@@ -61,8 +63,8 @@ public class Day {
 
     // Effects: returns true if this Day is before the given day
     public boolean isBefore(Day day) {
-        if(this.month.getMonthNumber() == day.getMonth().getMonthNumber()) {
-            return dayNumber < day.getDayNumber();
+        if (this.month.equals(day.getMonth())) {
+            return this.dayNumber < day.getDayNumber();
         }
 
         return this.month.isBefore(day.getMonth());
@@ -71,6 +73,10 @@ public class Day {
     /*
      * GETTERS/SETTERS
      */
+
+    public Year getYear() {
+        return year;
+    }
 
     public Month getMonth() {
         return month;
@@ -82,6 +88,10 @@ public class Day {
 
     public List<Event> getEvents() {
         return events;
+    }
+    
+    public void setYear(Year year) {
+        this.year = year;
     }
 
     public void setMonth(Month month) {

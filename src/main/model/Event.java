@@ -5,12 +5,12 @@ import java.util.List;
 // An Event that has a Category and/or Subcategory, start time, end time, name, and reccuring days
 public class Event {
 
-    Category category;
-    Subcategory subcategory;
-    Time startTime;
-    Time endTime;
-    String name;
-    List<Day> recurringDays;
+    private Category category;
+    private Subcategory subcategory;
+    private Time startTime;
+    private Time endTime;
+    private String name;
+    private List<Day> recurringDays;
     
     // EFFECTS: initializes an Event with given category, subcategory, time, name, and recurring days
     public Event(Category category, Subcategory subcategory, Time startTime, 

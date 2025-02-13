@@ -14,14 +14,16 @@ public class DayTest {
     
     Day day;
     Month month;
+    Year year;
     Event e1;
     Event e2;
     List<Day> recurringDays;
 
     @BeforeEach
     void setup() {
-        month = new Month(0);
-        day = new Day(month, 5);
+        year = new Year(2025);
+        month = new Month(year, 0);
+        day = new Day(year, month, 5);
 
         recurringDays = new ArrayList<Day>();
         e1 = new Event(null, null, new Time(1,0), null, "", recurringDays);
@@ -30,6 +32,7 @@ public class DayTest {
 
     @Test
     void testDayConstructor() {
+        assertEquals(year, day.getYear());
         assertEquals(month, day.getMonth());
         assertEquals(5, day.getDayNumber());
         assertEquals(0, day.getEvents().size());
@@ -103,4 +106,41 @@ public class DayTest {
     void testIsActiveFail() {
         assertFalse(day.isActive());
     }
+
+    @Test
+    void testIsBeforeDayPass() {
+        Day testDay = new Day(year, new Month(year, 0), 4);
+        assertTrue(testDay.isBefore(day));
+    }
+
+    @Test
+    void testIsBeforeDayFail() {
+        Day testDay = new Day(year, new Month(year, 0), 5);
+        assertFalse(testDay.isBefore(day));
+    }
+
+    @Test
+    void testIsBeforeMonthPass() {
+        Day testDay = new Day(year, new Month(year, 1), 5);
+        assertTrue(day.isBefore(testDay));
+    }
+
+    @Test
+    void testIsBeforeMonthFail() {
+        Day testDay = new Day(year, new Month(year, 0), 5);
+        assertFalse(day.isBefore(testDay));
+    }
+
+    @Test
+    void testIsBeforeYearPass() {
+        Day testDay = new Day(new Year(2024), new Month(new Year(2024), 0), 5);
+        assertTrue(day.isBefore(testDay));
+    }
+
+    @Test
+    void testIsBeforeYearFail() {
+        Day testDay = new Day(year, new Month(year, 0), 5);
+        assertFalse(day.isBefore(testDay));
+    }
+
 }

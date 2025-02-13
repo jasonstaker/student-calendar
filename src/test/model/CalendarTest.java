@@ -11,46 +11,45 @@ public class CalendarTest {
 
     @BeforeEach
     void setup() {
-        calendar = new Calendar("test");
+        calendar = new Calendar("test", 2025);
     }
 
     @Test
     void testCalendarConstructor() {
         assertEquals("test", calendar.getTitle());
-        assertEquals(12, calendar.getMonths().length);
-        assertEquals(0, calendar.getCurrentMonthIndex());
+        assertEquals(3, calendar.getYears().size());
+        assertEquals(calendar.getYears().get(1), calendar.getCurrentYear());
     }
 
     @Test
     void testMonthIncrement() {
-        calendar.incrementMonthIndex();
+        calendar.incrementYearIndex();
 
-        assertEquals(1, calendar.getCurrentMonthIndex());
+        assertEquals(calendar.getYears().get(2), calendar.getCurrentYear());
     }
 
     @Test
     void testMonthIncrementUpper() {
-        for (int i = 0; i < 13; i++) {
-            calendar.incrementMonthIndex();
+        for (int i = 0; i < 5; i++) {
+            calendar.incrementYearIndex();
         }
 
-        assertEquals(11, calendar.getCurrentMonthIndex());
+        assertEquals(calendar.getYears().get(2), calendar.getCurrentYear());
     }
 
     @Test
     void testMonthDecrement() {
-        calendar.incrementMonthIndex();
-        calendar.incrementMonthIndex();
-        calendar.decrementMonthIndex();
+        calendar.decrementYearIndex();
 
-        assertEquals(1, calendar.getCurrentMonthIndex());
+        assertEquals(calendar.getYears().get(0), calendar.getCurrentYear());
     }
 
     @Test
     void testMonthDecrementLower() {
-        calendar.decrementMonthIndex();
+        calendar.decrementYearIndex();
+        calendar.decrementYearIndex();
 
-        assertEquals(0, calendar.getCurrentMonthIndex());
+        assertEquals(calendar.getYears().get(0), calendar.getCurrentYear());
     }
     
 }

@@ -17,11 +17,16 @@ public class NotificationTest {
     Day day1;
     Day day2;
     List<Day> dayList;
+    Year year;
+    Month month1;
+    Month month2;
     
     @BeforeEach
     void setup() {
-        day1 = new Day(new Month(0), 10);
-        day2 = new Day(new Month(4), 22);
+        month1 = new Month(year, 0);
+        month1 = new Month(year, 4);
+        day1 = new Day(year, month1, 10);
+        day2 = new Day(year, month2, 22);
 
         dayList = new ArrayList<Day>();
         dayList.add(day1);
@@ -52,7 +57,7 @@ public class NotificationTest {
 
     @Test
     void testHasReminderOnFail() {
-        assertFalse(notification.hasReminderOn(new Day(new Month(4), 1)));
+        assertFalse(notification.hasReminderOn(new Day(year, month1, 1)));
     }
 
     @Test
@@ -83,11 +88,11 @@ public class NotificationTest {
 
     @Test
     void testAddReminderDateComplex() {
-        Day day3 = new Day(new Month(4), 23);
-        Day day4 = new Day(new Month(5), 1);
-        Day day5 = new Day(new Month(5), 2);
-        Day day6 = new Day(new Month(5), 3);
-        Day day7 = new Day(new Month(6), 3);
+        Day day3 = new Day(year, new Month(year, 4), 23);
+        Day day4 = new Day(year, new Month(year, 5), 1);
+        Day day5 = new Day(year, new Month(year, 5), 2);
+        Day day6 = new Day(year, new Month(year, 5), 3);
+        Day day7 = new Day(year, new Month(year, 6), 3);
 
         notification.addReminderDate(day5);
         notification.addReminderDate(day7);

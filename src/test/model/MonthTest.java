@@ -13,11 +13,14 @@ public class MonthTest {
     Month month2;
     Month month3;
 
+    Year year;
+
     @BeforeEach
     void setup() {
-        month1 = new Month(4);
-        month2 = new Month(5);
-        month3 = new Month(6);
+        year = new Year(2025);
+        month1 = new Month(year, 4);
+        month2 = new Month(year, 5);
+        month3 = new Month(year, 6);
     }
 
     @Test
@@ -50,5 +53,11 @@ public class MonthTest {
     @Test
     void testIsBeforeAfter() {
         assertFalse(month3.isBefore(month2));
+    }
+
+    @Test
+    void testLeapYear() {
+        Month leapMonth = new Month(new Year(2000), 1);
+        assertEquals(29, leapMonth.getDays().size());
     }
 }

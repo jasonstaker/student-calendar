@@ -1,40 +1,44 @@
 package model;
 
-// A Calendar with a title that stores a list of months and a current month
+import java.util.List;
+import java.util.ArrayList;
+
+// A Calendar with a title that stores a list of years and a current year
 public class Calendar {
 
     private String title;
-    private Month[] months;
-    private int currentMonthIndex;
+    private List<Year> years;
+    private int currentYearIndex;
 
+    // REQUIRES: currentYear is a valid year
     // EFFECTS: initializes a new Calendar with a given title
-    public Calendar(String title) {
+    public Calendar(String title, int currentYear) {
         this.title = title;
-        currentMonthIndex = 0;
-        months = new Month[12];
-
-        for(int i = 0; i < 12; i++) {
-            months[i] = new Month(i);
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: increments the month index if it does not exceed 11, nothing otherwise
-    public void incrementMonthIndex() {
-        currentMonthIndex++;
+        currentYearIndex = 1;
+        years = new ArrayList<Year>();
         
-        if(currentMonthIndex > 11) {
-            currentMonthIndex = 11;
+        for(int i = -1; i <= 1; i++) {
+            years.add(new Year(currentYear + i));
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: decrements the month index if it does not go below 0, nothing otherwise
-    public void decrementMonthIndex() {
-        currentMonthIndex--;
+    // EFFECTS: increments the Year index if it does not exceed the highest year, nothing otherwise
+    public void incrementYearIndex() {
+        currentYearIndex++;
+        
+        if(currentYearIndex >= years.size()) {
+            currentYearIndex = years.size() - 1;
+        }
+    }
 
-        if(currentMonthIndex < 0) {
-            currentMonthIndex = 0;
+    // MODIFIES: this
+    // EFFECTS: decrements the year index if it does not go below 0, nothing otherwise
+    public void decrementYearIndex() {
+        currentYearIndex--;
+        
+        if(currentYearIndex < 0) {
+            currentYearIndex = 0;
         }
     }
 
@@ -46,12 +50,12 @@ public class Calendar {
         return title;
     }
 
-    public Month[] getMonths() {
-        return months;
+    public List<Year> getYears() {
+        return years;
     }
 
-    public int getCurrentMonthIndex() {
-        return currentMonthIndex;
+    public Year getCurrentYear() {
+        return years.get(currentYearIndex);
     }
     
 }

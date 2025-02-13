@@ -28,8 +28,8 @@ public class EventTest {
         st = new Time(1, 4);
         st = new Time(2, 4);
 
-        day1 = new Day(new Month(0), 22);
-        day2 = new Day(new Month(3), 1);
+        day1 = new Day(new Year(2025), new Month(new Year(2025), 0), 22);
+        day2 = new Day(new Year(2025), new Month(new Year(2025), 3), 1);
         
         rd = new ArrayList<Day>();
 
@@ -98,7 +98,7 @@ public class EventTest {
 
     @Test
     void testAddRecurringDayComplex() {
-        Day day3 = new Day(new Month(0), 1);
+        Day day3 = new Day(new Year(2024), new Month(new Year(2024), 0), 1);
         
         event.addRecurringDay(day2);
         event.addRecurringDay(day3);
