@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 
 public class CategoryTest {
     
-    Category category1;
-    Category category2;
-    Category category3;
+    private Category category1;
+    private Category category2;
+    private Category category3;
 
-    Subcategory subcategory1;
-    Subcategory subcategory2;
+    private Subcategory subcategory1;
+    private Subcategory subcategory2;
 
-    List<Subcategory> scList;
+    private List<Subcategory> scList;
 
     @BeforeEach
     void setup() {

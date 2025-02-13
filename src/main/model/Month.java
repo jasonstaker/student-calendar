@@ -42,6 +42,7 @@ public class Month {
 
     // Effects: returns true if this Month is before the given Month
     public boolean isBefore(Month month) {
+        
         if (this.year.equals(month.getYear())) {
             return this.monthNumber < month.getMonthNumber();
         }

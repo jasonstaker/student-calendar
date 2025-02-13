@@ -36,7 +36,7 @@ public class Day {
 
         }
 
-        if(index == events.size()) {
+        if (index == events.size()) {
             events.add(newEvent);
         } else {
             events.add(index, newEvent);

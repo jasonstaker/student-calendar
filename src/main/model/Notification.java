@@ -62,7 +62,7 @@ public class Notification {
 
         }
 
-        if(index == reminderDates.size()) {
+        if (index == reminderDates.size()) {
             reminderDates.add(reminderDate);
         } else {
             reminderDates.add(index, reminderDate);

@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 
 public class MonthTest {
     
-    Month month1;
-    Month month2;
-    Month month3;
+    private Month month1;
+    private Month month2;
+    private Month month3;
 
-    Year year;
+    private Year year;
 
     @BeforeEach
     void setup() {

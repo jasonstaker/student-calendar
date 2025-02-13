@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class CalendarTest {
     
-    Calendar calendar;
+    private Calendar calendar;
 
     @BeforeEach
     void setup() {

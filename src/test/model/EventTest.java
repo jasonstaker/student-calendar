@@ -12,42 +12,42 @@ import org.junit.jupiter.api.Test;
 
 public class EventTest {
     
-    Category c;
-    Subcategory sc;
-    Time st;
-    Time et;
-    List<Day> rd;
-    Day day1;
-    Day day2;
-    Event event;
+    private Category category;
+    private Subcategory sc;
+    private Time startTime;
+    private Time endTime;
+    private List<Day> recurringDays;
+    private Day day1;
+    private Day day2;
+    private Event event;
 
     @BeforeEach
     void setup() {
-        c = new Category();
+        category = new Category();
         sc = new Subcategory(null, 2, null);
-        st = new Time(1, 4);
-        st = new Time(2, 4);
+        startTime = new Time(1, 4);
+        startTime = new Time(2, 4);
 
         day1 = new Day(new Year(2025), new Month(new Year(2025), 0), 22);
         day2 = new Day(new Year(2025), new Month(new Year(2025), 3), 1);
         
-        rd = new ArrayList<Day>();
+        recurringDays = new ArrayList<Day>();
 
-        rd.add(day1);
+        recurringDays.add(day1);
 
-        event = new Event(c, sc, st, et, "test", rd);
+        event = new Event(category, sc, startTime, endTime, "test", recurringDays);
     }
 
     @Test
     void testEventConstructor() {
-        assertEquals(c, event.getCategory());
+        assertEquals(category, event.getCategory());
         assertEquals(sc, event.getSubcategory());
-        assertEquals(st, event.getStartTime());
-        assertEquals(et, event.getEndTime());
+        assertEquals(startTime, event.getStartTime());
+        assertEquals(endTime, event.getEndTime());
         assertEquals("test", event.getName());
-        assertEquals(rd, event.getRecurringDays());
+        assertEquals(recurringDays, event.getRecurringDays());
 
-        for(Day d: rd) {
+        for (Day d: recurringDays) {
             assertEquals(event, d.getEvents().get(0));
         }
     }

@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 
 public class SubcategoryTest {
 
-    Subcategory subcategory;
-    Category category;
-    List<String> tagList;
+    private Subcategory subcategory;
+    private Category category;
+    private List<String> tagList;
     
     @BeforeEach
     void setup() {

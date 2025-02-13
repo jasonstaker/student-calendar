@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
 
 public class DayTest {
     
-    Day day;
-    Month month;
-    Year year;
-    Event e1;
-    Event e2;
-    List<Day> recurringDays;
+    private Day day;
+    private Month month;
+    private Year year;
+    private Event event1;
+    private Event event2;
+    private List<Day> recurringDays;
 
     @BeforeEach
     void setup() {
@@ -26,8 +26,8 @@ public class DayTest {
         day = new Day(year, month, 5);
 
         recurringDays = new ArrayList<Day>();
-        e1 = new Event(null, null, new Time(1,0), null, "", recurringDays);
-        e2 = new Event(null, null, new Time(2,0), null, "", recurringDays);
+        event1 = new Event(null, null, new Time(1,0), null, "", recurringDays);
+        event2 = new Event(null, null, new Time(2,0), null, "", recurringDays);
     }
 
     @Test
@@ -40,35 +40,35 @@ public class DayTest {
 
     @Test
     void testAddEvent() {
-        day.addEvent(e1);
+        day.addEvent(event1);
 
-        assertEquals(e1, day.getEvents().get(0));
+        assertEquals(event1, day.getEvents().get(0));
     }
 
     @Test
     void testAddEventsBefore() {
-        day.addEvent(e2);
-        day.addEvent(e1);
+        day.addEvent(event2);
+        day.addEvent(event1);
 
-        assertEquals(e1, day.getEvents().get(0));
-        assertEquals(e2, day.getEvents().get(1));
+        assertEquals(event1, day.getEvents().get(0));
+        assertEquals(event2, day.getEvents().get(1));
     }
 
     @Test
     void testRemoveEvent() {
-        day.addEvent(e1);
-        day.removeEvent(e1);
+        day.addEvent(event1);
+        day.removeEvent(event1);
 
         assertEquals(0, day.getEvents().size());
     }
 
     @Test
     void testRemoveEventDeep() {
-        day.addEvent(e1);
-        day.addEvent(e2);
-        day.removeEvent(e1);
+        day.addEvent(event1);
+        day.addEvent(event2);
+        day.removeEvent(event1);
 
-        assertEquals(e2, day.getEvents().get(0));
+        assertEquals(event2, day.getEvents().get(0));
         assertEquals(1, day.getEvents().size());
     }
 
@@ -81,7 +81,7 @@ public class DayTest {
 
     @Test
     void testClearEventsOne() {
-        day.addEvent(e1);
+        day.addEvent(event1);
         day.clearEvents();
 
         assertEquals(0, day.getEvents().size());
@@ -89,8 +89,8 @@ public class DayTest {
 
     @Test
     void testClearEventsMultiple() {
-        day.addEvent(e1);
-        day.addEvent(e2);
+        day.addEvent(event1);
+        day.addEvent(event2);
         day.clearEvents();
 
         assertEquals(0, day.getEvents().size());
@@ -98,7 +98,7 @@ public class DayTest {
 
     @Test
     void testIsActivePass() {
-        day.addEvent(e1);
+        day.addEvent(event1);
         assertTrue(day.isActive());
     }
 
@@ -109,7 +109,7 @@ public class DayTest {
 
     @Test
     void testIsBeforeDayPass() {
-        Day testDay = new Day(year, new Month(year, 0), 4);
+        Day testDay = new Day(year, month, 4);
         assertTrue(testDay.isBefore(day));
     }
 
@@ -133,7 +133,7 @@ public class DayTest {
 
     @Test
     void testIsBeforeYearPass() {
-        Day testDay = new Day(new Year(2024), new Month(new Year(2024), 0), 5);
+        Day testDay = new Day(new Year(2026), new Month(new Year(2026), 0), 5);
         assertTrue(day.isBefore(testDay));
     }
 

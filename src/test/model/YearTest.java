@@ -4,16 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class YearTest {
 
-    Year year1;
-    Year year2;
+    private Year year1;
+    private Year year2;
 
     @BeforeEach
     void setup() {
@@ -36,7 +33,7 @@ public class YearTest {
 
     @Test
     void testIncrementMonthIndexOver() {
-        for(int i = 0; i < 18; i++) {
+        for (int i = 0; i < 18; i++) {
             year1.incrementMonthIndex();
         }
         assertEquals("December", year1.getCurrentMonth().getName());
@@ -52,11 +49,11 @@ public class YearTest {
 
     @Test
     void testDecrementMonthIndexUnder() {
-        for(int i = 0; i < 18; i++) {
+        for (int i = 0; i < 18; i++) {
             year1.incrementMonthIndex();
         }
 
-        for(int i = 0; i < 18; i++) {
+        for (int i = 0; i < 18; i++) {
             year1.decrementMonthIndex();
         }
         assertEquals("January", year1.getCurrentMonth().getName());
@@ -74,12 +71,12 @@ public class YearTest {
 
     @Test
     void testIsAfterPass() {
-        assertTrue(year1.isBefore(year2));
+        assertTrue(year1.isAfter(year2));
     }
 
     @Test
     void testIsAfterFail() {
-        assertFalse(year2.isBefore(year2));
+        assertFalse(year2.isAfter(year2));
     }
 
     @Test

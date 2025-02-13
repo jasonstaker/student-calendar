@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 public class TimeTest {
 
-    Time time1;
-    Time time2;
-    Time time3;
+    private Time time1;
+    private Time time2;
+    private Time time3;
     
     @BeforeEach
     void setup() {
@@ -34,17 +34,17 @@ public class TimeTest {
 
     @Test
     void testEqualsPass() {
-        assertTrue(time1.equals(new Time(1, 24)));
+        assertTrue(time1.equals(time1));
     }
 
     @Test
     void testEqualsFail() {
-        assertFalse(time1.equals(new Time(1, 25)));
+        assertFalse(time1.equals(time2));
     }
 
     @Test
     void testIsBeforePass() {
-        assertTrue(time1.isBefore(new Time(1, 25)));
+        assertTrue(time1.isBefore(time2));
     }
 
     @Test

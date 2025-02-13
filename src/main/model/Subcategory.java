@@ -20,7 +20,7 @@ public class Subcategory extends Category {
     // MODIFIES: this
     // EFFECTS: adds a tag with the given name to the tags of this Subcategory if it is not present, nothing otherwise
     public void addTag(String name) {
-        if(!tags.contains(name)) {
+        if (!tags.contains(name)) {
             tags.add(name);
         }
     }
@@ -36,7 +36,7 @@ public class Subcategory extends Category {
     //          2: "Medium"
     //          3; "High"
     public String priorityLevelToString() {
-        if(priorityLevel == 1) {
+        if (priorityLevel == 1) {
             return "Low";
         } else if (priorityLevel == 2) {
             return "Medium";

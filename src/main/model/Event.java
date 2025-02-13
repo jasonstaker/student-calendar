@@ -22,7 +22,7 @@ public class Event {
         this.name = name;
         this.recurringDays = recurringDays;
 
-        for(Day d: recurringDays) {
+        for (Day d: recurringDays) {
             d.addEvent(this);
         }
         
@@ -54,7 +54,7 @@ public class Event {
 
         }
 
-        if(index == recurringDays.size()) {
+        if (index == recurringDays.size()) {
             recurringDays.add(addDay);
         } else {
             recurringDays.add(index, addDay);

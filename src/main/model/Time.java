@@ -19,15 +19,15 @@ public class Time {
         int stringHour = hour % 12;
         String stringMinute = minute + "";
 
-        if(hour == 0) {
+        if (hour == 0) {
             stringHour = 12;
         }
 
-        if(minute < 10) {
+        if (minute < 10) {
             stringMinute = "0" + stringMinute;
         }
 
-        if(hour >= 12) {
+        if (hour >= 12) {
             suffix = "P.M.";
         }
 
@@ -41,7 +41,7 @@ public class Time {
 
     // EFFECTS: returns true if the given Time is before this Time, false otherwise
     public boolean isBefore(Time newTime) {
-        if(this.hour == newTime.hour) {
+        if (this.hour == newTime.hour) {
             return this.minute < newTime.getMinute();
         }
 
@@ -50,7 +50,7 @@ public class Time {
 
     // EFFECTS: returns true if the given Time is after this Time, false otherwise
     public boolean isAfter(Time newTime) {
-        if(this.hour == newTime.hour) {
+        if (this.hour == newTime.hour) {
             return this.minute > newTime.getMinute();
         }
 

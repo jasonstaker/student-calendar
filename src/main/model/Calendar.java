@@ -17,7 +17,7 @@ public class Calendar {
         currentYearIndex = 1;
         years = new ArrayList<Year>();
         
-        for(int i = -1; i <= 1; i++) {
+        for (int i = -1; i <= 1; i++) {
             years.add(new Year(currentYear + i));
         }
     }
@@ -27,7 +27,7 @@ public class Calendar {
     public void incrementYearIndex() {
         currentYearIndex++;
         
-        if(currentYearIndex >= years.size()) {
+        if (currentYearIndex >= years.size()) {
             currentYearIndex = years.size() - 1;
         }
     }
@@ -37,7 +37,7 @@ public class Calendar {
     public void decrementYearIndex() {
         currentYearIndex--;
         
-        if(currentYearIndex < 0) {
+        if (currentYearIndex < 0) {
             currentYearIndex = 0;
         }
     }
