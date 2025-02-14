@@ -3,83 +3,140 @@ package ui;
 import model.Calendar;
 import model.Year;
 import model.Month;
-import model.Day;
-
-import java.util.Scanner;
 
 // the CalendarUI handles Calendar interactions
 public class CalendarUI extends UI {
 
+    private Calendar calendar;
+    private DayUI dayUI;
+
     // EFFECTS: initializes the Calendar UI with the given calendar
-    public CalendarUI(Calendar calendar, Scanner scanner) {
-        
+    public CalendarUI(Calendar calendar) {
+        this.calendar = calendar;
+        dayUI = new DayUI(calendar);
     }
 
     // MODIFIES: this
     // EFFECTS: starts the Calendar loop which displays the years
     public void startCalendar() {
+        boolean isRunning = true;
+        int lower = calendar.getLowestYear().getYearNumber();
+        int upper = calendar.getHighestYear().getYearNumber();
 
+        while (isRunning) {
+            displayCalendarMenu();
+            if (handleCalendarChoice(getChoice(lower, upper, "Enter a year (or type 'back' to return): ", true))) {
+                isRunning = false;
+            }
+        }
     }
 
     // MODIFIES: this, year
     // EFFECTS: starts the Year loop which displays the months
     private void startYear(Year year) {
+        boolean isRunning = true;
 
+        while (isRunning) {
+            displayYearMenu(year);
+            if (handleYearChoice(getChoice(1, 12, "Choose a month (or type 'back' to return): ", true), year)) {
+                isRunning = false;
+            }
+        }
     }
 
     // MODIFIES: this, month
     // EFFECTS: starts the Month loop which displays the days
     private void startMonth(Month month) {
+        boolean isRunning = true;
+        int lower = month.getLowestDay().getDayNumber();
+        int upper = month.getHighestDay().getDayNumber();
 
+        while (isRunning) {
+            displayMonthMenu(month);
+            if (handleMonthChoice(getChoice(lower, upper, "Choose a day (or type 'back' to return): ", true), month)) {
+                isRunning = false;
+            }
+        }
     }
 
-    // MODIFIES: this, day
-    // EFFECTS: starts the Day loop which displays the day menu
-    private void startDay(Day day) {
-
-    }
-
-    // EFFECTS: dispays the years in this' calendar
+    // EFFECTS: displays the years in this' calendar
     private void displayCalendarMenu() {
-        
+        System.out.println("--- " + calendar.getTitle() + " ---");
+        System.out.println("--- Select a Year ---");
+
+        for (Year year: calendar.getYears()) {
+            System.out.println(year.getYearNumber());
+        }
     }
 
-    // EFFECTS: dispays the months in the given year
+    // EFFECTS: displays the months in the given year
     private void displayYearMenu(Year year) {
+        System.out.println("--- Year: " + year.getYearNumber() + " ---");
+        System.out.println("--- Select a Month ---");
 
+        for (int i = 1; i <= 12; i++) {
+            System.out.println(i + ". " + year.getMonths().get(i - 1).getName());
+        }
     }
 
-    // EFFECTS: dispays the days in the given month
+    // EFFECTS: displays the days in the given month
     private void displayMonthMenu(Month month) {
+        System.out.println("--- Year: " + month.getYear().getYearNumber() + " | Month: " + month.getName() + " ----");
+        System.out.println("--- Select a Day ---");
 
-    }
+        for (int i = 1; i <= 28; i++) {
+            System.out.printf("%2d  ", i);
+            if (i % 7 == 0) { 
+                System.out.println();
+            }
+        }
 
-    // EFFECTS: dispays the day menu for the given day
-    private void displayDayMenu(Day day) {
+        for (int i = 29; i <= month.getDays().size(); i++) {
+            System.out.printf("%2d  ", i);
+        }
         
+        System.out.println();
     }
 
     // REQUIRES: choice corresponds to an integer on the menu or -1
     // EFFECTS: chooses the correct year based on the given choice
     private boolean handleCalendarChoice(int choice) {
+        makeWhiteSpace();
+        if (choice == -1) {
+            return true;
+        }
+        
+        int index = choice - calendar.getLowestYear().getYearNumber();
+        startYear(calendar.getYears().get(index));
+
         return false;
     }
 
     // REQUIRES: choice corresponds to an integer on the menu or -1
     // EFFECTS: chooses the correct month based on the given choice
-    private boolean handleYearChoice(int choice) {
+    private boolean handleYearChoice(int choice, Year year) {
+        makeWhiteSpace();
+        if (choice == -1) {
+            return true;
+        }
+        
+        int index = choice - 1;
+        startMonth(year.getMonths().get(index));
+
         return false;
     }
 
     // REQUIRES: choice corresponds to an integer on the menu or -1
     // EFFECTS: chooses the correct day based on the given choice
-    private boolean handleMonthChoice(int choice) {
-        return false;
-    }
+    private boolean handleMonthChoice(int choice, Month month) {
+        makeWhiteSpace();
+        if (choice == -1) {
+            return true;
+        }
+        
+        int index = choice - 1;
+        dayUI.startDay(month.getDays().get(index));
 
-    // REQUIRES: choice corresponds to an integer on the menu or -1
-    // EFFECTS: chooses what to display based on the given choice
-    private boolean handleDayChoice(int choice) {
         return false;
     }
 
