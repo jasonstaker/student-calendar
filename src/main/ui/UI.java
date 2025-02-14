@@ -16,35 +16,33 @@ public class UI {
 
     // REQUIRES: lower <= upper
     // EFFECTS: gets a valid choice from the user, if invalid it prompts and loops
-    protected int getChoice(int lower, int upper, String prompt) {
-        System.out.print("Choose an option: ");
-    
-        while (!scanner.hasNextInt()) {
-            System.out.print("Invalid input. " + prompt);
-            scanner.next();
-        }
-    
-        int input = scanner.nextInt();
-    
-        while (input < lower || input > upper) {
-            if(lower == upper) {
-                System.out.print("Please enter a valid number");
-            } else {
-            System.out.print("Please enter a number between " + lower + " and " + upper + ": ");
-            }
-
-            while (!scanner.hasNextInt()) {
-                if(lower == upper) {
-                    System.out.print("Invalid input. Please enter a valid number");
+    protected int getChoice(int lower, int upper, String prompt, boolean allowBack) {
+        System.out.print(prompt);
+        
+        while (true) {
+            if (scanner.hasNextInt()) {
+                int input = scanner.nextInt();
+                
+                if (input >= lower && input <= upper) {
+                    return input;
                 } else {
-                System.out.print("Invalid input. Please enter a number between " + lower + " and " + upper + ": ");
+                    System.out.print("Please enter a number between " + lower + " and " + upper + ": ");
                 }
-                scanner.next();
-            }
-            input = scanner.nextInt();
-        }
+            } else {
+                String inputStr = scanner.next();
+                
+                if (allowBack && inputStr.equals("back")) {
+                    return -1;
+                }
 
-        return input;
+                if (allowBack) {
+                    System.out.print("Invalid input. Enter a number or type 'back': ");
+                } else {
+                    System.out.print("Invalid input. Enter a number: ");
+                }
+                
+            }
+        }
     }
 
 }
