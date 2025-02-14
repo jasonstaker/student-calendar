@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class UI {
 
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     // EFFECTS: prints out a basic space between UI's
-    public void makeWhiteSpace() {
+    protected void makeWhiteSpace() {
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println();
         System.out.println();
@@ -16,7 +16,7 @@ public class UI {
 
     // REQUIRES: lower <= upper
     // EFFECTS: gets a valid choice from the user, if invalid it prompts and loops
-    public int getChoice(int lower, int upper, String prompt) {
+    protected int getChoice(int lower, int upper, String prompt) {
         System.out.print("Choose an option: ");
     
         while (!scanner.hasNextInt()) {
