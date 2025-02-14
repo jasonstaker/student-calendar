@@ -42,6 +42,18 @@ public class Calendar {
         }
     }
 
+    // REQUIRES: years.size() > 0
+    // EFFECTS: returns the first year in years
+    public Year getLowestYear() {
+        return years.get(0);
+    }
+
+    // REQUIRES: years.size() > 0
+    // EFFECTS: returns the highest year in years
+    public Year getHighestYear() {
+        return years.get(years.size() - 1);
+    }
+
     /*
      * GETTERS/SETTERS
      */

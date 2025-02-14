@@ -50,6 +50,16 @@ public class Month {
         return this.year.isBefore(month.getYear());
     }
 
+    // EFFECTS: returns the first day in days
+    public Day getLowestDay() {
+        return days.get(0);
+    }
+
+    // EFFECTS: returns the highest day in days
+    public Day getHighestDay() {
+        return days.get(days.size() - 1);
+    }
+
     /*
      * GETTERS/SETTERS
      */
