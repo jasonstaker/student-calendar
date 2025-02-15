@@ -17,6 +17,8 @@ public class Main {
         System.out.println();
         MainMenuUI mainMenuUI = new MainMenuUI(calendar);
         mainMenuUI.start();
+
+        scanner.close();
     }
 
 }
