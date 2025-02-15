@@ -8,6 +8,7 @@ import model.Month;
 // allowing users to view and select years, months, and days.
 public class CalendarUI extends UI {
 
+    // Fields
     private Calendar calendar;
     private DayUI dayUI;
 
@@ -97,7 +98,7 @@ public class CalendarUI extends UI {
     }
 
     // REQUIRES: choice corresponds to an integer on the menu or -1
-    // EFFECTS: chooses the correct year based on the given choice
+    // EFFECTS: chooses the correct year based on the given choice, exits if -1 (produces true)
     private boolean handleCalendarChoice(int choice) {
         makeWhiteSpace();
         if (choice == -1) {
@@ -111,7 +112,7 @@ public class CalendarUI extends UI {
     }
 
     // REQUIRES: choice corresponds to an integer on the menu or -1
-    // EFFECTS: chooses the correct month based on the given choice
+    // EFFECTS: chooses the correct month based on the given choice, exits if -1 (produces true)
     private boolean handleYearChoice(int choice, Year year) {
         makeWhiteSpace();
         if (choice == -1) {
@@ -125,7 +126,7 @@ public class CalendarUI extends UI {
     }
 
     // REQUIRES: choice corresponds to an integer on the menu or -1
-    // EFFECTS: chooses the correct day based on the given choice
+    // EFFECTS: chooses the correct day based on the given choice, exits if -1 (produces true)
     private boolean handleMonthChoice(int choice, Month month) {
         makeWhiteSpace();
         if (choice == -1) {

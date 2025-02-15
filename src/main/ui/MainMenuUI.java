@@ -2,35 +2,30 @@ package ui;
 
 import model.Calendar;
 
-import java.util.Scanner;
-
-// the MainMenuUI handles main menu interactions
+// The EventUI manages the UI for navigating and interacting with the main menu 
+// allowing users to view the other various UI menus and quit the program
 public class MainMenuUI extends UI {
 
+    // fields
     private Calendar calendar;
-    private Scanner scanner;
     private EventUI eventUI;
     private CategoryUI categoryUI;
-    private NotificationUI notificationUI;
     private CalendarUI calendarUI;
 
-    // EFFECTS: initializes the main menu with the given Calendar
+    // EFFECTS: initializes the main menu with the given Calendar, a new eventUI, categoryUI, and calendarUI
     public MainMenuUI(Calendar calendar) {
         this.calendar = calendar;
-        this.scanner = new Scanner(System.in);
-        this.eventUi = new EventUI(calendar, scanner);
-        this.categoryUI = new CategoryUI(calendar, scanner);
-        this.notificaitonUI = new NotificationUI(calendar, scanner);
-        this.calendarUI = new CalendarUI(calendar, scanner);
+        this.eventUI = new EventUI(calendar);
+        this.categoryUI = new CategoryUI(calendar);
+        this.calendarUI = new CalendarUI(calendar, eventUI);
     }
 
-    // MODIFIES: this
     // EFFECTS: starts the programs loop
     public void start() {
         boolean isRunning = true;
         while (isRunning) {
             displayMainMenu();
-            if (handleMenuChoice(getChoice(1, 5, "Choose an option: "))) {
+            if (handleMenuChoice(getChoice(1, 4, "Choose an option: ", false))) {
                 isRunning = false;
             }
         }
@@ -44,13 +39,11 @@ public class MainMenuUI extends UI {
         System.out.println("1. View Calendar");
         System.out.println("2. Manage Events");
         System.out.println("3. Manage Categories");
-        System.out.println("4. View Notifications");
-        System.out.println("5. Exit");
+        System.out.println("4. Exit");
     }
 
-    // REQUIRES: 1 <= choice <= 5
-    // MODIFIES: this
-    // TODO: MODIFIES
+    // REQUIRES: 1 <= choice <= 4
+    // MODIFIES: this, calendarUI, eventUI, categoryUI
     // EFFECTS: chooses the appropiate UI to enter based on the given choice, if true exit program
     private boolean handleMenuChoice(int choice) {
         if (choice == 1) {
@@ -59,15 +52,11 @@ public class MainMenuUI extends UI {
             return false;
         } else if (choice == 2) {
             makeWhiteSpace();
-            eventUI.start();
+            eventUI.startEventMenu();
             return false;
         } else if (choice == 3) {
             makeWhiteSpace();
-            categoryUI.start();
-            return false;
-        } else if (choice == 4) {
-            makeWhiteSpace();
-            notificationUI.start();
+            categoryUI.startCategoryMenu();
             return false;
         } else {
             return true;

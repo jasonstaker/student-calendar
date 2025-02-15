@@ -11,13 +11,14 @@ import model.*;
 // allowing users to view, add, and remove events.
 public class EventUI extends UI {
 
+    // fields
     private Calendar calendar;
     private Scanner scanner;
     private List<Event> events;
     private List<Category> categories;
     private List<Subcategory> subcategories;
 
-    // EFFECTS: Initializes this EventUI with the given Calendar
+    // EFFECTS: Initializes this EventUI with the given Calendar, and adds all the years events to events
     public EventUI(Calendar calendar) {
         this.calendar = calendar;
         scanner = new Scanner(System.in);
@@ -36,9 +37,8 @@ public class EventUI extends UI {
 
     }
 
-    // MODIFIES: this
     // EFFECTS: starts the manage event loop which displays the manage event menu
-    public void startEventMenu() {
+    protected void startEventMenu() {
         boolean isRunning = true;
         String prompt = "Enter the corresponding number or type 'back' to return: ";
 
@@ -52,7 +52,6 @@ public class EventUI extends UI {
         }
     }
 
-    // MODIFIES: this
     // EFFECTS: starts the view events loop which displays the view events menu
     private void startViewEventsMenu() {
         boolean isRunning = true;
@@ -77,8 +76,7 @@ public class EventUI extends UI {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: starts the view event loop which displays the view event menu
+    // EFFECTS: starts the view event loop which displays the view event menu for a single given event
     public void startViewEventMenu(Event event) {
         boolean isRunning = true;
 
@@ -92,7 +90,7 @@ public class EventUI extends UI {
         }
     }
 
-    // MODIFIES: this, event, events
+    // MODIFIES: this, event
     // EFFECTS: starts the add event process which makes an event object based on user input
     private void startAddEventProcess() {
         String name = addEventName();
@@ -110,7 +108,6 @@ public class EventUI extends UI {
         makeWhiteSpace();
     }
 
-    // MODIFIES: this, event, events
     // EFFECTS: starts the remove event loop which displays the remove events menu
     private void startRemoveEventMenu() {
         boolean isRunning = true;
@@ -173,7 +170,7 @@ public class EventUI extends UI {
     private void displayViewEventMenu(Event event) {
         System.out.println("--- Event Details ---");
         System.out.println("Name: " + event.getName());
-        if (event.getSubcategory() == null) {
+        if (event.getCategory() == null) {
             System.out.println("Category: None");
         } else {
             System.out.println("Category: " + event.getCategory().getName());
@@ -202,7 +199,8 @@ public class EventUI extends UI {
         return scanner.nextLine();
     }
 
-    // EFFECTS: prompts the user to get the Category for an event
+    // MODIFIES: this
+    // EFFECTS: displays a category selection menu and returns the selected category, or null if 'none' is chosen.
     private Category addEventCategory() {
         Category category = null;
         System.out.println("\n--- Choose a Category ---");
@@ -224,7 +222,8 @@ public class EventUI extends UI {
         return category;
     }
 
-    // EFFECTS: prompts the user to get the Subcategory for an event
+    // MODIFIES: this
+    // EFFECTS: displays a subcategory selection menu and returns the selected subcategory, or null if 'none' is chosen.
     private Subcategory addEventSubcategory() {
         Subcategory subcategory = null;
         System.out.println("\n--- Choose a Subcategory ---");
@@ -246,7 +245,7 @@ public class EventUI extends UI {
         return subcategory;
     }
 
-    // EFFECTS: prompts the user to get the days for an event
+    // EFFECTS: prompts the user to add recurring days and returns a list of valid Day objects.
     private List<Day> addEventRecurringDays() {
         List<Day> recurringDays = new ArrayList<Day>();
 
@@ -275,7 +274,7 @@ public class EventUI extends UI {
         return recurringDays;
     }
 
-    // EFFECTS: prompts the user to get the start time for an event
+    // EFFECTS: prompts the user to get the start time for an event, returning the start time
     private Time addEventStartTime() {
         Time startTime = new Time(0, 0);
         System.out.println();
@@ -296,7 +295,7 @@ public class EventUI extends UI {
         return startTime;
     }
 
-    // EFFECTS: prompts the user to get the end time for an event
+    // EFFECTS: prompts the user to get the end time for an event, returning the end time
     private Time addEventEndTime(Time startTime) {
         Time endTime = new Time(0, 0);
 
@@ -342,7 +341,12 @@ public class EventUI extends UI {
         }
     }
 
-    // EFFECTS: handles the user choice for the Manage Events menu
+    // REQUIRES: choice is a valid integer in the event menu or -1
+    // EFFECTS: processes the user's choice from the event menu:
+    // 1. Starts the event viewing process if choice is 1
+    // 2. Starts the event adding process if choice is 2
+    // 3. Starts the event removal process if choice is 3
+    // 4. Exits the menu and returns true if choice is -1
     private boolean handleEventMenuChoice(int choice) {
         makeWhiteSpace();
 
@@ -362,7 +366,10 @@ public class EventUI extends UI {
         return false;
     }
 
-    // EFFECTS: handles the user choice for the View Events menu
+    // REQUIRES: choice is a valid integer corresponding to a menu or -1
+    // EFFECTS: processes the user's choice from the view events menu:
+    // 1. Starts the event viewing process for the selected event if choice is valid
+    // -1 exits the menu and returns true
     private boolean handleViewEventsMenuChoice(int choice) {
         makeWhiteSpace();
 
@@ -374,7 +381,9 @@ public class EventUI extends UI {
         return false;
     }
 
-    // EFFECTS: handles the user choice for the Category input for Adding an event
+    // EFFECTS: prompts the user to select a category from the list of categories:
+    // 1. Returns the selected category if valid
+    // 2. Returns null if the user chooses "None" (option size + 1)
     private Category handleCategoryInput() {
         Category category = null;
         boolean isRunning = true;
@@ -398,7 +407,9 @@ public class EventUI extends UI {
         return category;
     }
 
-    // EFFECTS: handles the user choice for the Subcategory input for Adding an event
+    // EFFECTS: prompts the user to select a subcategory from the list of subcategories:
+    // 1. Returns the selected subcategory if valid
+    // 2. Returns null if the user chooses "None" (option size + 1)
     private Subcategory handleSubcategoryInput() {
         Subcategory subcategory = null;
         boolean isRunning = true;
@@ -421,7 +432,12 @@ public class EventUI extends UI {
         return subcategory;
     }
 
-    // EFFECTS: handles the user choice for the Remove Menu
+    // REQUIRES: choice is a valid integer corresponding to an event in the events list, or -1
+    // MODIFIES: this, events, Day
+    // EFFECTS: handles the user's choice from the remove event menu:
+    // 1. Removes the event from its recurring days in the calendar
+    // 2. Removes the event from the events list
+    // 3. Exits the menu and returns true if choice is -1
     private boolean handleRemoveEventMenuChoice(int choice) {
         makeWhiteSpace();
 
@@ -429,7 +445,7 @@ public class EventUI extends UI {
             return true;
         }
 
-        for(Day day: events.get(choice - 1).getRecurringDays()) {
+        for (Day day: events.get(choice - 1).getRecurringDays()) {
             day.removeEvent(events.get(choice - 1));
         }
 

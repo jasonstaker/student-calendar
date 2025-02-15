@@ -9,20 +9,25 @@ import model.Event;
 import java.util.Scanner;
 import java.util.List;
 
-// the DayUI handles Day interactions
+// The DayUI manages the UI for navigating and interacting with days, 
+// allowing users to select and view events within days.
 public class DayUI extends UI {
 
+    // fields
     private Calendar calendar;
     private Scanner scanner;
+    private EventUI eventUI;
 
-    // initializes this DayUI with the given calendar
-    public DayUI(Calendar calendar) {
+    // initializes this DayUI with the given calendar, eventUI, and a new scanner
+    // note: eventUI is to display the events in the days
+    public DayUI(Calendar calendar, EventUI eventUI) {
         this.calendar = calendar;
         this.scanner = new Scanner(System.in);
+        this.eventUI = eventUI;
     }
 
-    // MODIFIES: this, day
-    // EFFECTS: starts the Day loop which displays the day menu
+    // REQUIRES: day is in calendar
+    // EFFECTS: starts the day loop which displays the day menu and it's events
     public void startDay(Day day) {
         boolean isRunning = true;
         String prompt = "Type the event number to view details (or type 'back' to return): ";
@@ -47,7 +52,7 @@ public class DayUI extends UI {
         }
     }
 
-    // EFFECTS: displays the day menu for the given day
+    // EFFECTS: displays the day menu for the given day, if none, displays a message indicating so
     private void displayDayMenu(Day day) {
         Year year = day.getYear();
         Month month = day.getMonth();
@@ -73,16 +78,16 @@ public class DayUI extends UI {
     }
 
     // REQUIRES: choice corresponds to an integer on the menu or -1
-    // EFFECTS: chooses what to display based on the given choice
+    // EFFECTS: displays the event details corresponding to the given choice, exits if -1 (produces true)
     private boolean handleDayChoice(int choice, Day day) {
         makeWhiteSpace();
         if (choice == -1) {
             return true;
         }
-        
-        startDay(day);
 
-        return true;
+        eventUI.startViewEventMenu(day.getEvents().get(choice - 1));
+
+        return false;
     }
 
 }

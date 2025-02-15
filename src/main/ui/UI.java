@@ -2,8 +2,10 @@ package ui;
 
 import java.util.Scanner;
 
+// The UI class provides methods for handling user input and displaying basic whitespace
 public class UI {
 
+    // fields
     private Scanner scanner = new Scanner(System.in);
 
     // EFFECTS: prints out a basic space between UI's
@@ -45,7 +47,8 @@ public class UI {
         }
     }
 
-    // EFFECTS: TODO:
+    // MODFIIES: scanner
+    // EFFECTS: returns -1 if 'back' is entered, prompts for valid input otherwise
     protected int getBackChoice(Scanner scanner) {
         while (true) {
             String input = scanner.nextLine();
