@@ -5,6 +5,7 @@ import model.Calendar;
 import java.util.Scanner;
 import java.time.LocalDate;
 
+// initializes the Calendar and begins the UI
 public class Main {
 
     public static void main(String[] args) {
