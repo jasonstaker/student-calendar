@@ -54,6 +54,56 @@ public class Calendar {
         return years.get(years.size() - 1);
     }
 
+    // EFFECTS: takes in a given string and determines whether it is a valid date in the calendar
+    public Boolean isInCalendar(String date) {
+        int year;
+        int month;
+        int day;
+        if (date.length() != 10) {
+            return false;
+        }
+
+        try {
+            year = Integer.parseInt(date.substring(0, 4));
+            month = Integer.parseInt(date.substring(5, 7));
+            day = Integer.parseInt(date.substring(8, 10));
+        } catch (Exception e) {
+            return false;
+        }
+
+        for (int i = 0; i < years.size(); i++) {
+            if (years.get(i).getYearNumber() == year) {
+                if (month >= 1 && month <= 12) {
+                    Month monthObj = years.get(i).getMonths().get(month - 1);
+                    if (day >= 1 && day <= monthObj.getDays().size()) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    // REQUIRES: date is a valid date in YYYY/MM/DD
+    // EFFECTS: returns the Day object in this Calender based on the given date
+    public Day dateToDay(String date) {
+
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(5, 7));
+        int day = Integer.parseInt(date.substring(8, 10));
+
+        Day dayObj = null;
+
+        for (int i = 0; i < years.size(); i++) {
+            if (years.get(i).getYearNumber() == year) {
+                dayObj = years.get(i).getMonths().get(month - 1).getDays().get(day - 1);
+            }
+        }
+
+        return dayObj;
+    }
+
     /*
      * GETTERS/SETTERS
      */
