@@ -57,6 +57,37 @@ public class Time {
         return this.hour > newTime.getHour();
     }
 
+    // EFFECTS: returns whether the given string is a valid time in HH:MM format
+    public Boolean isValidTime(String time) {
+        int hour;
+        int minute;
+        if (time.length() != 5) {
+            return false;
+        }
+
+        try {
+            hour = Integer.parseInt(time.substring(0, 2));
+            minute = Integer.parseInt(time.substring(3, 5));
+        } catch (Exception e) {
+            return false;
+        }
+        // REQUIRES: 0 <= hour <= 23, 0 <= minute <= 59
+        if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // REQUIRES: time is a valid time in HH:MM format
+    // EFFECTS: returns a time object with the given hour and minute
+    public Time stringToTime(String time) {
+        int hour = Integer.parseInt(time.substring(0, 2));
+        int minute = Integer.parseInt(time.substring(3, 5));
+
+        return new Time(hour, minute);
+    }
+
     /*
      * GETTERS/SETTERS
      */
