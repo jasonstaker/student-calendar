@@ -9,6 +9,8 @@ public class Calendar {
     private String title;
     private List<Year> years;
     private int currentYearIndex;
+    private List<Category> categories;
+    private List<Subcategory> subcategories;
 
     // REQUIRES: currentYear is a valid year
     // EFFECTS: initializes a new Calendar with a given title
@@ -16,6 +18,8 @@ public class Calendar {
         this.title = title;
         currentYearIndex = 1;
         years = new ArrayList<Year>();
+        categories = new ArrayList<Category>();
+        subcategories = new ArrayList<Subcategory>();
         
         for (int i = -1; i <= 1; i++) {
             years.add(new Year(currentYear + i));
@@ -75,13 +79,10 @@ public class Calendar {
             if (years.get(i).getYearNumber() == year) {
                 if (month >= 1 && month <= 12) {
                     Month monthObj = years.get(i).getMonths().get(month - 1);
-                    if (day >= 1 && day <= monthObj.getDays().size()) {
-                        return true;
-                    }
+                    return (day >= 1 && day <= monthObj.getDays().size());
                 }
             }
         }
-
         return false;
     }
 
@@ -104,6 +105,30 @@ public class Calendar {
         return dayObj;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the given category to this Calendars list of categories
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds the given subcategory to this Calendars list of subcategories
+    public void addSubcategory(Subcategory subcategory) {
+        subcategories.add(subcategory);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: remove the given category from the list of categories if it is present, nothing otherwise
+    public void removeCategory(Category category) {
+        categories.remove(category);
+    }
+
+    // MODIFIES:
+    // EFFECTS: remove the given subcategory from the list of subcategories if it is present, nothing otherwise
+    public void removeSubcategory(Subcategory subcategory) {
+        subcategories.remove(subcategory);
+    }
+
     /*
      * GETTERS/SETTERS
      */
@@ -118,6 +143,14 @@ public class Calendar {
 
     public Year getCurrentYear() {
         return years.get(currentYearIndex);
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
     }
     
 }
