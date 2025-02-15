@@ -45,4 +45,15 @@ public class UI {
         }
     }
 
+    // EFFECTS: TODO:
+    protected int getBackChoice(Scanner scanner) {
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("back")) {
+                return -1;
+            }
+            System.out.print("Invalid input. Type 'back' to return: ");
+        }
+    }
+
 }
