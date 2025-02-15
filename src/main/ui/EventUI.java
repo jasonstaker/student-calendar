@@ -7,7 +7,8 @@ import java.util.Collections;
 
 import model.*;
 
-// the EventUI handles interactions for the Events 
+// The EventUI manages the UI for navigating and interacting with events, 
+// allowing users to view, add, and remove events.
 public class EventUI extends UI {
 
     private Calendar calendar;
@@ -22,8 +23,8 @@ public class EventUI extends UI {
         scanner = new Scanner(System.in);
 
         events = new ArrayList<Event>();
-        categories = new ArrayList<Category>();
-        subcategories = new ArrayList<Subcategory>();
+        categories = calendar.getCategories();
+        subcategories = calendar.getSubcategories();
 
         for (Year year: calendar.getYears()) {
             for (Month month: year.getMonths()) {
@@ -78,7 +79,7 @@ public class EventUI extends UI {
 
     // MODIFIES: this
     // EFFECTS: starts the view event loop which displays the view event menu
-    private void startViewEventMenu(Event event) {
+    public void startViewEventMenu(Event event) {
         boolean isRunning = true;
 
         while (isRunning) {
@@ -103,7 +104,7 @@ public class EventUI extends UI {
 
         Event event = new Event(category, subcategory, startTime, endTime, name, recurringDays);
 
-        for (Day day: event.getRecurringDays()) {
+        for (int i = 0; i < event.getRecurringDays().size(); i++) {
             events.add(event);
         }
         makeWhiteSpace();
@@ -188,7 +189,7 @@ public class EventUI extends UI {
 
         for (Day day: event.getRecurringDays()) {
             System.out.print("  - " + day.getYear().getYearNumber() + "/");
-            System.out.println(day.getMonth().getMonthNumber() + "/" + day.getDayNumber());
+            System.out.println((day.getMonth().getMonthNumber() + 1) + "/" + day.getDayNumber());
         }
 
         System.out.print("\nType 'back' to return: ");
@@ -388,6 +389,7 @@ public class EventUI extends UI {
                 isRunning = false;
                 category = null;
             } else {
+                isRunning = false;
                 category = categories.get(choice - 1);
             }
 
