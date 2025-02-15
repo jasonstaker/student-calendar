@@ -32,12 +32,13 @@ public class Category {
     }
 
     // EFFECTS: initializes an empty Category with default values, a given name, and a given list of subcategories
-    public Category(String name, List<Subcategory> subcategories) {
+    public Category(String name, List<Subcategory> subcategories, 
+                    String location, List<String> links, List<String> notes) {
         this.name = name;
         this.subcategories = subcategories;
-        location = "";
-        links = new ArrayList<String>();
-        notes = new ArrayList<String>();
+        this.location = location;
+        this.links = links;
+        this.notes = notes;
     }
 
     // MODIFIES: this
