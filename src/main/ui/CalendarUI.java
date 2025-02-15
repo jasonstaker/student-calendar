@@ -4,19 +4,19 @@ import model.Calendar;
 import model.Year;
 import model.Month;
 
-// the CalendarUI handles Calendar interactions
+// The CalendarUI manages the UI for navigating and interacting with the calendar, 
+// allowing users to view and select years, months, and days.
 public class CalendarUI extends UI {
 
     private Calendar calendar;
     private DayUI dayUI;
 
-    // EFFECTS: initializes the Calendar UI with the given calendar
-    public CalendarUI(Calendar calendar) {
+    // EFFECTS: initializes the Calendar UI with the given calendar, passing the eventUI to the dayUI
+    public CalendarUI(Calendar calendar, EventUI eventUI) {
         this.calendar = calendar;
-        dayUI = new DayUI(calendar);
+        dayUI = new DayUI(calendar, eventUI);
     }
 
-    // MODIFIES: this
     // EFFECTS: starts the Calendar loop which displays the years
     public void startCalendar() {
         boolean isRunning = true;
@@ -31,7 +31,6 @@ public class CalendarUI extends UI {
         }
     }
 
-    // MODIFIES: this, year
     // EFFECTS: starts the Year loop which displays the months
     private void startYear(Year year) {
         boolean isRunning = true;
@@ -44,7 +43,6 @@ public class CalendarUI extends UI {
         }
     }
 
-    // MODIFIES: this, month
     // EFFECTS: starts the Month loop which displays the days
     private void startMonth(Month month) {
         boolean isRunning = true;
@@ -59,7 +57,7 @@ public class CalendarUI extends UI {
         }
     }
 
-    // EFFECTS: displays the years in this' calendar
+    // EFFECTS: displays the year menu in this calendar
     private void displayCalendarMenu() {
         System.out.println("--- " + calendar.getTitle() + " ---");
         System.out.println("--- Select a Year ---");
@@ -69,7 +67,7 @@ public class CalendarUI extends UI {
         }
     }
 
-    // EFFECTS: displays the months in the given year
+    // EFFECTS: displays the month menu in the given year
     private void displayYearMenu(Year year) {
         System.out.println("--- Year: " + year.getYearNumber() + " ---");
         System.out.println("--- Select a Month ---");
@@ -79,7 +77,7 @@ public class CalendarUI extends UI {
         }
     }
 
-    // EFFECTS: displays the days in the given month
+    // EFFECTS: displays the day menu in the given month
     private void displayMonthMenu(Month month) {
         System.out.println("--- Year: " + month.getYear().getYearNumber() + " | Month: " + month.getName() + " ----");
         System.out.println("--- Select a Day ---");
