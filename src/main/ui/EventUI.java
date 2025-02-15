@@ -35,9 +35,8 @@ public class EventUI extends UI {
 
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: starts the manage event loop which displays the manage event menu
     public void startEventMenu() {
         boolean isRunning = true;
         String prompt = "Enter the corresponding number or type 'back' to return: ";
@@ -52,9 +51,8 @@ public class EventUI extends UI {
         }
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: starts the view events loop which displays the view events menu
     private void startViewEventsMenu() {
         boolean isRunning = true;
         String prompt = "Enter the corresponding number to view details or type 'back' to return: ";
@@ -78,9 +76,8 @@ public class EventUI extends UI {
         }
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this
+    // EFFECTS: starts the view event loop which displays the view event menu
     private void startViewEventMenu(Event event) {
         boolean isRunning = true;
 
@@ -94,9 +91,8 @@ public class EventUI extends UI {
         }
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this, event, events
+    // EFFECTS: starts the add event process which makes an event object based on user input
     private void startAddEventProcess() {
         String name = addEventName();
         Category category = addEventCategory();
@@ -113,9 +109,8 @@ public class EventUI extends UI {
         makeWhiteSpace();
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // MODIFIES: this, event, events
+    // EFFECTS: starts the remove event loop which displays the remove events menu
     private void startRemoveEventMenu() {
         boolean isRunning = true;
         String prompt = "Enter the corresponding number to remove or type 'back' to return: ";
@@ -139,7 +134,7 @@ public class EventUI extends UI {
         }
     }
 
-    // EFFECTS: 
+    // EFFECTS: displays the manage events menu
     private void displayEventMenu() {
         System.out.println("--- Manage Events ---");
         System.out.println("1. View Events");
@@ -147,7 +142,7 @@ public class EventUI extends UI {
         System.out.println("3. Remove Event");
     }
 
-    // EFFECTS: 
+    // EFFECTS: displays the view events menu
     private void displayViewEventsMenu() {
         List<Event> hasAppeared = new ArrayList<Event>();
 
@@ -173,7 +168,7 @@ public class EventUI extends UI {
         }
     }
 
-    // EFFECTS: 
+    // EFFECTS: displays the view event menu
     private void displayViewEventMenu(Event event) {
         System.out.println("--- Event Details ---");
         System.out.println("Name: " + event.getName());
@@ -199,14 +194,14 @@ public class EventUI extends UI {
         System.out.print("\nType 'back' to return: ");
     }
 
-    // EFFECTS: 
+    // EFFECTS: prompts the user to get the name for an event
     private String addEventName() {
         System.out.print("Enter event name: ");
         
         return scanner.nextLine();
     }
 
-    // EFFECTS: 
+    // EFFECTS: prompts the user to get the Category for an event
     private Category addEventCategory() {
         Category category = null;
         System.out.println("\n--- Choose a Category ---");
@@ -228,7 +223,7 @@ public class EventUI extends UI {
         return category;
     }
 
-    // EFFECTS: 
+    // EFFECTS: prompts the user to get the Subcategory for an event
     private Subcategory addEventSubcategory() {
         Subcategory subcategory = null;
         System.out.println("\n--- Choose a Subcategory ---");
@@ -250,9 +245,7 @@ public class EventUI extends UI {
         return subcategory;
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: prompts the user to get the days for an event
     private List<Day> addEventRecurringDays() {
         List<Day> recurringDays = new ArrayList<Day>();
 
@@ -281,9 +274,7 @@ public class EventUI extends UI {
         return recurringDays;
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: prompts the user to get the start time for an event
     private Time addEventStartTime() {
         Time startTime = new Time(0, 0);
         System.out.println();
@@ -304,9 +295,7 @@ public class EventUI extends UI {
         return startTime;
     }
 
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS:
+    // EFFECTS: prompts the user to get the end time for an event
     private Time addEventEndTime(Time startTime) {
         Time endTime = new Time(0, 0);
 
@@ -326,7 +315,7 @@ public class EventUI extends UI {
         return endTime;
     }
 
-    // EFFECTS: 
+    // EFFECTS: displays the remove event menu
     private void displayRemoveEventMenu() {
         List<Event> hasAppeared = new ArrayList<Event>();
 
@@ -352,9 +341,7 @@ public class EventUI extends UI {
         }
     }
 
-    // REQUIRES:
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: handles the user choice for the Manage Events menu
     private boolean handleEventMenuChoice(int choice) {
         makeWhiteSpace();
 
@@ -374,9 +361,7 @@ public class EventUI extends UI {
         return false;
     }
 
-    // REQUIRES:
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: handles the user choice for the View Events menu
     private boolean handleViewEventsMenuChoice(int choice) {
         makeWhiteSpace();
 
@@ -388,9 +373,7 @@ public class EventUI extends UI {
         return false;
     }
 
-    // REQUIRES: 
-    // MODFIIES: 
-    // EFFECTS: 
+    // EFFECTS: handles the user choice for the Category input for Adding an event
     private Category handleCategoryInput() {
         Category category = null;
         boolean isRunning = true;
@@ -413,9 +396,7 @@ public class EventUI extends UI {
         return category;
     }
 
-    // REQUIRES: 
-    // MODFIIES: 
-    // EFFECTS: 
+    // EFFECTS: handles the user choice for the Subcategory input for Adding an event
     private Subcategory handleSubcategoryInput() {
         Subcategory subcategory = null;
         boolean isRunning = true;
@@ -438,6 +419,7 @@ public class EventUI extends UI {
         return subcategory;
     }
 
+    // EFFECTS: handles the user choice for the Remove Menu
     private boolean handleRemoveEventMenuChoice(int choice) {
         makeWhiteSpace();
 
