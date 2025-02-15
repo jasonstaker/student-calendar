@@ -5,19 +5,17 @@ import model.Day;
 import model.Month;
 import model.Year;
 import model.Event;
-import model.Time;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.List;
 
-//
+// the DayUI handles Day interactions
 public class DayUI extends UI {
 
     private Calendar calendar;
     private Scanner scanner;
 
-    // TODO
+    // initializes this DayUI with the given calendar
     public DayUI(Calendar calendar) {
         this.calendar = calendar;
         this.scanner = new Scanner(System.in);
@@ -40,7 +38,7 @@ public class DayUI extends UI {
                     isRunning = false;
                 }
             } else {
-                if (handleDayChoice(getBackChoice(), day)) {
+                if (handleDayChoice(getBackChoice(scanner), day)) {
                     isRunning = false;
                 }
 
@@ -85,17 +83,6 @@ public class DayUI extends UI {
         startDay(day);
 
         return true;
-    }
-
-    // EFFECTS: TODO:
-    private int getBackChoice() {
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("back")) {
-                return -1;
-            }
-            System.out.print("Invalid input. Type 'back' to return: ");
-        }
     }
 
 }
