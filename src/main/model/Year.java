@@ -6,6 +6,7 @@ import java.util.ArrayList;
 // A Year with a year number that contains a list of months and a current month/index
 public class Year {
 
+    // fields
     private int yearNumber;
     private List<Month> months;
     private Month currentMonth;
@@ -59,7 +60,7 @@ public class Year {
         return this.yearNumber > year.getYearNumber();
     }
 
-    // returns true if this year is a leap year, false otherwise
+    // EFFECTS: returns true if this year is a leap year, false otherwise
     public boolean isLeapYear() {
         if (this.yearNumber % 400 == 0) {
             return true;

@@ -6,24 +6,26 @@ import java.util.List;
 // A Month with a month number that contains a list of days
 public class Month {
 
-    private static final String[] months = {"January", "February", "March", "April", "May", "June", "July", 
+    // an array of the month names and one for the number of days for each month 
+    private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", 
                                             "August", "September", "October", "November", "December"};
-    private static final int[] dayInfo = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private static final int[] DAY_INFO = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+    // fields
     private String name;
     private Year year;
     private int monthNumber;
     private List<Day> days;
     
     // REQUIRES: 0 <= monthNumber <= 11
-    // EFFECTS: initializes a Month with default values and a given monthNumber
+    // EFFECTS: initializes a Month with default values, a given monthNumber, and a given Year
     public Month(Year year, int monthNumber) {
         this.monthNumber = monthNumber;
-        name = months[monthNumber];
+        name = MONTHS[monthNumber];
         this.year = year;
 
         days = new ArrayList<Day>();
-        int loopControl = dayInfo[monthNumber];
+        int loopControl = DAY_INFO[monthNumber];
 
         if (year.isLeapYear() && monthNumber == 1) {
             loopControl++;
@@ -40,7 +42,7 @@ public class Month {
         return days.contains(day);
     }
 
-    // Effects: returns true if this Month is before the given Month
+    // EFFECTS: returns true if this Month is before the given Month
     public boolean isBefore(Month month) {
         
         if (this.year.equals(month.getYear())) {

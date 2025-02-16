@@ -7,6 +7,7 @@ import java.util.List;
 // Also contains a location, important links, notes, and attachments that are all toggleable
 public class Category {
 
+    // fields
     private String name;
     private List<Subcategory> subcategories;
     private String location;
@@ -114,9 +115,6 @@ public class Category {
     public List<String> getNotes() {
         return notes;
     }
-
-    // TODO: Figure out how to get attachments to work
-
 
     public void setLocation(String location) {
         this.location = location;

@@ -3,6 +3,7 @@ package model;
 // A Time with an hour and minute
 public class Time {
 
+    // fields
     private int hour;
     private int minute;
     
@@ -19,7 +20,7 @@ public class Time {
         int stringHour = hour % 12;
         String stringMinute = minute + "";
 
-        if (hour == 0) {
+        if (hour == 0 || hour == 12) {
             stringHour = 12;
         }
 
@@ -68,10 +69,10 @@ public class Time {
         try {
             hour = Integer.parseInt(time.substring(0, 2));
             minute = Integer.parseInt(time.substring(3, 5));
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
-        // REQUIRES: 0 <= hour <= 23, 0 <= minute <= 59
+        
         if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
             return true;
         }

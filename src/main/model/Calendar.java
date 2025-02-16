@@ -3,17 +3,18 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 
-// A Calendar with a title that stores a list of years and a current year
+// A Calendar with a title that stores a list of years, categories, subcategories, and a current year
 public class Calendar {
 
+    // fields
     private String title;
     private List<Year> years;
     private int currentYearIndex;
     private List<Category> categories;
     private List<Subcategory> subcategories;
 
-    // REQUIRES: currentYear is a valid year
-    // EFFECTS: initializes a new Calendar with a given title
+    // REQUIRES: currentYear corresponds to a valid year number
+    // EFFECTS: initializes a new Calendar with a given title, a current year, and a list of 3 years
     public Calendar(String title, int currentYear) {
         this.title = title;
         currentYearIndex = 1;
@@ -47,17 +48,18 @@ public class Calendar {
     }
 
     // REQUIRES: years.size() > 0
-    // EFFECTS: returns the first year in years
+    // EFFECTS: returns the year with the lowest year number in years
     public Year getLowestYear() {
         return years.get(0);
     }
 
     // REQUIRES: years.size() > 0
-    // EFFECTS: returns the highest year in years
+    // EFFECTS: returns the year with the highest year number in years
     public Year getHighestYear() {
         return years.get(years.size() - 1);
     }
 
+    // REQUIRES: for date to be a valid date it must be in the YYYY/MM/DD format
     // EFFECTS: takes in a given string and determines whether it is a valid date in the calendar
     public Boolean isInCalendar(String date) {
         int year;
@@ -71,7 +73,11 @@ public class Calendar {
             year = Integer.parseInt(date.substring(0, 4));
             month = Integer.parseInt(date.substring(5, 7));
             day = Integer.parseInt(date.substring(8, 10));
-        } catch (Exception e) {
+            if (!date.substring(4,5).equals("/")
+                || !date.substring(7,8).equals("/")) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
             return false;
         }
 
@@ -83,6 +89,7 @@ public class Calendar {
                 }
             }
         }
+        
         return false;
     }
 

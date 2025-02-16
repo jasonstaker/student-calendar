@@ -5,6 +5,7 @@ import java.util.List;
 // An Event that has a Category and/or Subcategory, start time, end time, name, and reccuring days
 public class Event {
 
+    // fields
     private Category category;
     private Subcategory subcategory;
     private Time startTime;
@@ -39,7 +40,7 @@ public class Event {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds the given day to the reccuring days in ascending order if it is not there, nothing otherwise
+    // EFFECTS: adds the given day to the recurring days in ascending order if it is not there, nothing otherwise
     public void addRecurringDay(Day addDay) {
         int index = 0;
 
@@ -65,6 +66,7 @@ public class Event {
     // EFFECTS: removes the given day from the recurring days if it exists, nothing otherwise
     public void removeRecurringDay(Day removedDay) {
         recurringDays.remove(removedDay);
+        removedDay.removeEvent(this);
     }
 
     /*
@@ -109,6 +111,9 @@ public class Event {
 
     public void setRecurringDays(List<Day> recurringDays) {
         this.recurringDays = recurringDays;
+        for(Day day: recurringDays) {
+            day.addEvent(this);
+        }
     }
 
     public void setStartTime(Time startTime) {
