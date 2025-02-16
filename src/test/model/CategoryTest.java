@@ -18,37 +18,40 @@ public class CategoryTest {
     private Subcategory subcategory2;
 
     private List<Subcategory> scList;
+    private List<String> emptyList;
 
     @BeforeEach
     void setup() {
-        subcategory1 = new Subcategory(null, 1, null);
-        subcategory2 = new Subcategory(null, 2, null);
-
+        subcategory1 = new Subcategory(category1, 1, null, null, null, null, null);
+        subcategory2 = new Subcategory(category1, 2, null, null, null, null, null);
+        
         scList = new ArrayList<Subcategory>();
         scList.add(subcategory1);
         scList.add(subcategory2);
 
+        emptyList = new ArrayList<String>();
+
         category1 = new Category();
         category2 = new Category("test");
-        category3 = new Category("test", scList);
+        category3 = new Category("", scList, "", emptyList, emptyList);
     }
 
     @Test
     void testCategoryConstructorDefault() {
         assertEquals("", category1.getName());
-        assertEquals(0, category1.getSubcategories().size());
+        assertEquals(new ArrayList<Subcategory>(), category1.getSubcategories());
         assertEquals("", category1.getLocation());
-        assertEquals(0, category1.getLinks().size());
-        assertEquals(0, category1.getNotes().size());
+        assertEquals(emptyList, category1.getLinks());
+        assertEquals(emptyList, category1.getNotes());
     }
 
     @Test
     void testCategoryConstructorName() {
         assertEquals("test", category2.getName());
-        assertEquals(0, category2.getSubcategories().size());
+        assertEquals(new ArrayList<Subcategory>(), category2.getSubcategories());
         assertEquals("", category2.getLocation());
-        assertEquals(0, category2.getLinks().size());
-        assertEquals(0, category2.getNotes().size());
+        assertEquals(emptyList, category2.getLinks().size());
+        assertEquals(emptyList, category2.getNotes().size());
     }
 
     @Test
@@ -56,8 +59,8 @@ public class CategoryTest {
         assertEquals("test", category3.getName());
         assertEquals(scList, category3.getSubcategories());
         assertEquals("", category3.getLocation());
-        assertEquals(0, category3.getLinks().size());
-        assertEquals(0, category3.getNotes().size());
+        assertEquals(emptyList, category3.getLinks());
+        assertEquals(emptyList, category3.getNotes());
     }
 
     @Test

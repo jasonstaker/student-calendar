@@ -77,7 +77,7 @@ public class Calendar {
                 || !date.substring(7,8).equals("/")) {
                 throw new NumberFormatException();
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
             return false;
         }
 
