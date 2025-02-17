@@ -157,8 +157,8 @@ public class EventUI extends UI {
                     System.out.print(" - " + event.getName() + " (None)\n");
                 } else {
                     System.out.print(" - " + event.getName() + " (" + event.getCategory().getName() + ")\n");
-                    hasAppeared.add(event);
                 }
+                hasAppeared.add(event);
             }
             System.out.println();
         } else {
@@ -230,7 +230,7 @@ public class EventUI extends UI {
         System.out.println("\n--- Choose a Subcategory ---");
 
         for (Event event: events) {
-            if (!subcategories.contains(event.getSubcategory())) {
+            if (!subcategories.contains(event.getSubcategory()) && event.getSubcategory() != null) {
                 subcategories.add(event.getSubcategory());
             }
         }
@@ -334,6 +334,7 @@ public class EventUI extends UI {
                 } else {
                     System.out.print(" - " + event.getName() + " (" + event.getCategory().getName() + ")\n");
                 }
+                hasAppeared.add(event);
             }
             System.out.println();
         } else {

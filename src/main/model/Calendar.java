@@ -74,19 +74,16 @@ public class Calendar {
             month = Integer.parseInt(date.substring(5, 7));
             day = Integer.parseInt(date.substring(8, 10));
             if (!date.substring(4,5).equals("/")
-                || !date.substring(7,8).equals("/")) {
-                throw new NumberFormatException();
+                    || !date.substring(7,8).equals("/")) {
+                throw new Exception();
             }
-        } catch (NumberFormatException nfe) {
+        } catch (Exception e) {
             return false;
         }
 
         for (int i = 0; i < years.size(); i++) {
-            if (years.get(i).getYearNumber() == year) {
-                if (month >= 1 && month <= 12) {
-                    Month monthObj = years.get(i).getMonths().get(month - 1);
-                    return (day >= 1 && day <= monthObj.getDays().size());
-                }
+            if (years.get(i).getYearNumber() == year && month >= 1 && month <= 12) {
+                return (day >= 1 && day <= years.get(i).getMonths().get(month - 1).getDays().size());
             }
         }
         

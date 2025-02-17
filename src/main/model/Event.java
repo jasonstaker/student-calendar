@@ -111,7 +111,7 @@ public class Event {
 
     public void setRecurringDays(List<Day> recurringDays) {
         this.recurringDays = recurringDays;
-        for(Day day: recurringDays) {
+        for (Day day: recurringDays) {
             day.addEvent(this);
         }
     }
