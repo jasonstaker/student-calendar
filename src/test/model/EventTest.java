@@ -20,11 +20,13 @@ public class EventTest {
     private Day day1;
     private Day day2;
     private Event event;
+    private List<String> emptyList;
 
     @BeforeEach
     void setup() {
+        emptyList = new ArrayList<String>();
         category = new Category();
-        sc = new Subcategory(null, 2, null);
+        sc = new Subcategory(category, 0, emptyList, "", "", emptyList, emptyList);
         startTime = new Time(1, 4);
         startTime = new Time(2, 4);
 
@@ -102,11 +104,13 @@ public class EventTest {
         
         event.addRecurringDay(day2);
         event.addRecurringDay(day3);
+        event.addRecurringDay(day3);
 
-        assertEquals(3, event.getRecurringDays().size());
+        assertEquals(4, event.getRecurringDays().size());
         assertEquals(day3, event.getRecurringDays().get(0));
-        assertEquals(day1, event.getRecurringDays().get(1));
-        assertEquals(day2, event.getRecurringDays().get(2));
+        assertEquals(day3, event.getRecurringDays().get(1));
+        assertEquals(day1, event.getRecurringDays().get(2));
+        assertEquals(day2, event.getRecurringDays().get(3));
     }
 
     @Test
