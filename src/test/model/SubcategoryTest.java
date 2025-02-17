@@ -15,6 +15,7 @@ public class SubcategoryTest {
     private Subcategory subcategory;
     private Category category;
     private List<String> tagList;
+    private List<String> emptyList;
     
     @BeforeEach
     void setup() {
@@ -24,7 +25,9 @@ public class SubcategoryTest {
 
         category = new Category();
 
-        subcategory = new Subcategory(category, 1, tagList);
+        emptyList = new ArrayList<String>();
+
+        subcategory = new Subcategory(category, 1, tagList, "", "", emptyList, emptyList);
     }
 
     @Test
@@ -32,49 +35,59 @@ public class SubcategoryTest {
         assertEquals(category, subcategory.getParentCategory());
         assertEquals(1, subcategory.getPriorityLevel());
         assertEquals(tagList, subcategory.getTags());
+        assertEquals("", subcategory.getName());
+        assertEquals("", subcategory.getLocation());
+        assertEquals(emptyList, subcategory.getLinks());
+        assertEquals(emptyList, subcategory.getNotes());
     }
 
     @Test
     void testAddTag() {
         subcategory.addTag("tag3");
-        assertEquals(3, subcategory.getTags().size());
-        assertEquals("tag3", subcategory.getTags().get(2));
+        tagList.add("tag3");
+
+        assertEquals(tagList, subcategory.getTags());
     }
 
     @Test
     void testAddTagDuplicate() {
         subcategory.addTag("tag2");
-        assertEquals(2, subcategory.getTags().size());
+
+        assertEquals(tagList, subcategory.getTags());
     }
 
     @Test
     void testRemoveTag() {
         subcategory.removeTag("tag2");
-        assertEquals(1, subcategory.getTags().size());
-        assertEquals("tag1", subcategory.getTags().get(0));
+
+        assertEquals(tagList, subcategory.getTags());
     }
 
     @Test
     void testRemoveTagFail() {
         subcategory.removeTag("tag3");
-        assertEquals(2, subcategory.getTags().size());
+        
+        assertEquals(tagList, subcategory.getTags());
     }
 
     @Test
     void testPriorityLevelToStringLow() {
         subcategory.setPriorityLevel(1);
+
         assertEquals("Low", subcategory.priorityLevelToString());
     }
 
     @Test
     void testPriorityLevelToStringMedium() {
         subcategory.setPriorityLevel(2);
+
         assertEquals("Medium", subcategory.priorityLevelToString());
     }
 
     @Test
     void testPriorityLevelToStringHigh() {
         subcategory.setPriorityLevel(3);
+        
         assertEquals("High", subcategory.priorityLevelToString());
     }
 
@@ -91,7 +104,7 @@ public class SubcategoryTest {
 
     @Test
     void testIsParentAbstract() {
-        Category parentSubcategory = new Subcategory(null, 1, null);
+        Category parentSubcategory = new Subcategory(null, 1, emptyList, "", "", emptyList, emptyList);
         subcategory.setParentCategory(parentSubcategory);
         assertTrue(subcategory.isParent(parentSubcategory));
     }
