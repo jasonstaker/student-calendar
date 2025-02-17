@@ -65,8 +65,13 @@ public class YearTest {
     }
 
     @Test
-    void testIsBeforeFail() {
+    void testIsBeforeFailEqual() {
         assertFalse(year2.isBefore(year2));
+    }
+
+    @Test
+    void testIsBeforeFailAfter() {
+        assertFalse(year1.isBefore(year2));
     }
 
     @Test
@@ -75,8 +80,13 @@ public class YearTest {
     }
 
     @Test
-    void testIsAfterFail() {
+    void testIsAfterFailEqual() {
         assertFalse(year2.isAfter(year2));
+    }
+
+    @Test
+    void testIsAfterFailBefore() {
+        assertFalse(year2.isAfter(year1));
     }
 
     @Test
