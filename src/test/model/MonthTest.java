@@ -28,6 +28,7 @@ public class MonthTest {
         assertEquals(4, month1.getMonthNumber());
         assertEquals(31, month1.getDays().size());
         assertEquals("May", month1.getName());
+        assertEquals(year, month1.getYear());
     }
 
     @Test
@@ -53,6 +54,16 @@ public class MonthTest {
     @Test
     void testIsBeforeAfter() {
         assertFalse(month3.isBefore(month2));
+    }
+
+    @Test
+    void getLowestDay() {
+        assertEquals(month1.getDays().get(0), month1.getLowestDay());
+    }
+
+    @Test
+    void getHighestDay() {
+        assertEquals(month1.getDays().get(30), month1.getHighestDay());
     }
 
     @Test
