@@ -157,11 +157,12 @@ public class EventUI extends UI {
                     System.out.print(" - " + event.getName() + " (None)\n");
                 } else {
                     System.out.print(" - " + event.getName() + " (" + event.getCategory().getName() + ")\n");
+                    hasAppeared.add(event);
                 }
             }
             System.out.println();
         } else {
-            System.out.println("No events scheduled for this day.\n");
+            System.out.println("No events scheduled.\n");
             System.out.print("Type 'back' to return: ");
         }
     }
@@ -424,6 +425,7 @@ public class EventUI extends UI {
                 isRunning = false;
                 subcategory = null;
             } else {
+                isRunning = false;
                 subcategory = subcategories.get(choice - 1);
             }
 

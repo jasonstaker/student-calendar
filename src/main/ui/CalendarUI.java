@@ -8,7 +8,7 @@ import model.Month;
 // allowing users to view and select years, months, and days.
 public class CalendarUI extends UI {
 
-    // Fields
+    // fields
     private Calendar calendar;
     private DayUI dayUI;
 

@@ -7,14 +7,12 @@ import model.Calendar;
 public class MainMenuUI extends UI {
 
     // fields
-    private Calendar calendar;
     private EventUI eventUI;
     private CategoryUI categoryUI;
     private CalendarUI calendarUI;
 
-    // EFFECTS: initializes the main menu with the given Calendar, a new eventUI, categoryUI, and calendarUI
+    // EFFECTS: initializes the main menu with a new eventUI, categoryUI, and calendarUI
     public MainMenuUI(Calendar calendar) {
-        this.calendar = calendar;
         this.eventUI = new EventUI(calendar);
         this.categoryUI = new CategoryUI(calendar);
         this.calendarUI = new CalendarUI(calendar, eventUI);

@@ -47,7 +47,6 @@ public class UI {
         }
     }
 
-    // MODFIIES: scanner
     // EFFECTS: returns -1 if 'back' is entered, prompts for valid input otherwise
     protected int getBackChoice(Scanner scanner) {
         while (true) {

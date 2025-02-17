@@ -9,10 +9,11 @@ public class Subcategory extends Category {
     private int priorityLevel;
     private List<String> tags;
     
-    // REQUIRES: priorityLevel is 1, 2, or 3
-    // EFFECTS: initializes a Subcategory with default values
+    // REQUIRES: priorityLevel is 1, 2, or 3, links and notes cannot be null
+    // EFFECTS: initializes a Subcategory with given category, priority level, tags, name, location, links and notes
     public Subcategory(Category parentCategory, int priorityLevel, List<String> tags, 
                         String name, String location, List<String> links, List<String> notes) {
+        super();
         this.setName(name);
         for (String link: links) {
             this.addLink(link);
