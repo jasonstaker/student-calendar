@@ -22,14 +22,13 @@ public class CategoryTest {
 
     @BeforeEach
     void setup() {
-        subcategory1 = new Subcategory(category1, 1, null, null, null, null, null);
-        subcategory2 = new Subcategory(category1, 2, null, null, null, null, null);
+        emptyList = new ArrayList<String>();
+        subcategory1 = new Subcategory(category1, 1, emptyList, "", "", emptyList, emptyList);
+        subcategory1 = new Subcategory(category1, 2, emptyList, "", "", emptyList, emptyList);
         
         scList = new ArrayList<Subcategory>();
         scList.add(subcategory1);
         scList.add(subcategory2);
-
-        emptyList = new ArrayList<String>();
 
         category1 = new Category();
         category2 = new Category("test");
@@ -50,13 +49,13 @@ public class CategoryTest {
         assertEquals("test", category2.getName());
         assertEquals(new ArrayList<Subcategory>(), category2.getSubcategories());
         assertEquals("", category2.getLocation());
-        assertEquals(emptyList, category2.getLinks().size());
-        assertEquals(emptyList, category2.getNotes().size());
+        assertEquals(emptyList, category2.getLinks());
+        assertEquals(emptyList, category2.getNotes());
     }
 
     @Test
     void testCategoryConstructorList() {
-        assertEquals("test", category3.getName());
+        assertEquals("", category3.getName());
         assertEquals(scList, category3.getSubcategories());
         assertEquals("", category3.getLocation());
         assertEquals(emptyList, category3.getLinks());

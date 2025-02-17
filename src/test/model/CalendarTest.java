@@ -66,12 +66,12 @@ public class CalendarTest {
     
     @Test
     void testGetLowestYear() {
-        assertEquals(new Year(2024), calendar.getLowestYear());
+        assertEquals(2024, calendar.getLowestYear().getYearNumber());
     }
 
     @Test
     void testGetHighestYear() {
-        assertEquals(new Year(2026), calendar.getLowestYear());
+        assertEquals(2026, calendar.getHighestYear().getYearNumber());
     }
     
     @Test
@@ -117,8 +117,8 @@ public class CalendarTest {
     @Test
     void testDateToDaySinglesDay() {
         Year year = calendar.getLowestYear();
-        Month month = year.getMonths().get(12);
-        Day day = new Day(year, month, 5);
+        Month month = year.getMonths().get(11);
+        Day day = month.getDays().get(4);
 
         assertEquals(day, calendar.dateToDay("2024/12/05"));
     }
@@ -126,8 +126,8 @@ public class CalendarTest {
     @Test
     void testDateToDaySinglesMonth() {
         Year year = calendar.getLowestYear();
-        Month month = year.getMonths().get(4);
-        Day day = new Day(year, month, 12);
+        Month month = year.getMonths().get(3);
+        Day day = month.getDays().get(11);
         
         assertEquals(day, calendar.dateToDay("2024/04/12"));
     }
@@ -136,7 +136,7 @@ public class CalendarTest {
     void testDateToDayUpper() {
         Year year = calendar.getHighestYear();
         Month month = year.getMonths().get(11);
-        Day day = new Day(year, month, 31);
+        Day day = month.getDays().get(30);
         
         assertEquals(day, calendar.dateToDay("2026/12/31"));
     }
@@ -145,7 +145,7 @@ public class CalendarTest {
     void testDateToDayLower() {
         Year year = calendar.getLowestYear();
         Month month = year.getMonths().get(0);
-        Day day = new Day(year, month, 1);
+        Day day = month.getDays().get(0);
         
         assertEquals(day, calendar.dateToDay("2024/01/01"));
     }
@@ -163,7 +163,8 @@ public class CalendarTest {
 
     @Test
     void testAddSubcategory() {
-        Subcategory subcategory = new Subcategory(null, 1, null, null, null, null, null);
+        List<String> emptyList = new ArrayList<String>();
+        Subcategory subcategory = new Subcategory(null, 1, emptyList, "", "", emptyList, emptyList);
         List<Subcategory> subcategories = new ArrayList<Subcategory>();
         subcategories.add(subcategory);
 
@@ -189,7 +190,8 @@ public class CalendarTest {
 
     @Test
     void testRemoveSubcategory() {
-        Subcategory subcategory = new Subcategory(null, 1, null, null, null, null, null);
+        List<String> emptyList = new ArrayList<String>();
+        Subcategory subcategory = new Subcategory(null, 1, emptyList, "", "", emptyList, emptyList);
         List<Subcategory> subcategories = new ArrayList<Subcategory>();
         subcategories.add(subcategory);
         calendar.addSubcategory(subcategory);
