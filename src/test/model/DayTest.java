@@ -35,7 +35,7 @@ public class DayTest {
         assertEquals(year, day.getYear());
         assertEquals(month, day.getMonth());
         assertEquals(5, day.getDayNumber());
-        assertEquals(0, day.getEvents().size());
+        assertEquals(new ArrayList<Event>(), day.getEvents());
     }
 
     @Test
@@ -53,6 +53,18 @@ public class DayTest {
         assertEquals(event1, day.getEvents().get(0));
         assertEquals(event2, day.getEvents().get(1));
     }
+
+    @Test
+    void testAddEventsSameDay() {
+        day.addEvent(event2);
+        day.addEvent(event2);
+        day.addEvent(event1);
+
+        assertEquals(event1, day.getEvents().get(0));
+        assertEquals(event2, day.getEvents().get(1));
+        assertEquals(event2, day.getEvents().get(2));
+    }
+
 
     @Test
     void testRemoveEvent() {
@@ -76,7 +88,7 @@ public class DayTest {
     void testClearEventsEmpty() {
         day.clearEvents();
 
-        assertEquals(0, day.getEvents().size());
+        assertEquals(new ArrayList<Event>(), day.getEvents());
     }
 
     @Test
@@ -84,7 +96,7 @@ public class DayTest {
         day.addEvent(event1);
         day.clearEvents();
 
-        assertEquals(0, day.getEvents().size());
+        assertEquals(new ArrayList<Event>(), day.getEvents());
     }
 
     @Test
@@ -93,12 +105,19 @@ public class DayTest {
         day.addEvent(event2);
         day.clearEvents();
 
-        assertEquals(0, day.getEvents().size());
+        assertEquals(new ArrayList<Event>(), day.getEvents());
     }
 
     @Test
     void testIsActivePass() {
         day.addEvent(event1);
+        assertTrue(day.isActive());
+    }
+
+    @Test
+    void testIsActivePassMultiple() {
+        day.addEvent(event1);
+        day.addEvent(event2);
         assertTrue(day.isActive());
     }
 
