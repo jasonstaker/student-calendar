@@ -10,3 +10,9 @@ My application will do the following:
 - In this menu, students will be given a variety of options to choose from, such as whether it is a class, some common links for the class, or when homework is typically due.
 - You will be able to filter based on categories, and you will be able to make subcategories as well. For example, under the school category, you can make homework assignments and class schedules to view when you have class and when everything is due for the class on one calendar.
 - You can also make recurring events.
+
+## User Stories
+- As a user, I want to be able to add multiple categories to my calendar.
+- As a user, I want to be able to view all the months in a year.
+- As a user, I want to be able to add multiple events to a day.
+- As a user, I want to be able to view all the events scheduled for a specific day.
