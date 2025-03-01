@@ -16,3 +16,5 @@ My application will do the following:
 - As a user, I want to be able to view all the months in a year.
 - As a user, I want to be able to add multiple events to a day.
 - As a user, I want to be able to view all the events scheduled for a specific day.
+- As a user, I want the option to save my calendar to a file so I can access my events later.
+- As a user, I want the option to load my saved calendar from a file so I can resume where I left off.
