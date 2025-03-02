@@ -16,6 +16,7 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
         try {
             Calendar calendar = reader.read();
+            calendar.getClass(); // prevents error
             fail("IOException expected");
         } catch (IOException e) {
             // pass
@@ -117,10 +118,17 @@ class JsonReaderTest extends JsonTest {
         try {
             Day day = reader.read().getYears().get(0).getMonths().get(0).getDays().get(0);
             Event event = day.getEvents().get(0);
+            List<String> links = new ArrayList<String>();
+            List<String> notes = new ArrayList<String>();
+            List<String> tags = new ArrayList<String>();
+            links.add("link");
+            notes.add("note");
+            tags.add("tag1");
+            tags.add("tag2");
             checkDay(reader.read().getYears().get(0), reader.read().getYears().get(0).getCurrentMonth(), 1, day);
             checkEvent("event", event);
-            checkCategory("name", "location", new ArrayList<String>(), new ArrayList<String>(), event.getCategory());
-            checkSubcategory(null, 2, new ArrayList<String>(), event.getSubcategory());
+            checkCategory("category", "location", links, notes, event.getCategory());
+            checkSubcategory(null, 1, tags, event.getSubcategory());
             checkTime(12, 44, event.getStartTime());
             checkTime(13, 30, event.getEndTime());
             checkDay(day.getYear(), day.getMonth(), 1, day.getEvents().get(0).getRecurringDays().get(0));
