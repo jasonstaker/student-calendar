@@ -1,8 +1,6 @@
 package ui;
 
-import model.Calendar;
-import model.Category;
-import model.Subcategory;
+import model.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -24,6 +22,22 @@ public class CategoryUI extends UI {
         categories = new ArrayList<Category>();
         subcategories = new ArrayList<Subcategory>();
         scanner = new Scanner(System.in);
+
+        for (Year year: calendar.getYears()) {
+            for (Month month: year.getMonths()) {
+                for (Day day: month.getDays()) {
+                    for (Event event: day.getEvents()) {
+                        if (!categories.contains(event.getCategory()) && event.getCategory() != null) {
+                            categories.add(event.getCategory());
+                        }
+
+                        if (!subcategories.contains(event.getSubcategory()) && event.getSubcategory() != null) {
+                            subcategories.add(event.getSubcategory());
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // EFFECTS: starts the Category Manage loop which displays the Category Manage Menu
