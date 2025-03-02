@@ -13,9 +13,10 @@ import org.json.*;
 /**
  * Source: UBC CPSC 210, JsonSerializationDemo 
  * (https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo)
+ * ** MODIFIED FOR THESE PURPOSES **
  */
 
-// Represents a reader that reads workroom from JSON data stored in file
+// Represents a reader that reads calendar from JSON data stored in file
 public class JsonReader {
 
     // EFFECTS: constructs reader to read from source file
