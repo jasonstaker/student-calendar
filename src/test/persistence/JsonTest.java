@@ -44,8 +44,8 @@ public class JsonTest {
                                     List<String> notes, Category category) {
         assertEquals(name, category.getName());
         assertEquals(location, category.getLocation());
-        assertEquals(links.size(), links.size());
-        assertEquals(notes.size(), notes.size());
+        assertEquals(links, category.getLinks());
+        assertEquals(notes, category.getNotes());
 
         for (int i = 0; i < links.size(); i++) {
             links.get(i).equals(category.getLinks().get(i));
