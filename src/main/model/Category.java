@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 // A Category with a name and a list of subcategories
 // Also contains a location, important links, notes, and attachments that are all toggleable
 public class Category {
@@ -126,6 +129,29 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("subcategories", subcategoriesToJson());
+        json.put("location", location);
+        json.put("links", new JSONArray(links));
+        json.put("notes", new JSONArray(notes));
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray subcategoriesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Subcategory subcategory : subcategories) {
+            if (subcategory != null) {
+                jsonArray.put(subcategory.toJson());
+            }
+        }
+
+        return jsonArray;
     }
 
 }

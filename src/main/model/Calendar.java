@@ -1,6 +1,10 @@
 package model;
 
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // A Calendar with a title that stores a list of years, categories, subcategories, and a current year
@@ -155,6 +159,49 @@ public class Calendar {
 
     public List<Subcategory> getSubcategories() {
         return subcategories;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("years", yearsToJson());
+        json.put("currentYearIndex", currentYearIndex);
+        json.put("categories", categoriesToJson());
+        json.put("subcategories", subcategoriesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray yearsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Year year : years) {
+            jsonArray.put(year.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray categoriesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Category category : categories) {
+            jsonArray.put(category.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray subcategoriesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Subcategory subcategory : subcategories) {
+            jsonArray.put(subcategory.toJson());
+        }
+
+        return jsonArray;
     }
     
 }

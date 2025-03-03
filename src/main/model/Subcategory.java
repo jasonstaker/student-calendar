@@ -1,6 +1,10 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 // A Subcategory with a parent category, priority level, and descriptive tags
 public class Subcategory extends Category {
@@ -22,9 +26,17 @@ public class Subcategory extends Category {
             this.addNote(note);
         }
         this.setLocation(location);
+        
         this.parentCategory = parentCategory;
         this.priorityLevel = priorityLevel;
         this.tags = tags;
+    }
+
+    // EFFECTS: initializes a Subcategory with default values
+    public Subcategory(String name) {
+        super(name);
+        priorityLevel = 1;
+        tags = new ArrayList<String>();
     }
 
     // MODIFIES: this
@@ -82,6 +94,18 @@ public class Subcategory extends Category {
 
     public void setPriorityLevel(int priorityLevel) {
         this.priorityLevel = priorityLevel;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", this.getName());
+        json.put("location", this.getLocation());
+        json.put("links", new JSONArray(this.getLinks()));
+        json.put("notes", new JSONArray(this.getNotes()));
+        json.put("parentCategory", parentCategory == null ? null : parentCategory.toJson());
+        json.put("priorityLevel", priorityLevel);
+        json.put("tags", new JSONArray(tags));
+        return json;
     }
 
 }

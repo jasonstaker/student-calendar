@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // A Time with an hour and minute
 public class Time {
 
@@ -110,6 +112,13 @@ public class Time {
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("hour", hour);
+        json.put("minute", minute);
+        return json;
     }
 
 }

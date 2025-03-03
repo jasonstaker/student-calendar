@@ -1,6 +1,10 @@
 package model;
 
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // A Day that stores the month, day number, and any events that are starting, ongoing, and/or ending
@@ -101,6 +105,24 @@ public class Day {
 
     public void setDayNumber(int dayNumber) {
         this.dayNumber = dayNumber;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("dayNumber", dayNumber);
+        json.put("events", eventsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray eventsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Event event : events) {
+            jsonArray.put(event.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

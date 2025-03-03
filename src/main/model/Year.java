@@ -1,6 +1,10 @@
 package model;
 
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // A Year with a year number that contains a list of months and a current month/index
@@ -97,6 +101,29 @@ public class Year {
 
     public void setCurrentMonth(Month currentMonth) {
         this.currentMonth = currentMonth;
+    }
+
+    public void setCurrentMonthIndex(int currentMonthIndex) {
+        this.currentMonthIndex = currentMonthIndex;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("yearNumber", yearNumber);
+        json.put("months", monthsToJson());
+        json.put("currentMonthIndex", currentMonthIndex);
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray monthsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Month month : months) {
+            jsonArray.put(month.toJson());
+        }
+
+        return jsonArray;
     }
     
 }

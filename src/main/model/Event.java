@@ -2,6 +2,9 @@ package model;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 // An Event that has a Category and/or Subcategory, start time, end time, name, and reccuring days
 public class Event {
 
@@ -122,6 +125,32 @@ public class Event {
 
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("category", category == null ? JSONObject.NULL : category.toJson());
+        json.put("subcategory", subcategory == null ? JSONObject.NULL : subcategory.toJson());
+        json.put("startTime", startTime.toJson());
+        json.put("endTime", endTime.toJson());
+        json.put("name", name);
+        json.put("recurringDays", recurringDaysToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray recurringDaysToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Day day : recurringDays) {
+            JSONObject jsonDay = new JSONObject();
+            jsonDay.put("yearNumber", day.getYear().getYearNumber());
+            jsonDay.put("monthNumber", day.getMonth().getMonthNumber());
+            jsonDay.put("dayNumber", day.getDayNumber());
+            jsonArray.put(jsonDay);
+        }
+
+        return jsonArray;
     }
 
 }

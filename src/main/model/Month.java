@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 // A Month with a month number that contains a list of days
 public class Month {
 
@@ -80,6 +83,41 @@ public class Month {
 
     public Year getYear() {
         return year;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMonthNumber(int monthNumber) {
+        this.monthNumber = monthNumber;
+    }
+
+    public void setDays(List<Day> days) {
+        this.days = days;
+    }
+
+    public void setYear(Year year) {
+        this.year = year;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("monthNumber", monthNumber);
+        json.put("days", daysToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray daysToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Day day : days) {
+            jsonArray.put(day.toJson());
+        }
+
+        return jsonArray;
     }
 
 }
