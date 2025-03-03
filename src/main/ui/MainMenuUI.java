@@ -86,6 +86,7 @@ public class MainMenuUI extends UI {
     // EFFECTS: saves the calendar to file
     private void saveCalendar() {
         try {
+            calendar.setIds();
             jsonWriter.open();
             jsonWriter.write(calendar);
             jsonWriter.close();
@@ -100,6 +101,9 @@ public class MainMenuUI extends UI {
     private void loadCalendar() {
         try {
             calendar = jsonReader.read();
+            eventUI = new EventUI(calendar);
+            categoryUI = new CategoryUI(calendar);
+            calendarUI = new CalendarUI(calendar, eventUI);
             System.out.println("Loaded " + calendar.getTitle() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
