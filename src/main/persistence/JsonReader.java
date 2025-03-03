@@ -77,7 +77,7 @@ public class JsonReader {
     }
 
     // MODIFIES: year
-    // EFFECTS: parses year from JSON object and adds it to calendar
+    // EFFECTS: parses year from JSON object and returns it
     private Year parseYear(Year year, JSONObject jsonObject) {
         year.setYearNumber(jsonObject.getInt("yearNumber"));
         year.setCurrentMonthIndex(jsonObject.getInt("currentMonthIndex"));
@@ -85,7 +85,7 @@ public class JsonReader {
         return year;
     }
 
-    // MODIFIES: calendar
+    // MODIFIES: year
     // EFFECTS: parses months from JSON object and adds them to year
     private void addMonths(Year year, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("months");
@@ -96,6 +96,7 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: month
     // EFFECTS: parses month from JSON object and returns it
     private Month parseMonth(Year year, Month month, JSONObject jsonObject) {
         month.setName(jsonObject.getString("name"));
@@ -105,8 +106,8 @@ public class JsonReader {
         return month;
     }
 
-    // MODIFIES: calendar
-    // EFFECTS: parses days from JSON object and adds them to year
+    // MODIFIES: month
+    // EFFECTS: parses days from JSON object and adds them to month
     private void addDays(Year year, Month month, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("days");
 
@@ -116,6 +117,7 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: day
     // EFFECTS: parses day from JSON object and returns it
     private Day parseDay(Month month, Day day, JSONObject jsonObject) {
         day.setYear(month.getYear());
@@ -125,7 +127,6 @@ public class JsonReader {
         return day;
     }
 
-    // MODIFIES: calendar
     // EFFECTS: parses events from JSON object and adds them to day
     private void addEvents(Day day, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("events");
@@ -136,8 +137,9 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: day
     // EFFECTS: parses event from JSON object and returns it
-    private Event parseEvent(Day day, JSONObject jsonObject) {
+    private void parseEvent(Day day, JSONObject jsonObject) {
         Category category = parseCategory(jsonObject.optJSONObject("category"));
         Subcategory subcategory = parseSubcategory(jsonObject.optJSONObject("subcategory"));
         Time startTime = parseTime(jsonObject.getJSONObject("startTime"));
@@ -152,8 +154,6 @@ public class JsonReader {
 
         Event event = new Event(category, subcategory, startTime, endTime, name, recurringDays);
         event.setId(id);
-
-        return event;
     }
 
     // MODIFIES: calendar

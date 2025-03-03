@@ -33,9 +33,7 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: writes JSON representation of calendar to file
     public void write(Calendar calendar) {
-        // TODO: how
-        JSONObject json = new JSONObject();
-        //JSONObject json = calendar.toJson();
+        JSONObject json = calendar.toJson();
         saveToFile(json.toString(TAB));
     }
 
