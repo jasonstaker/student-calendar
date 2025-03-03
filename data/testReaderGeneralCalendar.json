@@ -461,17 +461,16 @@
                             {
                                 "category": {
                                     "name": "category",
-                                    "subcategories": null,
+                                    "subcategories": [],
                                     "location": "location",
                                     "links": ["link"],
                                     "notes": ["note"]
                                 },
                                 "subcategory": {
-                                    "name": null,
-                                    "subcategories": null,
-                                    "location": null,
-                                    "links": null,
-                                    "notes": null,
+                                    "name": "name",
+                                    "location": "location",
+                                    "links": [],
+                                    "notes": [],
                                     "parentCategory": null,
                                     "priorityLevel": 1,
                                     "tags": ["tag1", "tag2"]
@@ -1387,7 +1386,7 @@
     "categories": [
         {
             "name": "category",
-            "subcategories": null,
+            "subcategories": [],
             "location": "location",
             "links": ["link"],
             "notes": ["note"]
@@ -1395,11 +1394,10 @@
     ],
     "subcategories": [
         {
-            "name": null,
-            "subcategories": null,
-            "location": null,
-            "links": null,
-            "notes": null,
+            "name": "name",
+            "location": "location",
+            "links": ["link"],
+            "notes": [],
             "parentCategory": null,
             "priorityLevel": 1,
             "tags": ["tag1", "tag2"]
