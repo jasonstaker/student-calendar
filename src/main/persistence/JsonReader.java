@@ -158,8 +158,22 @@ public class JsonReader {
     // MODIFIES: event
     // EFFECTS: parses category from JSON object and adds it to event
     private void addCategory(Event event, JSONObject jsonObject) {
-        String categoryName = jsonObject.getJSONObject("category").getString("name");
-        Category category = new Category(categoryName);
+        jsonObject = jsonObject.getJSONObject("category");
+        String name = jsonObject.getString("name");
+        String location = jsonObject.getString("location");
+        List<String> links = new ArrayList<String>();
+        List<String> notes = new ArrayList<String>();
+
+        for (int i = 0; i < jsonObject.getJSONArray("links").length(); i++) {
+            links.add(jsonObject.getJSONArray("links").getString(i));
+        }
+
+        for (int i = 0; i < jsonObject.getJSONArray("notes").length(); i++) {
+            notes.add(jsonObject.getJSONArray("notes").getString(i));
+        }
+
+        Category category = new Category(name, new ArrayList<Subcategory>(), location, links, notes);
+        
         event.setCategory(category);
     }
 
