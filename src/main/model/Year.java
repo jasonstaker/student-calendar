@@ -13,7 +13,6 @@ public class Year {
     // fields
     private int yearNumber;
     private List<Month> months;
-    private Month currentMonth;
     private int currentMonthIndex;
 
     // initializes a Year with a given year number and 12 months
@@ -27,7 +26,6 @@ public class Year {
             months.add(new Month(this, i));
         }
 
-        currentMonth = months.get(currentMonthIndex);
     }
 
     // MODIFIES: this
@@ -39,7 +37,6 @@ public class Year {
             currentMonthIndex = 11;
         }
 
-        currentMonth = months.get(currentMonthIndex);
     }
 
     // MODIFIES: this
@@ -51,7 +48,6 @@ public class Year {
             currentMonthIndex = 0;
         }
 
-        currentMonth = months.get(currentMonthIndex);
     }
 
     // EFFECTS: returns true if this year is before the given year, false otherwise
@@ -88,7 +84,7 @@ public class Year {
     }
 
     public Month getCurrentMonth() {
-        return currentMonth;
+        return months.get(currentMonthIndex);
     }
 
     public void setYearNumber(int yearNumber) {
@@ -97,10 +93,6 @@ public class Year {
 
     public void setMonths(List<Month> months) {
         this.months = months;
-    }
-
-    public void setCurrentMonth(Month currentMonth) {
-        this.currentMonth = currentMonth;
     }
 
     public void setCurrentMonthIndex(int currentMonthIndex) {
