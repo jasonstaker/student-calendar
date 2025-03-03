@@ -151,7 +151,12 @@ public class Category {
         idNumber = newIdNumber;
     }
 
-    public JSONObject toJson() {
+    public JSONObject toJson(boolean parentCategory) {
+        if (parentCategory) {
+            JSONObject json = new JSONObject();
+            json.put("id", id);
+            return json;
+        }
         JSONObject json = new JSONObject();
         json.put("id", id);
         json.put("name", name);

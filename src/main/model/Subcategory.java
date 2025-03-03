@@ -123,7 +123,7 @@ public class Subcategory extends Category {
         json.put("location", this.getLocation());
         json.put("links", new JSONArray(this.getLinks()));
         json.put("notes", new JSONArray(this.getNotes()));
-        json.put("parentCategory", parentCategory == null ? null : parentCategory.toJson());
+        json.put("parentCategory", parentCategory == null ? null : parentCategory.toJson(true));
         json.put("priorityLevel", priorityLevel);
         json.put("tags", new JSONArray(tags));
         return json;

@@ -203,7 +203,7 @@ public class Calendar {
         JSONArray jsonArray = new JSONArray();
 
         for (Category category : categories) {
-            jsonArray.put(category.toJson());
+            jsonArray.put(category.toJson(false));
         }
 
         return jsonArray;

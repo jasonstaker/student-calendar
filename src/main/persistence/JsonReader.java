@@ -140,7 +140,7 @@ public class JsonReader {
     // MODIFIES: day
     // EFFECTS: parses event from JSON object and returns it
     private void parseEvent(Day day, JSONObject jsonObject) {
-        Category category = parseCategory(jsonObject.optJSONObject("category"));
+        Category category = parseCategory(jsonObject.optJSONObject("category"), false);
         Subcategory subcategory = parseSubcategory(jsonObject.optJSONObject("subcategory"));
         Time startTime = parseTime(jsonObject.getJSONObject("startTime"));
         Time endTime = parseTime(jsonObject.getJSONObject("endTime"));
@@ -163,13 +163,20 @@ public class JsonReader {
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject category = (JSONObject) jsonArray.get(i);
-            calendar.addCategory(parseCategory(category));
+            calendar.addCategory(parseCategory(category, false));
         }
     }
 
     // EFFECTS: parses category from JSON object and returns it
-    private Category parseCategory(JSONObject jsonObject) {
+    private Category parseCategory(JSONObject jsonObject, boolean parentCategory) {
         if (jsonObject == null) {
+            return null;
+        } else if (parentCategory) {
+            for (Category category : calendar.getCategories()) {
+                if (jsonObject.getInt("id") == category.getId()) {
+                    return category;
+                }
+            }
             return null;
         }
 
@@ -210,7 +217,7 @@ public class JsonReader {
             return null;
         }
 
-        Category parentCategory = parseCategory(jsonObject.optJSONObject("parentCategory"));
+        Category parentCategory = parseCategory(jsonObject.optJSONObject("parentCategory"), true);
         int priorityLevel = jsonObject.getInt("priorityLevel");
         int idNumber = Subcategory.getIdNumber();
         String name = jsonObject.getString("name");

@@ -150,7 +150,7 @@ public class Event {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("id", id);
-        json.put("category", category == null ? JSONObject.NULL : category.toJson());
+        json.put("category", category == null ? JSONObject.NULL : category.toJson(false));
         json.put("subcategory", subcategory == null ? JSONObject.NULL : subcategory.toJson());
         json.put("startTime", startTime.toJson());
         json.put("endTime", endTime.toJson());
