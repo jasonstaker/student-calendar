@@ -174,6 +174,18 @@ public class Calendar {
         return subcategories;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public int getSubcategoryId() {
+        return subcategoryId;
+    }
+
+    public int getEventId() {
+        return eventId;
+    }
+
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("categoryId", categoryId);

@@ -90,8 +90,23 @@ public class CalendarTest {
     }
 
     @Test
-    void testIsInCalendarFailSlash() {
+    void testIsInCalendarFailInvalidDay() {
+        assertFalse(calendar.isInCalendar("2024/01/50"));
+    }
+
+    @Test
+    void testIsInCalendarFailInvalidMonth() {
+        assertFalse(calendar.isInCalendar("2024/50/01"));
+    }
+
+    @Test
+    void testIsInCalendarFailSlashFirst() {
         assertFalse(calendar.isInCalendar("2024 01 01"));
+    }
+
+    @Test
+    void testIsInCalendarFailSlashLast() {
+        assertFalse(calendar.isInCalendar("2024/01 01"));
     }
 
     @Test
@@ -202,6 +217,17 @@ public class CalendarTest {
         subcategories.remove(subcategory);
 
         assertEquals(subcategories, calendar.getSubcategories());
+    }
+
+    @Test
+    void setIds() {
+        Category throwCategory = new Category();
+        Subcategory throwSubcategory = new Subcategory("");
+        Event event = new Event(throwCategory, throwSubcategory, null, null, "hello", new ArrayList<Day>());
+        calendar.setIds();
+        assertEquals(123, calendar.getCategoryId());
+        assertEquals(49, calendar.getSubcategoryId());
+        assertEquals(49, calendar.getEventId());
     }
     
 }
