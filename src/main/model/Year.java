@@ -91,10 +91,6 @@ public class Year {
         this.yearNumber = yearNumber;
     }
 
-    public void setMonths(List<Month> months) {
-        this.months = months;
-    }
-
     public void setCurrentMonthIndex(int currentMonthIndex) {
         this.currentMonthIndex = currentMonthIndex;
     }

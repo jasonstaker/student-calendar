@@ -1,10 +1,14 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +37,7 @@ public class CategoryTest {
         category1 = new Category();
         category2 = new Category("test");
         category3 = new Category("", scList, "", emptyList, emptyList);
+        category3.setNotes(emptyList);
     }
 
     @Test
@@ -42,6 +47,7 @@ public class CategoryTest {
         assertEquals("", category1.getLocation());
         assertEquals(emptyList, category1.getLinks());
         assertEquals(emptyList, category1.getNotes());
+        assertEquals(77, category1.getId());
     }
 
     @Test
@@ -202,6 +208,43 @@ public class CategoryTest {
 
         assertEquals("note1", category1.getNotes().get(0));
         assertEquals(1, category1.getNotes().size());
+    }
+
+    @Test
+    void testToJsonWithParentCategoryTrue() {
+        Category category = new Category("Test Category");
+        category.setId(123);
+
+        JSONObject json = category.toJson(true);
+
+        assertNotNull(json);
+        assertEquals(123, json.getInt("id"));
+        assertEquals(1, json.length());
+        assertFalse(json.has("name"));
+        assertFalse(json.has("subcategories"));
+        assertFalse(json.has("location"));
+        assertFalse(json.has("links"));
+        assertFalse(json.has("notes"));
+    }
+
+    @Test
+    void testSubcategoriesToJsonWithNullSubcategory() {
+        Subcategory sub1 = new Subcategory("Sub1");
+        Subcategory sub2 = null;
+
+        List<Subcategory> subcategories = new ArrayList<>();
+        subcategories.add(sub1);
+        subcategories.add(sub2);
+
+        Category category = new Category("Test Category", subcategories, "", new ArrayList<>(), new ArrayList<>());
+
+        JSONArray jsonArray = category.toJson(false).getJSONArray("subcategories");
+
+        assertNotNull(jsonArray);
+        assertEquals(1, jsonArray.length());
+
+        JSONObject jsonSub1 = jsonArray.getJSONObject(0);
+        assertEquals("Sub1", jsonSub1.getString("name"));
     }
 
 }

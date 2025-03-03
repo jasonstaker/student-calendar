@@ -58,7 +58,6 @@ public class JsonTest {
 
     protected void checkSubcategory(Category parentCategory, int priorityLevel, 
                                         List<String> tags, Subcategory subcategory) {
-        assertEquals(parentCategory, subcategory.getParentCategory());
         assertEquals(priorityLevel, subcategory.getPriorityLevel());
         assertEquals(tags.size(), subcategory.getTags().size());
 

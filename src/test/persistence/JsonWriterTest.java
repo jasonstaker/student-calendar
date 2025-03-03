@@ -15,6 +15,10 @@ class JsonWriterTest extends JsonTest {
     //write data to a file and then use the reader to read it back in and check that we
     //read in a copy of what was written out.
 
+    private Calendar calendar;
+    private JsonReader reader;
+    private JsonWriter writer;
+
     @Test
     void testWriterInvalidFile() {
         try {
@@ -30,14 +34,8 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterEmptyCalendar() {
         try {
-            Calendar calendar = new Calendar("title", 2025);
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
-            writer.open();
-            writer.write(calendar);
-            writer.close();
+            writeEmptyCalendar();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyCalendar.json");
-            calendar = reader.read();
             assertEquals("title", calendar.getTitle());
             assertEquals(0, calendar.getCategories().size());
             assertEquals(0, calendar.getSubcategories().size());
@@ -49,13 +47,8 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterEmptyYear() {
         try {
-            Calendar calendar = new Calendar("title", 2025);
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
-            writer.open();
-            writer.write(calendar);
-            writer.close();
+            writeEmptyCalendar();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyCalendar.json");
             Year year = reader.read().getYears().get(0);
             checkYear(2024, year.getMonths(), year.getMonths().get(0), 0, year);
         } catch (IOException e) {
@@ -66,13 +59,8 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterEmptyMonth() {
         try {
-            Calendar calendar = new Calendar("title", 2025);
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
-            writer.open();
-            writer.write(calendar);
-            writer.close();
+            writeEmptyCalendar();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyCalendar.json");
             Month month = reader.read().getYears().get(0).getMonths().get(0);
             checkMonth("January", month.getYear(), 0, month.getDays(), month);
         } catch (IOException e) {
@@ -83,13 +71,8 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterEmptyDay() {
         try {
-            Calendar calendar = new Calendar("title", 2025);
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
-            writer.open();
-            writer.write(calendar);
-            writer.close();
+            writeEmptyCalendar();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyCalendar.json");
             Day day = reader.read().getYears().get(0).getMonths().get(0).getDays().get(0);
             checkDay(reader.read().getYears().get(0), reader.read().getYears().get(0).getCurrentMonth(), 1, day);
             assertEquals(0, day.getEvents().size());
@@ -101,15 +84,9 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralCalendar() {
         try {
-            Calendar calendar = makeGeneralCalendar();
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
-            writer.open();
-            writer.write(calendar);
-            writer.close();
+            writeGeneralCalendar();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyCalendar.json");
-            calendar = reader.read();
-            assertEquals("title", calendar.getTitle());
+            assertEquals("calendar", calendar.getTitle());
             List<String> links = new ArrayList<String>();
             List<String> notes = new ArrayList<String>();
             List<String> tags = new ArrayList<String>();
@@ -118,7 +95,7 @@ class JsonWriterTest extends JsonTest {
             tags.add("tag1");
             tags.add("tag2");
             checkCategory("category", "location", links, notes, calendar.getCategories().get(0));
-            checkSubcategory(null, 1, tags, calendar.getSubcategories().get(0));
+            checkSubcategory(calendar.getCategories().get(0), 1, tags, calendar.getSubcategories().get(0));
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
@@ -127,15 +104,9 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralYear() {
         try {
-            Calendar calendar = makeGeneralCalendar();
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
-            writer.open();
-            writer.write(calendar);
-            writer.close();
-
-            JsonReader reader = new JsonReader("./data/testWriterEmptyCalendar.json");
-            calendar = reader.read();
-            Year year = calendar.getYears().get(0);
+            writeGeneralCalendar();
+            
+            Year year = calendar.getYears().get(1);
             checkYear(2025, year.getMonths(), year.getMonths().get(0), 0, year);
         } catch (IOException e) {
             fail("Exception should not have been thrown");
@@ -145,14 +116,8 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralMonth() {
         try {
-            Calendar calendar = makeGeneralCalendar();
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
-            writer.open();
-            writer.write(calendar);
-            writer.close();
-
-            JsonReader reader = new JsonReader("./data/testWriterEmptyCalendar.json");
-            calendar = reader.read();
+            writeGeneralCalendar();
+            
             Month month = calendar.getYears().get(0).getMonths().get(0);
             checkMonth("January", month.getYear(), 0, month.getDays(), month);
         } catch (IOException e) {
@@ -163,14 +128,8 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralDay() {
         try {
-            Calendar calendar = makeGeneralCalendar();
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
-            writer.open();
-            writer.write(calendar);
-            writer.close();
-
-            JsonReader reader = new JsonReader("./data/testWriterEmptyCalendar.json");
-            calendar = reader.read();
+            writeGeneralCalendar();
+            
             Day day = calendar.getYears().get(0).getMonths().get(0).getDays().get(0);
             Event event = day.getEvents().get(0);
             List<String> links = new ArrayList<String>();
@@ -183,7 +142,7 @@ class JsonWriterTest extends JsonTest {
             checkDay(calendar.getYears().get(0), calendar.getYears().get(0).getCurrentMonth(), 1, day);
             checkEvent("event", event);
             checkCategory("category", "location", links, notes, event.getCategory());
-            checkSubcategory(null, 1, tags, event.getSubcategory());
+            checkSubcategory(event.getCategory(), 1, tags, event.getSubcategory());
             checkTime(12, 44, event.getStartTime());
             checkTime(13, 30, event.getEndTime());
             checkDay(day.getYear(), day.getMonth(), 1, day.getEvents().get(0).getRecurringDays().get(0));
@@ -204,7 +163,7 @@ class JsonWriterTest extends JsonTest {
         tags.add("tag1");
         tags.add("tag2");
 
-        Category category = new Category("category", null, "location", links, notes);
+        Category category = new Category("category", new ArrayList<Subcategory>(), "location", links, notes);
         Subcategory subcategory = new Subcategory(null, 1, tags, "subcategory", "location", links, notes);
         calendar.addCategory(category);
         calendar.addSubcategory(subcategory);
@@ -213,5 +172,27 @@ class JsonWriterTest extends JsonTest {
         day.addEvent(new Event(category, subcategory, new Time(12, 44), new Time(13, 30), "event", recurringDays));
 
         return calendar;
+    }
+
+    private void writeEmptyCalendar() throws IOException {
+        calendar = new Calendar("title", 2025);
+        writer = new JsonWriter("./data/testWriterEmptyCalendar.json");
+        writer.open();
+        writer.write(calendar);
+        writer.close();
+
+        reader = new JsonReader("./data/testWriterEmptyCalendar.json");
+        calendar = reader.read();
+    }
+
+    private void writeGeneralCalendar() throws IOException {
+        calendar = makeGeneralCalendar();
+        writer = new JsonWriter("./data/testWriterGeneralCalendar.json");
+        writer.open();
+        writer.write(calendar);
+        writer.close();
+
+        reader = new JsonReader("./data/testWriterGeneralCalendar.json");
+        calendar = reader.read();
     }
 }

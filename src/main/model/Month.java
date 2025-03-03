@@ -93,10 +93,6 @@ public class Month {
         this.monthNumber = monthNumber;
     }
 
-    public void setDays(List<Day> days) {
-        this.days = days;
-    }
-
     public void setYear(Year year) {
         this.year = year;
     }

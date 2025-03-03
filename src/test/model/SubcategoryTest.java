@@ -1,12 +1,16 @@
 package model;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -107,6 +111,18 @@ public class SubcategoryTest {
         Category parentSubcategory = new Subcategory(null, 1, emptyList, "", "", emptyList, emptyList);
         subcategory.setParentCategory(parentSubcategory);
         assertTrue(subcategory.isParent(parentSubcategory));
+    }
+
+     @Test
+    void testToJsonWithNullParentCategory() {
+        JSONObject json = subcategory.toJson();
+
+        assertEquals(70, json.get("id"));
+        assertEquals(subcategory.getName(), json.get("name"));
+        assertEquals(subcategory.getLocation(), json.get("location"));
+        assertEquals(new JSONArray(subcategory.getLinks()).toString(), json.get("links").toString());
+        assertEquals(new JSONArray(subcategory.getNotes()).toString(), json.get("notes").toString());
+        assertNotNull(json.get("parentCategory"));
     }
 
 }

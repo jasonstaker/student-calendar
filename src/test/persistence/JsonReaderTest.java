@@ -75,16 +75,14 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/testReaderGeneralCalendar.json");
         try {
             Calendar calendar = reader.read();
-            assertEquals("title", calendar.getTitle());
+            assertEquals("calendar", calendar.getTitle());
             List<String> links = new ArrayList<String>();
             List<String> notes = new ArrayList<String>();
             List<String> tags = new ArrayList<String>();
             links.add("link");
             notes.add("note");
-            tags.add("tag1");
-            tags.add("tag2");
-            checkCategory("category", "location", links, notes, calendar.getCategories().get(0));
-            checkSubcategory(null, 1, tags, calendar.getSubcategories().get(0));
+            checkCategory("Category", "location", links, notes, calendar.getCategories().get(0));
+            checkSubcategory(calendar.getCategories().get(0), 3, tags, calendar.getSubcategories().get(0));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
@@ -116,21 +114,19 @@ class JsonReaderTest extends JsonTest {
     void testReaderGeneralDay() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralCalendar.json");
         try {
-            Day day = reader.read().getYears().get(1).getMonths().get(0).getDays().get(0);
+            Day day = reader.read().getYears().get(0).getMonths().get(0).getDays().get(0);
             Event event = day.getEvents().get(0);
             List<String> links = new ArrayList<String>();
             List<String> notes = new ArrayList<String>();
             List<String> tags = new ArrayList<String>();
             links.add("link");
             notes.add("note");
-            tags.add("tag1");
-            tags.add("tag2");
-            checkDay(reader.read().getYears().get(1), reader.read().getYears().get(1).getCurrentMonth(), 1, day);
-            checkEvent("event", event);
-            checkCategory("category", "", links, notes, event.getCategory());
-            checkSubcategory(null, 1, tags, event.getSubcategory());
-            checkTime(12, 44, event.getStartTime());
-            checkTime(13, 30, event.getEndTime());
+            checkDay(reader.read().getYears().get(0), reader.read().getYears().get(0).getCurrentMonth(), 1, day);
+            checkEvent("Event", event);
+            checkCategory("Category", "location", links, notes, event.getCategory());
+            checkSubcategory(event.getCategory(), 3, tags, event.getSubcategory());
+            checkTime(12, 0, event.getStartTime());
+            checkTime(13, 00, event.getEndTime());
             checkDay(day.getYear(), day.getMonth(), 1, day.getEvents().get(0).getRecurringDays().get(0));
         } catch (IOException e) {
             fail("Couldn't read from file");

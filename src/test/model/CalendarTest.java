@@ -85,18 +85,28 @@ public class CalendarTest {
     }
 
     @Test
-    void testIsInCalendarFail() {
+    void testIsInCalendarFailInvalidYear() {
         assertFalse(calendar.isInCalendar("2023/01/01"));
     }
 
     @Test
-    void testIsInCalendarFailInvalidDay() {
+    void testIsInCalendarFailInvalidDayUpper() {
         assertFalse(calendar.isInCalendar("2024/01/50"));
     }
 
     @Test
-    void testIsInCalendarFailInvalidMonth() {
+    void testIsInCalendarFailInvalidDayLower() {
+        assertFalse(calendar.isInCalendar("2024/01/00"));
+    }
+
+    @Test
+    void testIsInCalendarFailInvalidMonthUpper() {
         assertFalse(calendar.isInCalendar("2024/50/01"));
+    }
+
+    @Test
+    void testIsInCalendarFailInvalidMonthLower() {
+        assertFalse(calendar.isInCalendar("2024/-1/01"));
     }
 
     @Test
@@ -225,9 +235,9 @@ public class CalendarTest {
         Subcategory throwSubcategory = new Subcategory("");
         Event event = new Event(throwCategory, throwSubcategory, null, null, "hello", new ArrayList<Day>());
         calendar.setIds();
-        assertEquals(123, calendar.getCategoryId());
-        assertEquals(49, calendar.getSubcategoryId());
-        assertEquals(49, calendar.getEventId());
+        assertEquals(146, calendar.getCategoryId());
+        assertEquals(57, calendar.getSubcategoryId());
+        assertEquals(55, calendar.getEventId());
     }
     
 }

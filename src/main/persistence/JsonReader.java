@@ -20,8 +20,10 @@ import org.json.*;
 
 // Represents a reader that reads calendar from JSON data stored in file
 public class JsonReader {
+
+    // fields
     private String source;
-    Calendar calendar;
+    private Calendar calendar;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
@@ -248,8 +250,9 @@ public class JsonReader {
         int yearNumber = jsonObject.getInt("yearNumber");
         int monthNumber = jsonObject.getInt("monthNumber");
         int dayNumber = jsonObject.getInt("dayNumber");
-
-        return calendar.getYears().get(calendar.getLowestYear().getYearNumber() - yearNumber).getMonths().get(monthNumber).getDays().get(dayNumber - 1);
+        Year year =  calendar.getYears().get(calendar.getLowestYear().getYearNumber() - yearNumber);
+        
+        return year.getMonths().get(monthNumber).getDays().get(dayNumber - 1);
     }
 
 

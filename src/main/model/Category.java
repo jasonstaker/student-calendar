@@ -37,6 +37,8 @@ public class Category {
         location = "";
         links = new ArrayList<String>();
         notes = new ArrayList<String>();
+        id = idNumber;
+        idNumber++;
     }
 
     // EFFECTS: initializes an empty Category with default values, a given name, and a given list of subcategories
@@ -47,6 +49,8 @@ public class Category {
         this.location = location;
         this.links = links;
         this.notes = notes;
+        id = idNumber;
+        idNumber++;
     }
 
     // MODIFIES: this

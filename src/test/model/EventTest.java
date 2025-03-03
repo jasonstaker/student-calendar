@@ -2,11 +2,14 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,6 +55,24 @@ public class EventTest {
         for (Day d: recurringDays) {
             assertEquals(event, d.getEvents().get(0));
         }
+    }
+
+    @Test
+    void testSetMethods() {
+        event.setCategory(null);
+        event.setEndTime(null);
+        event.setId(5);
+        event.setRecurringDays(new ArrayList<Day>());
+        event.setName("");
+        event.setStartTime(null);
+        event.setSubcategory(null);
+        assertNull(event.getCategory());
+        assertNull(event.getEndTime());
+        assertEquals(5, event.getId());
+        assertEquals(new ArrayList<Day>(), event.getRecurringDays());
+        assertEquals("", event.getName());
+        assertNull(event.getStartTime());
+        assertNull(event.getSubcategory());
     }
 
     @Test
@@ -119,4 +140,55 @@ public class EventTest {
 
         assertEquals(0, event.getRecurringDays().size());
     }
+
+    @Test
+    void testToJsonWithValidCategoryAndSubcategory() {
+        Category category = new Category("Work");
+        Subcategory subcategory = new Subcategory("Meetings");
+        Time startTime = new Time(9, 30);
+        Time endTime = new Time(10, 30);
+        List<Day> recurringDays = new ArrayList<Day>();
+
+        Event event = new Event(category, subcategory, startTime, endTime, "", recurringDays);
+
+        JSONObject json = event.toJson();
+
+        assertEquals("", json.getString("name"));
+        assertEquals(9, json.getJSONObject("startTime").getInt("hour"));
+        assertEquals(10, json.getJSONObject("endTime").getInt("hour"));
+        assertNotNull(json.getJSONObject("category"));
+        assertNotNull(json.getJSONObject("subcategory"));
+        assertEquals("Work", json.getJSONObject("category").getString("name"));
+        assertEquals("Meetings", json.getJSONObject("subcategory").getString("name"));
+        assertEquals(0, json.getJSONArray("recurringDays").length());
+    }
+
+    @Test
+    void testToJsonWithNullCategoryAndSubcategory() {
+        Category category = null;
+        Subcategory subcategory = null;
+        Time startTime = new Time(9, 30);
+        Time endTime = new Time(10, 30);
+        List<Day> recurringDays = new ArrayList<Day>();
+
+        Event event = new Event(category, subcategory, startTime, endTime, "", recurringDays);
+
+        JSONObject json = event.toJson();
+
+        assertEquals("", json.getString("name"));
+        assertEquals(9, json.getJSONObject("startTime").getInt("hour"));
+        assertEquals(10, json.getJSONObject("endTime").getInt("hour"));
+        assertNull(json.optJSONObject("category"));
+        assertNull(json.optJSONObject("subcategory"));
+        assertEquals(0, json.getJSONArray("recurringDays").length());
+    }
+
+    @Test
+    void testSetRecurringDaysAddsEventToEachDay() {
+        event.setRecurringDays(recurringDays);
+
+        assertEquals(1, event.getRecurringDays().size());
+        assertTrue(day1.getEvents().contains(event));
+    }
+
 }

@@ -92,10 +92,6 @@ public class Subcategory extends Category {
         return tags;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public static int getIdNumber() {
         return idNumber;
     }

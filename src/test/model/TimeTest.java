@@ -30,6 +30,7 @@ public class TimeTest {
     void testTimeToString() {
         assertEquals("1:24 A.M.", time1.timeToString());
         assertEquals("12:24 P.M.", (new Time(12, 24)).timeToString());
+        assertEquals("12:24 A.M.", (new Time(0, 24)).timeToString());
         assertEquals("1:01 P.M.", time3.timeToString());
     }
 
@@ -64,6 +65,16 @@ public class TimeTest {
     }
 
     @Test
+    void testIsAfterPassHour() {
+        assertTrue((new Time(2, 22)).isAfter(new Time(1, 23)));
+    }
+
+    @Test
+    void testIsAfterFailHour() {
+        assertFalse((new Time(1, 22)).isAfter(new Time(2, 23)));
+    }
+
+    @Test
     void testIsAfterFail() {
         assertFalse(time1.isAfter(time1));
     }
@@ -74,12 +85,22 @@ public class TimeTest {
     }
 
     @Test
-    void testIsValidTimeFailHour() {
+    void testIsValidTimeFailHourLower() {
+        assertFalse(time1.isValidTime("-1:55"));
+    }
+
+    @Test
+    void testIsValidTimeFailHourUpper() {
         assertFalse(time1.isValidTime("24:55"));
     }
 
     @Test
-    void testIsValidTimeFailMinute() {
+    void testIsValidTimeFailMinuteLower() {
+        assertFalse(time1.isValidTime("12:-1"));
+    }
+
+    @Test
+    void testIsValidTimeFailMinuteUpper() {
         assertFalse(time1.isValidTime("12:61"));
     }
 
