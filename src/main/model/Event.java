@@ -9,12 +9,14 @@ import org.json.JSONObject;
 public class Event {
 
     // fields
+    private static int idNumber = 0;
     private Category category;
     private Subcategory subcategory;
     private Time startTime;
     private Time endTime;
     private String name;
     private List<Day> recurringDays;
+    private int id;
     
     // EFFECTS: initializes an Event with given category, subcategory, time, name, and recurring days
     public Event(Category category, Subcategory subcategory, Time startTime, 
@@ -25,6 +27,8 @@ public class Event {
         this.endTime = endTime;
         this.name = name;
         this.recurringDays = recurringDays;
+        id = idNumber;
+        idNumber++;
 
         for (Day d: recurringDays) {
             d.addEvent(this);
@@ -100,6 +104,14 @@ public class Event {
         return endTime;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public static int getIdNumber() {
+        return idNumber;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -127,8 +139,17 @@ public class Event {
         this.endTime = endTime;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static void setIdNumber(int newIdNumber) {
+        idNumber = newIdNumber;
+    }
+
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
+        json.put("id", id);
         json.put("category", category == null ? JSONObject.NULL : category.toJson());
         json.put("subcategory", subcategory == null ? JSONObject.NULL : subcategory.toJson());
         json.put("startTime", startTime.toJson());

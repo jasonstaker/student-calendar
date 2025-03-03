@@ -11,11 +11,13 @@ import org.json.JSONObject;
 public class Category {
 
     // fields
+    private static int idNumber = 0;
     private String name;
     private List<Subcategory> subcategories;
     private String location;
     private List<String> links;
     private List<String> notes;
+    private int id;
 
     // EFFECTS: initializes an empty Category with default values
     public Category() {
@@ -24,6 +26,8 @@ public class Category {
         location = "";
         links = new ArrayList<String>();
         notes = new ArrayList<String>();
+        id = idNumber;
+        idNumber++;
     }
 
     // EFFECTS: initializes an empty Category with default values and a given name
@@ -119,6 +123,14 @@ public class Category {
         return notes;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public static int getIdNumber() {
+        return idNumber;
+    }
+
     public void setLocation(String location) {
         this.location = location;
     }
@@ -131,8 +143,17 @@ public class Category {
         this.name = name;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static void setIdNumber(int newIdNumber) {
+        idNumber = newIdNumber;
+    }
+
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
+        json.put("id", id);
         json.put("name", name);
         json.put("subcategories", subcategoriesToJson());
         json.put("location", location);

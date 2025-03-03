@@ -9,9 +9,11 @@ import org.json.JSONObject;
 // A Subcategory with a parent category, priority level, and descriptive tags
 public class Subcategory extends Category {
 
+    private static int idNumber = 0;
     private Category parentCategory;
     private int priorityLevel;
     private List<String> tags;
+    private int id;
     
     // REQUIRES: priorityLevel is 1, 2, or 3, links and notes cannot be null
     // EFFECTS: initializes a Subcategory with given category, priority level, tags, name, location, links and notes
@@ -30,6 +32,8 @@ public class Subcategory extends Category {
         this.parentCategory = parentCategory;
         this.priorityLevel = priorityLevel;
         this.tags = tags;
+        id = idNumber;
+        idNumber++;
     }
 
     // EFFECTS: initializes a Subcategory with default values
@@ -88,6 +92,14 @@ public class Subcategory extends Category {
         return tags;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public static int getIdNumber() {
+        return idNumber;
+    }
+
     public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
     }
@@ -96,8 +108,17 @@ public class Subcategory extends Category {
         this.priorityLevel = priorityLevel;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static void setIdNumber(int newIdNumber) {
+        idNumber = newIdNumber;
+    }
+
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
+        json.put("id", id);
         json.put("name", this.getName());
         json.put("location", this.getLocation());
         json.put("links", new JSONArray(this.getLinks()));

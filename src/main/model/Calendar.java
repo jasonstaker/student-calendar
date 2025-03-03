@@ -16,6 +16,9 @@ public class Calendar {
     private int currentYearIndex;
     private List<Category> categories;
     private List<Subcategory> subcategories;
+    private int categoryId;
+    private int subcategoryId;
+    private int eventId;
 
     // REQUIRES: currentYear corresponds to a valid year number
     // EFFECTS: initializes a new Calendar with a given title, a current year, and a list of 3 years
@@ -25,6 +28,9 @@ public class Calendar {
         years = new ArrayList<Year>();
         categories = new ArrayList<Category>();
         subcategories = new ArrayList<Subcategory>();
+        categoryId = 0;
+        subcategoryId = 0;
+        eventId = 0;
         
         for (int i = -1; i <= 1; i++) {
             years.add(new Year(currentYear + i));
@@ -131,10 +137,17 @@ public class Calendar {
         categories.remove(category);
     }
 
-    // MODIFIES:
+    // MODIFIES: this
     // EFFECTS: remove the given subcategory from the list of subcategories if it is present, nothing otherwise
     public void removeSubcategory(Subcategory subcategory) {
         subcategories.remove(subcategory);
+    }
+
+    // EFFECTS: grabs the static ids from category, subcategory, and event
+    public void setIds() {
+        categoryId = Category.getIdNumber();
+        subcategoryId = Subcategory.getIdNumber();
+        eventId = Event.getIdNumber();
     }
 
     /*
@@ -163,6 +176,9 @@ public class Calendar {
 
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
+        json.put("categoryId", categoryId);
+        json.put("subcategoryId", subcategoryId);
+        json.put("eventId", eventId);
         json.put("title", title);
         json.put("years", yearsToJson());
         json.put("currentYearIndex", currentYearIndex);
