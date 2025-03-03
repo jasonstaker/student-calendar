@@ -1,29 +1,36 @@
 {
-    "eventId": 0,
+    "eventId": 1,
     "currentYearIndex": 1,
-    "subcategoryId": 0,
+    "subcategoryId": 1,
     "categories": [{
         "notes": ["note"],
-        "name": "category",
+        "name": "Category",
         "location": "location",
         "links": ["link"],
         "id": 0,
-        "subcategories": []
+        "subcategories": [{
+            "notes": ["note"],
+            "priorityLevel": 3,
+            "name": "Subcategory",
+            "parentCategory": {"id": 0},
+            "location": "location",
+            "links": ["link"],
+            "id": 0,
+            "tags": []
+        }]
     }],
     "title": "calendar",
     "subcategories": [{
         "notes": ["note"],
-        "priorityLevel": 1,
-        "name": "subcategory",
+        "priorityLevel": 3,
+        "name": "Subcategory",
+        "parentCategory": {"id": 0},
         "location": "location",
         "links": ["link"],
         "id": 0,
-        "tags": [
-            "tag1",
-            "tag2"
-        ]
+        "tags": []
     }],
-    "categoryId": 0,
+    "categoryId": 3,
     "years": [
         {
             "months": [
@@ -33,82 +40,50 @@
                     "days": [
                         {
                             "dayNumber": 1,
-                            "events": [
-                                {
-                                    "name": "event",
-                                    "startTime": {
-                                        "hour": 12,
-                                        "minute": 44
-                                    },
-                                    "id": 0,
-                                    "endTime": {
-                                        "hour": 13,
-                                        "minute": 30
-                                    },
-                                    "recurringDays": [{
-                                        "monthNumber": 0,
-                                        "dayNumber": 1,
-                                        "yearNumber": 2024
-                                    }],
-                                    "category": {
-                                        "notes": ["note"],
-                                        "name": "category",
-                                        "location": "location",
-                                        "links": ["link"],
-                                        "id": 0,
-                                        "subcategories": []
-                                    },
-                                    "subcategory": {
-                                        "notes": ["note"],
-                                        "priorityLevel": 1,
-                                        "name": "subcategory",
-                                        "location": "location",
-                                        "links": ["link"],
-                                        "id": 0,
-                                        "tags": [
-                                            "tag1",
-                                            "tag2"
-                                        ]
-                                    }
+                            "events": [{
+                                "name": "Event",
+                                "startTime": {
+                                    "hour": 12,
+                                    "minute": 0
                                 },
-                                {
-                                    "name": "event",
-                                    "startTime": {
-                                        "hour": 12,
-                                        "minute": 44
-                                    },
+                                "id": 0,
+                                "endTime": {
+                                    "hour": 13,
+                                    "minute": 0
+                                },
+                                "recurringDays": [{
+                                    "monthNumber": 0,
+                                    "dayNumber": 1,
+                                    "yearNumber": 2024
+                                }],
+                                "category": {
+                                    "notes": ["note"],
+                                    "name": "Category",
+                                    "location": "location",
+                                    "links": ["link"],
                                     "id": 0,
-                                    "endTime": {
-                                        "hour": 13,
-                                        "minute": 30
-                                    },
-                                    "recurringDays": [{
-                                        "monthNumber": 0,
-                                        "dayNumber": 1,
-                                        "yearNumber": 2024
-                                    }],
-                                    "category": {
+                                    "subcategories": [{
                                         "notes": ["note"],
-                                        "name": "category",
+                                        "priorityLevel": 3,
+                                        "name": "Subcategory",
+                                        "parentCategory": {"id": 0},
                                         "location": "location",
                                         "links": ["link"],
                                         "id": 0,
-                                        "subcategories": []
-                                    },
-                                    "subcategory": {
-                                        "notes": ["note"],
-                                        "priorityLevel": 1,
-                                        "name": "subcategory",
-                                        "location": "location",
-                                        "links": ["link"],
-                                        "id": 0,
-                                        "tags": [
-                                            "tag1",
-                                            "tag2"
-                                        ]
-                                    }
+                                        "tags": []
+                                    }]
+                                },
+                                "subcategory": {
+                                    "notes": ["note"],
+                                    "priorityLevel": 3,
+                                    "name": "Subcategory",
+                                    "parentCategory": {"id": 0},
+                                    "location": "location",
+                                    "links": ["link"],
+                                    "id": 0,
+                                    "tags": []
                                 }
-                            ]
+                            }]
                         },
                         {
                             "dayNumber": 2,
