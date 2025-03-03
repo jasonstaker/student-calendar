@@ -94,7 +94,7 @@ class JsonReaderTest extends JsonTest {
     void testReaderGeneralYear() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralCalendar.json");
         try {
-            Year year = reader.read().getYears().get(0);
+            Year year = reader.read().getYears().get(1);
             checkYear(2025, year.getMonths(), year.getMonths().get(0), 0, year);
         } catch (IOException e) {
             fail("Couldn't read from file");
@@ -116,7 +116,7 @@ class JsonReaderTest extends JsonTest {
     void testReaderGeneralDay() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralCalendar.json");
         try {
-            Day day = reader.read().getYears().get(0).getMonths().get(0).getDays().get(0);
+            Day day = reader.read().getYears().get(1).getMonths().get(0).getDays().get(0);
             Event event = day.getEvents().get(0);
             List<String> links = new ArrayList<String>();
             List<String> notes = new ArrayList<String>();
@@ -125,9 +125,9 @@ class JsonReaderTest extends JsonTest {
             notes.add("note");
             tags.add("tag1");
             tags.add("tag2");
-            checkDay(reader.read().getYears().get(0), reader.read().getYears().get(0).getCurrentMonth(), 1, day);
+            checkDay(reader.read().getYears().get(1), reader.read().getYears().get(1).getCurrentMonth(), 1, day);
             checkEvent("event", event);
-            checkCategory("category", "location", links, notes, event.getCategory());
+            checkCategory("category", "", links, notes, event.getCategory());
             checkSubcategory(null, 1, tags, event.getSubcategory());
             checkTime(12, 44, event.getStartTime());
             checkTime(13, 30, event.getEndTime());

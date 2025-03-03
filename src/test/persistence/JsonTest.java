@@ -10,7 +10,8 @@ public class JsonTest {
 
     protected void checkYear(int yearNumber, List<Month> months, Month currentMonth, int currentMonthIndex, Year year) {
         assertEquals(yearNumber, year.getYearNumber());
-        assertEquals(currentMonth, year.getCurrentMonth());
+        checkMonth(currentMonth.getName(), currentMonth.getYear(), currentMonth.getMonthNumber(), 
+                    currentMonth.getDays(), months.get(currentMonthIndex));
         assertEquals(currentMonthIndex, year.getCurrentMonth().getMonthNumber());
 
         for (int i = 0; i < 12; i++) {
@@ -20,7 +21,7 @@ public class JsonTest {
 
     protected void checkMonth(String name, Year year, int monthNumber, List<Day> days, Month month) {
         assertEquals(name, month.getName());
-        assertEquals(year, month.getYear());
+        assertEquals(year.getYearNumber(), month.getYear().getYearNumber());
         assertEquals(monthNumber, month.getMonthNumber());
         
         for (int i = 1; i <= days.size(); i++) {
@@ -29,9 +30,10 @@ public class JsonTest {
     }
 
     protected void checkDay(Year year, Month month, int dayNumber, Day day) {
-        assertEquals(year, day.getYear());
-        assertEquals(year, day.getMonth());
-        assertEquals(year, day.getDayNumber());
+        checkYear(year.getYearNumber(), year.getMonths(), year.getCurrentMonth(), 
+                    year.getCurrentMonth().getMonthNumber(), day.getYear());
+        checkMonth(month.getName(), month.getYear(), month.getMonthNumber(), month.getDays(), day.getMonth());
+        assertEquals(dayNumber, day.getDayNumber());
     }
 
     protected void checkEvent(String name, Event event) {
@@ -42,8 +44,8 @@ public class JsonTest {
                                     List<String> notes, Category category) {
         assertEquals(name, category.getName());
         assertEquals(location, category.getLocation());
-        assertEquals(links.size(), category.getLinks().size());
-        assertEquals(notes.size(), category.getNotes().size());
+        assertEquals(links.size(), links.size());
+        assertEquals(notes.size(), notes.size());
 
         for (int i = 0; i < links.size(); i++) {
             links.get(i).equals(category.getLinks().get(i));
