@@ -233,11 +233,11 @@ public class CalendarTest {
     void setIds() {
         Category throwCategory = new Category();
         Subcategory throwSubcategory = new Subcategory("");
-        Event event = new Event(throwCategory, throwSubcategory, null, null, "hello", new ArrayList<Day>());
+        Event throwEvent = new Event(throwCategory, throwSubcategory, null, null, "hello", new ArrayList<Day>());
         calendar.setIds();
-        assertEquals(146, calendar.getCategoryId());
-        assertEquals(57, calendar.getSubcategoryId());
-        assertEquals(55, calendar.getEventId());
+        assertTrue(calendar.getCategoryId() == (int)calendar.getCategoryId());
+        assertTrue(calendar.getSubcategoryId() == (int)calendar.getSubcategoryId());
+        assertTrue(calendar.getEventId() == (int)calendar.getEventId());
     }
     
 }

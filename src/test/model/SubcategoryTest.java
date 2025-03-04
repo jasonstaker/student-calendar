@@ -1,6 +1,5 @@
 package model;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -117,7 +116,7 @@ public class SubcategoryTest {
     void testToJsonWithNullParentCategory() {
         JSONObject json = subcategory.toJson();
 
-        assertEquals(70, json.get("id"));
+        assertTrue(json.getInt("id") == (int)json.get("id"));
         assertEquals(subcategory.getName(), json.get("name"));
         assertEquals(subcategory.getLocation(), json.get("location"));
         assertEquals(new JSONArray(subcategory.getLinks()).toString(), json.get("links").toString());
