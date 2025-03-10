@@ -12,7 +12,7 @@ import persistence.JsonWriter;
 public class MainMenuUI extends UI {
 
     // fields
-    private static final String JSON_STORE = "./data/workroom.json";
+    private static final String JSON_STORE = "./data/calendar.json";
     private Calendar calendar;
     private EventUI eventUI;
     private CategoryUI categoryUI;
