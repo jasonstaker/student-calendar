@@ -14,6 +14,7 @@ public class Calendar {
     private String title;
     private List<Year> years;
     private int currentYearIndex;
+    private List<Event> events;
     private List<Category> categories;
     private List<Subcategory> subcategories;
     private int categoryId;
@@ -26,6 +27,7 @@ public class Calendar {
         this.title = title;
         currentYearIndex = 1;
         years = new ArrayList<Year>();
+        events = new ArrayList<Event>();
         categories = new ArrayList<Category>();
         subcategories = new ArrayList<Subcategory>();
         categoryId = 0;
@@ -120,6 +122,12 @@ public class Calendar {
     }
 
     // MODIFIES: this
+    // EFFECTS: adds the given event to this Calendars list of events
+    public void addEvent(Event event) {
+        events.add(event);
+    }
+
+    // MODIFIES: this
     // EFFECTS: adds the given category to this Calendars list of categories
     public void addCategory(Category category) {
         categories.add(category);
@@ -129,6 +137,12 @@ public class Calendar {
     // EFFECTS: adds the given subcategory to this Calendars list of subcategories
     public void addSubcategory(Subcategory subcategory) {
         subcategories.add(subcategory);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: remove the given event from the list of events if it is present, nothing otherwise
+    public void removeEvent(Event event) {
+        events.remove(event);
     }
 
     // MODIFIES: this
@@ -146,8 +160,49 @@ public class Calendar {
     // EFFECTS: grabs the static ids from category, subcategory, and event
     public void setIds() {
         categoryId = Category.getIdNumber();
-        subcategoryId = Subcategory.getIdNumber();
         eventId = Event.getIdNumber();
+    }
+
+    // EFFECTS: returns the event with the given id, null if it is not in events
+    public Event getEvent(int id) {
+        Event event = null;
+
+        for (Event e : events) {
+            if (e.getId() == id) {
+                event = e;
+                break;
+            }
+        }
+
+        return event;
+    }
+
+    // EFFECTS: returns the category with the given id, null if it is not in category
+    public Category getCategory(int id) {
+        Category category = null;
+
+        for (Category c : categories) {
+            if (c.getId() == id) {
+                category = c;
+                break;
+            }
+        }
+
+        return category;
+    }
+
+    // EFFECTS: returns the subcategory with the given id, null if it is not in subcategories
+    public Subcategory getSubcategory(int id) {
+        Subcategory subcategory = null;
+
+        for (Subcategory s : subcategories) {
+            if (s.getId() == id) {
+                subcategory = s;
+                break;
+            }
+        }
+
+        return subcategory;
     }
 
     /*
@@ -164,6 +219,10 @@ public class Calendar {
 
     public Year getCurrentYear() {
         return years.get(currentYearIndex);
+    }
+
+    public List<Event> getEvents() {
+        return events;
     }
 
     public List<Category> getCategories() {
@@ -186,42 +245,73 @@ public class Calendar {
         return eventId;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setYears(List<Year> years) {
+        this.years = years;
+    }
+
+    public void setCurrentYearIndex(int currentYearIndex) {
+        this.currentYearIndex = currentYearIndex;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public void setSubcategories(List<Subcategory> subcategories) {
+        this.subcategories = subcategories;
+    }
+
+    // EFFECTS: returns this calendar as a JSONObject
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("categoryId", categoryId);
-        json.put("subcategoryId", subcategoryId);
-        json.put("eventId", eventId);
+        List<Integer> yearNumbers = new ArrayList<Integer>();
+
+        for (Year year : years) {
+            yearNumbers.add(year.getYearNumber());
+        }
+
         json.put("title", title);
-        json.put("years", yearsToJson());
+        json.put("years", yearNumbers);
+        json.put("eventId", eventId);
+        json.put("categoryId", categoryId);
         json.put("currentYearIndex", currentYearIndex);
+        json.put("events", eventsToJson());
         json.put("categories", categoriesToJson());
         json.put("subcategories", subcategoriesToJson());
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
-    private JSONArray yearsToJson() {
+    // EFFECTS: returns events in this calendar as a JSONArray
+    private JSONArray eventsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Year year : years) {
-            jsonArray.put(year.toJson());
+        for (Event event : events) {
+            jsonArray.put(event.toJson());
         }
 
         return jsonArray;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns categories in this calendar as a JSONArray
     private JSONArray categoriesToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Category category : categories) {
-            jsonArray.put(category.toJson(false));
+            jsonArray.put(category.toJson());
         }
 
         return jsonArray;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns subcategories in this calendar as a JSONArray
     private JSONArray subcategoriesToJson() {
         JSONArray jsonArray = new JSONArray();
 
