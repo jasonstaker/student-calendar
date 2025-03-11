@@ -50,6 +50,9 @@ public class Event {
     // EFFECTS: adds the given day to the recurring days in ascending order if it is not there, nothing otherwise
     public void addRecurringDay(Day addDay) {
         int index = 0;
+        if (recurringDays.contains(addDay)) {
+            return;
+        }
 
         for (int i = 0; i < recurringDays.size(); i++) {
             Day day = recurringDays.get(i);
