@@ -103,6 +103,12 @@ public class Category {
         notes.remove(index);
     }
 
+    // MODIFIES: this
+    // EFFECTS: decrements the static id for Category
+    public static void decrementId() {
+        idNumber--;
+    }
+
     /*
      * GETTERS/SETTERS
      */
@@ -155,12 +161,7 @@ public class Category {
         idNumber = newIdNumber;
     }
 
-    public JSONObject toJson(boolean parentCategory) {
-        if (parentCategory) {
-            JSONObject json = new JSONObject();
-            json.put("id", id);
-            return json;
-        }
+    public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("id", id);
         json.put("name", name);
@@ -171,13 +172,17 @@ public class Category {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    public int toJsonId() {
+        return id;
+    }
+
+    // EFFECTS: returns subcategories in this Category as a JSON array
     private JSONArray subcategoriesToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Subcategory subcategory : subcategories) {
             if (subcategory != null) {
-                jsonArray.put(subcategory.toJson());
+                jsonArray.put(subcategory.getId());
             }
         }
 
