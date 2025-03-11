@@ -52,17 +52,17 @@ public class JsonReader {
     // EFFECTS: parses calendar from JSON object and returns it
     private Calendar parseCalendar(JSONObject jsonObject) {
         String title = jsonObject.getString("title");
-        int yearNumber = jsonObject.getJSONArray("years").getJSONObject(1).getInt("yearNumber");
+        int yearNumber = (int)jsonObject.getJSONArray("years").get(1);
         Calendar calendar = new Calendar(title, yearNumber);
         this.calendar = calendar;
         Category.setIdNumber(jsonObject.getInt("categoryId"));
-        Subcategory.setIdNumber(jsonObject.getInt("subcategoryId"));
         Event.setIdNumber(jsonObject.getInt("eventId"));
         addCategories(jsonObject);
         for (Subcategory subcategory : addSubcategories(jsonObject)) {
             calendar.addSubcategory(subcategory);
         }
         addYears(jsonObject);
+        addEvents(jsonObject);
 
         return calendar;
     }
@@ -71,79 +71,34 @@ public class JsonReader {
     // EFFECTS: parses years from JSON object and adds them to calendar
     private void addYears(JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("years");
+        List<Year> years = new ArrayList<Year>();
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject year = (JSONObject) jsonArray.get(i);
-            calendar.getYears().set(i, parseYear(calendar.getYears().get(i), year));
+        for (Object year : jsonArray) {
+            years.add(new Year((int)year));
         }
+
+        calendar.setYears(years);
     }
 
-    // MODIFIES: year
-    // EFFECTS: parses year from JSON object and returns it
-    private Year parseYear(Year year, JSONObject jsonObject) {
-        year.setYearNumber(jsonObject.getInt("yearNumber"));
-        year.setCurrentMonthIndex(jsonObject.getInt("currentMonthIndex"));
-        addMonths(year, jsonObject);
-        return year;
-    }
-
-    // MODIFIES: year
-    // EFFECTS: parses months from JSON object and adds them to year
-    private void addMonths(Year year, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("months");
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject month = (JSONObject) jsonArray.get(i);
-            year.getMonths().set(i, parseMonth(year, year.getMonths().get(i), month));
-        }
-    }
-
-    // MODIFIES: month
-    // EFFECTS: parses month from JSON object and returns it
-    private Month parseMonth(Year year, Month month, JSONObject jsonObject) {
-        month.setName(jsonObject.getString("name"));
-        month.setYear(year);
-        month.setMonthNumber(jsonObject.getInt("monthNumber"));
-        addDays(year, month, jsonObject);
-        return month;
-    }
-
-    // MODIFIES: month
-    // EFFECTS: parses days from JSON object and adds them to month
-    private void addDays(Year year, Month month, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("days");
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject day = (JSONObject) jsonArray.get(i);
-            month.getDays().set(i, parseDay(month, month.getDays().get(i), day));
-        }
-    }
-
-    // MODIFIES: day
-    // EFFECTS: parses day from JSON object and returns it
-    private Day parseDay(Month month, Day day, JSONObject jsonObject) {
-        day.setYear(month.getYear());
-        day.setMonth(month);
-        day.setDayNumber(jsonObject.getInt("dayNumber"));
-        addEvents(day, jsonObject);
-        return day;
-    }
-
-    // EFFECTS: parses events from JSON object and adds them to day
-    private void addEvents(Day day, JSONObject jsonObject) {
+    // EFFECTS: parses events from JSON object and adds them to both calendar and their recurring days
+    private void addEvents(JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("events");
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject event = (JSONObject) jsonArray.get(i);
-            parseEvent(day, event);
+            parseEvent(event);
         }
     }
 
     // MODIFIES: day
     // EFFECTS: parses event from JSON object and returns it
-    private void parseEvent(Day day, JSONObject jsonObject) {
-        Category category = parseCategory(jsonObject.optJSONObject("category"), false);
-        Subcategory subcategory = parseSubcategory(jsonObject.optJSONObject("subcategory"));
+    private void parseEvent(JSONObject jsonObject) {
+        Category category = jsonObject.isNull("category") 
+                                    ? null 
+                                    : calendar.getCategory(jsonObject.getInt("category"));
+        Subcategory subcategory = jsonObject.isNull("subcategory") 
+                                    ? null 
+                                    : calendar.getSubcategory(jsonObject.getInt("subcategory"));
         Time startTime = parseTime(jsonObject.getJSONObject("startTime"));
         Time endTime = parseTime(jsonObject.getJSONObject("endTime"));
         String name = jsonObject.getString("name");
@@ -155,6 +110,7 @@ public class JsonReader {
         }
 
         Event event = new Event(category, subcategory, startTime, endTime, name, recurringDays);
+        Event.decrementId();
         event.setId(id);
     }
 
@@ -165,26 +121,21 @@ public class JsonReader {
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject category = (JSONObject) jsonArray.get(i);
-            calendar.addCategory(parseCategory(category, false));
+            calendar.addCategory(parseCategory(category));
         }
     }
 
     // EFFECTS: parses category from JSON object and returns it
-    private Category parseCategory(JSONObject jsonObject, boolean parentCategory) {
+    private Category parseCategory(JSONObject jsonObject) {
         if (jsonObject == null) {
-            return null;
-        } else if (parentCategory) {
-            for (Category category : calendar.getCategories()) {
-                if (jsonObject.getInt("id") == category.getId()) {
-                    return category;
-                }
-            }
             return null;
         }
 
-        int idNumber = Category.getIdNumber();
         String name = jsonObject.getString("name");
-        List<Subcategory> subcategories = addSubcategories(jsonObject);
+        List<Subcategory> subcategories = new ArrayList<Subcategory>();
+        for (Object jsonInt : jsonObject.getJSONArray("subcategories")) {
+            subcategories.add(calendar.getSubcategory((int)jsonInt));
+        }
         String location = jsonObject.getString("location");
         int id = jsonObject.getInt("id");
         List<String> links = new ArrayList<String>();
@@ -195,7 +146,7 @@ public class JsonReader {
 
         Category category = new Category(name, subcategories, location, links, notes);
         category.setId(id);
-        Category.setIdNumber(idNumber);
+        Category.decrementId();
         
         return category;
     }
@@ -219,9 +170,10 @@ public class JsonReader {
             return null;
         }
 
-        Category parentCategory = parseCategory(jsonObject.optJSONObject("parentCategory"), true);
+        Category parentCategory = jsonObject.isNull("parentCategory") 
+                                    ? null 
+                                    : calendar.getCategory(jsonObject.getInt("parentCategory"));
         int priorityLevel = jsonObject.getInt("priorityLevel");
-        int idNumber = Subcategory.getIdNumber();
         String name = jsonObject.getString("name");
         String location = jsonObject.getString("location");
         int id = jsonObject.getInt("id");
@@ -235,7 +187,7 @@ public class JsonReader {
 
         Subcategory subcategory = new Subcategory(parentCategory, priorityLevel, tags, name, location, links, notes);
         subcategory.setId(id);
-        Subcategory.setIdNumber(idNumber);
+        Subcategory.decrementId();
         
         return subcategory;
     }
