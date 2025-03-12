@@ -99,23 +99,4 @@ public class Month {
         this.year = year;
     }
 
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("name", name);
-        json.put("monthNumber", monthNumber);
-        json.put("days", daysToJson());
-        return json;
-    }
-
-    // EFFECTS: returns things in this workroom as a JSON array
-    private JSONArray daysToJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (Day day : days) {
-            jsonArray.put(day.toJson());
-        }
-
-        return jsonArray;
-    }
-
 }

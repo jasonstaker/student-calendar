@@ -79,6 +79,12 @@ public class Event {
         removedDay.removeEvent(this);
     }
 
+    // MODIFIES: this
+    // EFFECTS: decrements the static id for Event
+    public static void decrementId() {
+        idNumber--;
+    }
+
     /*
      * GETTERS/SETTERS
      */
@@ -153,12 +159,12 @@ public class Event {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("id", id);
-        json.put("category", category == null ? JSONObject.NULL : category.toJson(false));
-        json.put("subcategory", subcategory == null ? JSONObject.NULL : subcategory.toJson());
+        json.put("name", name);
         json.put("startTime", startTime.toJson());
         json.put("endTime", endTime.toJson());
-        json.put("name", name);
         json.put("recurringDays", recurringDaysToJson());
+        json.put("category", category == null ? JSONObject.NULL : category.toJsonId());
+        json.put("subcategory", subcategory == null ? JSONObject.NULL : subcategory.toJsonId());
         return json;
     }
 

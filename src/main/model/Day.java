@@ -107,22 +107,4 @@ public class Day {
         this.dayNumber = dayNumber;
     }
 
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("dayNumber", dayNumber);
-        json.put("events", eventsToJson());
-        return json;
-    }
-
-    // EFFECTS: returns things in this workroom as a JSON array
-    private JSONArray eventsToJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (Event event : events) {
-            jsonArray.put(event.toJson());
-        }
-
-        return jsonArray;
-    }
-
 }

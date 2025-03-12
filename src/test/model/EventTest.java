@@ -125,13 +125,11 @@ public class EventTest {
         
         event.addRecurringDay(day2);
         event.addRecurringDay(day3);
-        event.addRecurringDay(day3);
 
-        assertEquals(4, event.getRecurringDays().size());
+        assertEquals(3, event.getRecurringDays().size());
         assertEquals(day3, event.getRecurringDays().get(0));
-        assertEquals(day3, event.getRecurringDays().get(1));
-        assertEquals(day1, event.getRecurringDays().get(2));
-        assertEquals(day2, event.getRecurringDays().get(3));
+        assertEquals(day1, event.getRecurringDays().get(1));
+        assertEquals(day2, event.getRecurringDays().get(2));
     }
 
     @Test

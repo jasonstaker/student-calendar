@@ -94,24 +94,5 @@ public class Year {
     public void setCurrentMonthIndex(int currentMonthIndex) {
         this.currentMonthIndex = currentMonthIndex;
     }
-
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("yearNumber", yearNumber);
-        json.put("months", monthsToJson());
-        json.put("currentMonthIndex", currentMonthIndex);
-        return json;
-    }
-
-    // EFFECTS: returns things in this workroom as a JSON array
-    private JSONArray monthsToJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (Month month : months) {
-            jsonArray.put(month.toJson());
-        }
-
-        return jsonArray;
-    }
     
 }

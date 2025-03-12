@@ -212,23 +212,6 @@ public class CategoryTest {
     }
 
     @Test
-    void testToJsonWithParentCategoryTrue() {
-        Category category = new Category("Test Category");
-        category.setId(123);
-
-        JSONObject json = category.toJson(true);
-
-        assertNotNull(json);
-        assertEquals(123, json.getInt("id"));
-        assertEquals(1, json.length());
-        assertFalse(json.has("name"));
-        assertFalse(json.has("subcategories"));
-        assertFalse(json.has("location"));
-        assertFalse(json.has("links"));
-        assertFalse(json.has("notes"));
-    }
-
-    @Test
     void testSubcategoriesToJsonWithNullSubcategory() {
         Subcategory sub1 = new Subcategory("Sub1");
         Subcategory sub2 = null;
@@ -239,8 +222,8 @@ public class CategoryTest {
 
         Category category = new Category("Test Category", subcategories, "", new ArrayList<>(), new ArrayList<>());
 
-        JSONArray jsonArray = category.toJson(false).getJSONArray("subcategories");
-
+        JSONArray jsonArray = category.toJson().getJSONArray("subcategories");
+        // TODO FIX:
         assertNotNull(jsonArray);
         assertEquals(1, jsonArray.length());
 
