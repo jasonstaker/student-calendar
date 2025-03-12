@@ -154,10 +154,8 @@ public class EventTest {
         assertEquals("", json.getString("name"));
         assertEquals(9, json.getJSONObject("startTime").getInt("hour"));
         assertEquals(10, json.getJSONObject("endTime").getInt("hour"));
-        assertNotNull(json.getJSONObject("category"));
-        assertNotNull(json.getJSONObject("subcategory"));
-        assertEquals("Work", json.getJSONObject("category").getString("name"));
-        assertEquals("Meetings", json.getJSONObject("subcategory").getString("name"));
+        assertEquals(category.getId(), json.getInt("category"));
+        assertEquals(subcategory.getId(), json.getInt("subcategory"));
         assertEquals(0, json.getJSONArray("recurringDays").length());
     }
 

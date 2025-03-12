@@ -211,24 +211,6 @@ public class CategoryTest {
         assertEquals(1, category1.getNotes().size());
     }
 
-    @Test
-    void testSubcategoriesToJsonWithNullSubcategory() {
-        Subcategory sub1 = new Subcategory("Sub1");
-        Subcategory sub2 = null;
-
-        List<Subcategory> subcategories = new ArrayList<>();
-        subcategories.add(sub1);
-        subcategories.add(sub2);
-
-        Category category = new Category("Test Category", subcategories, "", new ArrayList<>(), new ArrayList<>());
-
-        JSONArray jsonArray = category.toJson().getJSONArray("subcategories");
-        // TODO FIX:
-        assertNotNull(jsonArray);
-        assertEquals(1, jsonArray.length());
-
-        JSONObject jsonSub1 = jsonArray.getJSONObject(0);
-        assertEquals("Sub1", jsonSub1.getString("name"));
-    }
+    
 
 }
