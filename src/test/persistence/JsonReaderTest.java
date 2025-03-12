@@ -75,14 +75,15 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/testReaderGeneralCalendar.json");
         try {
             Calendar calendar = reader.read();
-            assertEquals("calendar", calendar.getTitle());
+            assertEquals("title", calendar.getTitle());
             List<String> links = new ArrayList<String>();
             List<String> notes = new ArrayList<String>();
             List<String> tags = new ArrayList<String>();
             links.add("link");
             notes.add("note");
-            checkCategory("Category", "location", links, notes, calendar.getCategories().get(0));
-            checkSubcategory(calendar.getCategories().get(0), 3, tags, calendar.getSubcategories().get(0));
+            tags.add("tag");
+            checkCategory("category", "", links, notes, calendar.getCategories().get(0));
+            checkSubcategory(calendar.getCategories().get(0), 1, tags, calendar.getSubcategories().get(0));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
@@ -122,11 +123,11 @@ class JsonReaderTest extends JsonTest {
             links.add("link");
             notes.add("note");
             checkDay(reader.read().getYears().get(0), reader.read().getYears().get(0).getCurrentMonth(), 1, day);
-            checkEvent("Event", event);
-            checkCategory("Category", "location", links, notes, event.getCategory());
-            checkSubcategory(event.getCategory(), 3, tags, event.getSubcategory());
+            checkEvent("event", event);
+            checkCategory("category", "", links, notes, event.getCategory());
+            checkSubcategory(event.getCategory(), 1, tags, event.getSubcategory());
             checkTime(12, 0, event.getStartTime());
-            checkTime(13, 00, event.getEndTime());
+            checkTime(13, 0, event.getEndTime());
             checkDay(day.getYear(), day.getMonth(), 1, day.getEvents().get(0).getRecurringDays().get(0));
         } catch (IOException e) {
             fail("Couldn't read from file");

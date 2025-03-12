@@ -91,9 +91,8 @@ class JsonWriterTest extends JsonTest {
             List<String> tags = new ArrayList<String>();
             links.add("link");
             notes.add("note");
-            tags.add("tag1");
-            tags.add("tag2");
-            checkCategory("category", "location", links, notes, calendar.getCategories().get(0));
+            tags.add("tag");
+            checkCategory("category", "", links, notes, calendar.getCategories().get(0));
             checkSubcategory(calendar.getCategories().get(0), 1, tags, calendar.getSubcategories().get(0));
         } catch (IOException e) {
             fail("Exception should not have been thrown");
@@ -136,14 +135,12 @@ class JsonWriterTest extends JsonTest {
             List<String> tags = new ArrayList<String>();
             links.add("link");
             notes.add("note");
-            tags.add("tag1");
-            tags.add("tag2");
             checkDay(calendar.getYears().get(0), calendar.getYears().get(0).getCurrentMonth(), 1, day);
             checkEvent("event", event);
-            checkCategory("category", "location", links, notes, event.getCategory());
+            checkCategory("category", "", links, notes, event.getCategory());
             checkSubcategory(event.getCategory(), 1, tags, event.getSubcategory());
-            checkTime(12, 44, event.getStartTime());
-            checkTime(13, 30, event.getEndTime());
+            checkTime(12, 00, event.getStartTime());
+            checkTime(13, 00, event.getEndTime());
             checkDay(day.getYear(), day.getMonth(), 1, day.getEvents().get(0).getRecurringDays().get(0));
         } catch (IOException e) {
             fail("Exception should not have been thrown");
@@ -153,22 +150,32 @@ class JsonWriterTest extends JsonTest {
     // EFFECTS: makes the general calendar used for testing
     private Calendar makeGeneralCalendar() {
         Calendar calendar = new Calendar("calendar", 2025);
-        List<String> links = new ArrayList<String>();
         List<String> notes = new ArrayList<String>();
+        List<String> links = new ArrayList<String>();
         List<String> tags = new ArrayList<String>();
-        List<Day> recurringDays = new ArrayList<Day>();
-        links.add("link");
-        notes.add("note");
-        tags.add("tag1");
-        tags.add("tag2");
 
-        Category category = new Category("category", new ArrayList<Subcategory>(), "location", links, notes);
-        Subcategory subcategory = new Subcategory(null, 1, tags, "subcategory", "location", links, notes);
-        calendar.addCategory(category);
-        calendar.addSubcategory(subcategory);
+        notes.add("note");
+        links.add("link");
+        tags.add("tag");
+
+        Category category = new Category("category", new ArrayList<Subcategory>(), "", links, notes);
+        Subcategory subcategory1 = new Subcategory(category, 1, tags, "first", "", links, notes);
+        Subcategory subcategory2 = new Subcategory("second");
+
+        subcategory1.addSubcategory(subcategory2);
+        category.addSubcategory(subcategory1);
+        category.addSubcategory(subcategory2);
+
+        List<Day> recurringDays = new ArrayList<Day>();
         Day day = calendar.getYears().get(0).getMonths().get(0).getDays().get(0);
+
         recurringDays.add(day);
-        day.addEvent(new Event(category, subcategory, new Time(12, 44), new Time(13, 30), "event", recurringDays));
+
+        Event event = new Event(category, subcategory2, new Time(12, 0), new Time(13, 0), "event", recurringDays);
+        calendar.addCategory(category);
+        calendar.addSubcategory(subcategory1);
+        calendar.addSubcategory(subcategory2);
+        calendar.addEvent(event);
 
         return calendar;
     }
