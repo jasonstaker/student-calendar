@@ -1,165 +1,88 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.plaf.basic.BasicArrowButton;
-
 import model.Calendar;
 
+// TitlePanel displays the title portion of the calendar UI and provides navigation controls.
 public class TitlePanel extends JPanel {
 
-    private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June",
-                                            "July", "August", "September", "October", "November", "December"};
+    // fields
+    private static final String[] MONTHS = { "January", "February", "March", "April", "May", "June",
+                                               "July", "August", "September", "October", "November", "December" };
 
-    
-    private Calendar calendar;
-    private JLabel titleLabel;
-    private String calendarTitle;
-    private Integer year;
-    private Integer month;
-    private Integer day;
-
-    public TitlePanel(Calendar calendar, int year) {
-        this.calendar = calendar;
-        this.calendarTitle = calendar.getTitle();
-        this.year = year;
-        this.month = null;
-        this.day = null;
-        this.add(createPanel());
+    // REQUIRES: calendar != null, calendarUI != null
+    // MODIFIES: this
+    // EFFECTS: Initializes the TitlePanel.
+    public TitlePanel(Calendar calendar, CalendarUI calendarUI, int year) {
+        
     }
 
-    public TitlePanel(Calendar calendar, int year, int month) {
-        this.calendar = calendar;
-        this.calendarTitle = calendar.getTitle();
-        this.year = year;
-        this.month = month;
-        this.day = null;
-        this.add(createPanel());
-    }
-
-    public TitlePanel(Calendar calendar, int year, int month, int day) {
-        this.calendar = calendar;
-        this.calendarTitle = calendar.getTitle();
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.add(createPanel());
-    }
-
+    // EFFECTS: creates and returns the main title panel with border and layout settings.
     private JPanel createPanel() {
-        JPanel titlePanel = new JPanel(true);
-        titlePanel.setBorder(BorderFactory
-                .createLineBorder(SystemColor.activeCaption));
-        titlePanel.setLayout(new BorderLayout());
-        titlePanel.add(createTitleUI(), BorderLayout.CENTER);
-        //titlePanel.add(createNotificationUI(), BorderLayout.EAST);
-        titlePanel.setBackground(Color.WHITE);
-        titlePanel.setForeground(Color.BLACK);
-
-        return titlePanel;
+        return null;
     }
 
+    // EFFECTS: creates and returns the title UI panel with navigation arrows and the title label.
     private JPanel createTitleUI() {
-        JPanel titleUI = new JPanel(true);
-        JPanel titlePanel = new JPanel(true);
-        titleLabel = new JLabel();
-        titleUI.setBorder(BorderFactory
-                .createLineBorder(SystemColor.activeCaption));
-        titleUI.setLayout(new FlowLayout());
-        titleUI.setBackground(Color.WHITE);
-
-        updateTitle();
-        JButton leftArrow = makeLeftArrow();
-        JButton rightArrow = makeRightArrow();
-        titleLabel.setForeground(SystemColor.activeCaption);
-
-        titlePanel.add(leftArrow, BorderLayout.WEST);
-        titlePanel.add(titleLabel, BorderLayout.CENTER);
-        titlePanel.add(rightArrow, BorderLayout.EAST);
-
-        titleUI.add(titlePanel, BorderLayout.CENTER);
-
-        return titleUI;
+        return null;
     }
 
-    private void updateTitle() {
-        if (month == null) {
-            titleLabel.setText(calendarTitle + ": " + year);
-            return;
-        } else if (day == null) {
-            titleLabel.setText(calendarTitle + ": " + MONTHS[month] + " " + year);
-            return;
-        }
-
-        titleLabel.setText(calendarTitle + ": " + MONTHS[month] + " " + day + " " + year);
+    // MODIFIES: this, titleLabel
+    // EFFECTS: updates the title text and refreshes the panel display.
+    public void updateTitle() {
+        
     }
 
+    // EFFECTS: creates and returns a left arrow JButton.
     private JButton makeLeftArrow() {
-        JButton leftArrow = new JButton(new LeftArrowAction());
-        
-        leftArrow.setOpaque(false);
-        leftArrow.setContentAreaFilled(false);
-        leftArrow.setBorderPainted(false);
-
-        return leftArrow;
+        return null;
     }
 
+    // EFFECTS: creates and returns a right arrow JButton.
     private JButton makeRightArrow() {
-        JButton rightArrow = new JButton(new RightArrowAction());
-        
-        rightArrow.setOpaque(false);
-        rightArrow.setContentAreaFilled(false);
-        rightArrow.setBorderPainted(false);
-
-        return rightArrow;
+         return null;
     }
 
     private class LeftArrowAction extends AbstractAction {
+        // EFFECTS: Initializes the left arrow action.
         LeftArrowAction() {
-            super("\u25C4");
+            
         }
 
+        // MODIFIES: calendar, calendarUI
+        // EFFECTS: navigates to the previous month or year and updates the title.
         @Override
         public void actionPerformed(ActionEvent evt) {
-            if (month == null) {
-                calendar.decrementYearIndex();
-                year = calendar.getCurrentYear().getYearNumber();
-            } else {
-                calendar.getCurrentYear().decrementMonthIndex();
-                month = calendar.getCurrentYear().getCurrentMonth().getMonthNumber();
-            }
-
-            updateTitle();
+            
         }
     }
 
     private class RightArrowAction extends AbstractAction {
+        // EFFECTS: Initializes the right arrow action.
         RightArrowAction() {
-            super("\u27A4");
+            
         }
 
+        // MODIFIES: calendar, calendarUI
+        // EFFECTS: navigates to the next month or year and updates the title.
         @Override
         public void actionPerformed(ActionEvent evt) {
-            if (month == null) {
-                calendar.incrementYearIndex();
-                year = calendar.getCurrentYear().getYearNumber();
-            } else {
-                calendar.getCurrentYear().incrementMonthIndex();
-                month = calendar.getCurrentYear().getCurrentMonth().getMonthNumber();
-            }
-
-            updateTitle();
+            
         }
     }
-    
+
+    // MODIFIES: this
+    // EFFECTS: advances the calendar view depth.
+    protected void incrementDepth() {
+        
+    }
+
+    // MODIFIES: this
+    // EFFECTS: devances the calendar view depth.
+    protected void decrementDepth() {
+        
+    }
 }
