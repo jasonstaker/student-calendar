@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Calendar {
 
     // fields
+    private static final int YEAR_RANGE = 10;
     private String title;
     private List<Year> years;
     private int currentYearIndex;
@@ -34,7 +35,7 @@ public class Calendar {
         subcategoryId = 0;
         eventId = 0;
         
-        for (int i = -1; i <= 1; i++) {
+        for (int i = -YEAR_RANGE; i <= YEAR_RANGE; i++) {
             years.add(new Year(currentYear + i));
         }
     }
@@ -208,6 +209,10 @@ public class Calendar {
     /*
      * GETTERS/SETTERS
      */
+
+    public static int getYearRange() {
+        return YEAR_RANGE;
+    }
     
     public String getTitle() {
         return title;
