@@ -3,9 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 // A Month with a month number that contains a list of days
 public class Month {
 
@@ -87,6 +84,10 @@ public class Month {
         return year;
     }
 
+    public Day getCurrentDay() {
+        return days.get(currentDayIndex);
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -97,6 +98,10 @@ public class Month {
 
     public void setYear(Year year) {
         this.year = year;
+    }
+
+    public void setCurrentDayIndex(int currentDayIndex) {
+        this.currentDayIndex = currentDayIndex;
     }
 
 }

@@ -2,9 +2,6 @@ package model;
 
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 // A Day that stores the month, day number, and any events that are starting, ongoing, and/or ending
