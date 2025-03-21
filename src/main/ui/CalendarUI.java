@@ -3,21 +3,8 @@ package ui;
 import model.Calendar;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 /**
  * Represents application's main window frame.
@@ -35,8 +22,9 @@ class CalendarUI extends JFrame {
     private TitlePanel titlePanel;
     private JPanel contentPanel;
     private JPanel categoryPanel;
+    private CalendarController calendarController;
 
-    // EFFECTS: 
+    // EFFECTS:
     public CalendarUI(Calendar calendar) {
         this.calendar = calendar;
         setTitle("Calendar UI");
@@ -51,8 +39,25 @@ class CalendarUI extends JFrame {
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        titlePanel = new TitlePanel(calendar, calendar.getCurrentYear().getYearNumber());
+        titlePanel = new TitlePanel(calendar, this, calendar.getCurrentYear().getYearNumber());
         mainPanel.add(titlePanel, BorderLayout.NORTH);
+
+        categoryPanel = new JPanel();
+        // TODO
+        // Filling in category panel with a basic label as a placeholder.
+        categoryPanel.add(new JLabel("Category Panel"));
+        mainPanel.add(categoryPanel, BorderLayout.SOUTH);
+
+        calendarController = new CalendarController(calendar, this);
+        yearPanel = new YearPanel(calendar, calendarController);
+        monthPanel = new MonthPanel(calendar, calendarController);
+        dayPanel = new DayPanel(calendar, calendarController);
+
+        calendarController.setFields(titlePanel, yearPanel, monthPanel);
+
+        contentPanel.add(yearPanel, BorderLayout.CENTER);
+
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
 
         add(mainPanel);
 
@@ -62,42 +67,48 @@ class CalendarUI extends JFrame {
     // MODIFIES: TODO
     // EFFECTS: displays all available years as buttons and category selection
     public void displayYearSelection() {
+        contentPanel.removeAll();
+        yearPanel = new YearPanel(calendar, calendarController);
+        contentPanel.add(yearPanel, BorderLayout.CENTER);
 
+        revalidate();
+        repaint();
     }
 
     // REQUIRES: year is a valid year in calendar
     // MODIFIES: TODO
     // EFFECTS: displays the months of the selected year, updating the title too
-    public void displayMonthSelection(int year) {
-        
+    public void displayMonthSelection() {
+        contentPanel.removeAll();
+        monthPanel = new MonthPanel(calendar, calendarController);
+        contentPanel.add(monthPanel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 
     // REQUIRES: year and month are valid in calendar
     // MODIFIES: TODO
     // EFFECTS: displays the days of the selected month, updating the title too
-    public void displayDaySelection(int year, int month) {
-        // Displays all days of the selected month
-        // Updates the title to "<- Calendar Title: Month Year ->"
+    public void displayDaySelection() {
+        contentPanel.removeAll();
+        dayPanel = new DayPanel(calendar, calendarController);
+        contentPanel.add(dayPanel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 
     // REQUIRES: year, month, and day are valid in calendar
     // MODIFIES: TODO
     // EFFECTS: displays the events of the selected day, updating the title too
     public void displayDayView(int year, int month, int day) {
-        
+        // Placeholder: display a dialog with the selected day details.
+        JOptionPane.showMessageDialog(this, "Displaying events for " + day + "/" + month + "/" + year);
     }
 
     // MODIFIES: TODO
     // EFFECTS: displays the category/subcategory menu
     public void showCategoryManagementMenu() {
-        
+        // Placeholder: display a dialog for category management.
+        JOptionPane.showMessageDialog(this, "Category management menu");
     }
-
-    // REQUIRES: title is not null
-    // MODIFIES: titleLabel
-    // EFFECTS: updates the titlelabel to reflect current program state
-    public void updateTitle(String title) {
-        // Updates the title label in the UI
-    }
-    
 }
