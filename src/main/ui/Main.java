@@ -1,14 +1,7 @@
 package ui;
 
 import model.*;
-import persistence.JsonReader;
-import persistence.JsonWriter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDate;
 
 // initializes the Calendar and begins the UI
