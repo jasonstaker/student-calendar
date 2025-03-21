@@ -1,17 +1,13 @@
 package ui;
 
 import model.Calendar;
-
 import java.awt.BorderLayout;
-
 import javax.swing.*;
 
-/**
- * Represents application's main window frame.
- */
+// Represents application's main window frame.
 class CalendarUI extends JFrame {
 
-    // fields
+    // FIELDS
     private static final int WIDTH = 400;
     private static final int HEIGHT = 500;
     private Calendar calendar;
@@ -24,7 +20,7 @@ class CalendarUI extends JFrame {
     private JPanel categoryPanel;
     private CalendarController calendarController;
 
-    // EFFECTS:
+    // EFFECTS: Initializes the CalendarUI frame, configures panels, and displays the main window.
     public CalendarUI(Calendar calendar) {
         this.calendar = calendar;
         setTitle("Calendar UI");
@@ -43,8 +39,7 @@ class CalendarUI extends JFrame {
         mainPanel.add(titlePanel, BorderLayout.NORTH);
 
         categoryPanel = new JPanel();
-        // TODO
-        // Filling in category panel with a basic label as a placeholder.
+        // TODO: Fill in category panel with appropriate components.
         categoryPanel.add(new JLabel("Category Panel"));
         mainPanel.add(categoryPanel, BorderLayout.SOUTH);
 
@@ -56,16 +51,14 @@ class CalendarUI extends JFrame {
         calendarController.setFields(titlePanel, yearPanel, monthPanel);
 
         contentPanel.add(yearPanel, BorderLayout.CENTER);
-
         mainPanel.add(contentPanel, BorderLayout.CENTER);
-
         add(mainPanel);
 
         setVisible(true);
     }
 
-    // MODIFIES: TODO
-    // EFFECTS: displays all available years as buttons and category selection
+    // MODIFIES: contentPanel, yearPanel
+    // EFFECTS: Displays all months in the current year as buttons for the user to select
     public void displayYearSelection() {
         contentPanel.removeAll();
         yearPanel = new YearPanel(calendar, calendarController);
@@ -76,8 +69,8 @@ class CalendarUI extends JFrame {
     }
 
     // REQUIRES: year is a valid year in calendar
-    // MODIFIES: TODO
-    // EFFECTS: displays the months of the selected year, updating the title too
+    // MODIFIES: contentPanel, titlePanel, monthPanel
+    // EFFECTS: Displays all days in the current month as buttons for the user to select
     public void displayMonthSelection() {
         contentPanel.removeAll();
         monthPanel = new MonthPanel(calendar, calendarController);
@@ -87,8 +80,8 @@ class CalendarUI extends JFrame {
     }
 
     // REQUIRES: year and month are valid in calendar
-    // MODIFIES: TODO
-    // EFFECTS: displays the days of the selected month, updating the title too
+    // MODIFIES: contentPanel, titlePanel, dayPanel
+    // EFFECTS: Displays day view for the current day in the calendar, allowing users to interact with events
     public void displayDaySelection() {
         contentPanel.removeAll();
         dayPanel = new DayPanel(calendar, calendarController);
@@ -97,18 +90,8 @@ class CalendarUI extends JFrame {
         repaint();
     }
 
-    // REQUIRES: year, month, and day are valid in calendar
-    // MODIFIES: TODO
-    // EFFECTS: displays the events of the selected day, updating the title too
-    public void displayDayView(int year, int month, int day) {
-        // Placeholder: display a dialog with the selected day details.
-        JOptionPane.showMessageDialog(this, "Displaying events for " + day + "/" + month + "/" + year);
-    }
-
-    // MODIFIES: TODO
-    // EFFECTS: displays the category/subcategory menu
+    // EFFECTS: Displays the category/subcategory management menu via a dialog.
     public void showCategoryManagementMenu() {
-        // Placeholder: display a dialog for category management.
-        JOptionPane.showMessageDialog(this, "Category management menu");
+        // TODO
     }
 }
