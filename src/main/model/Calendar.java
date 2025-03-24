@@ -280,28 +280,8 @@ public class Calendar {
         return eventId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public void setYears(List<Year> years) {
         this.years = years;
-    }
-
-    public void setCurrentYearIndex(int currentYearIndex) {
-        this.currentYearIndex = currentYearIndex;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public void setSubcategories(List<Subcategory> subcategories) {
-        this.subcategories = subcategories;
     }
 
     // EFFECTS: returns this calendar as a JSONObject

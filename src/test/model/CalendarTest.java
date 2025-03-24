@@ -1,6 +1,7 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -26,8 +27,8 @@ public class CalendarTest {
 
         assertEquals("test", calendar.getTitle());
         assertEquals(2015, calendar.getYears().get(0).getYearNumber());
-        assertEquals(2025, calendar.getYears().get(1).getYearNumber());
-        assertEquals(2026, calendar.getYears().get(2).getYearNumber());
+        assertEquals(2016, calendar.getYears().get(1).getYearNumber());
+        assertEquals(2017, calendar.getYears().get(2).getYearNumber());
         assertEquals(calendar.getYears().get(1), calendar.getCurrentYear());
         assertEquals(categories, calendar.getCategories());
         assertEquals(subcategories, calendar.getSubcategories());
@@ -42,11 +43,11 @@ public class CalendarTest {
 
     @Test
     void testMonthIncrementUpper() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 100; i++) {
             calendar.incrementYearIndex();
         }
 
-        assertEquals(calendar.getYears().get(2), calendar.getCurrentYear());
+        assertEquals(calendar.getYears().get(20), calendar.getCurrentYear());
     }
 
     @Test
@@ -66,12 +67,12 @@ public class CalendarTest {
     
     @Test
     void testGetLowestYear() {
-        assertEquals(2024, calendar.getLowestYear().getYearNumber());
+        assertEquals(2015, calendar.getLowestYear().getYearNumber());
     }
 
     @Test
     void testGetHighestYear() {
-        assertEquals(2026, calendar.getHighestYear().getYearNumber());
+        assertEquals(2035, calendar.getHighestYear().getYearNumber());
     }
     
     @Test
@@ -86,7 +87,7 @@ public class CalendarTest {
 
     @Test
     void testIsInCalendarFailInvalidYear() {
-        assertFalse(calendar.isInCalendar("2023/01/01"));
+        assertFalse(calendar.isInCalendar("2039/01/01"));
     }
 
     @Test
@@ -145,7 +146,7 @@ public class CalendarTest {
         Month month = year.getMonths().get(11);
         Day day = month.getDays().get(4);
 
-        assertEquals(day, calendar.dateToDay("2024/12/05"));
+        assertEquals(day, calendar.dateToDay("2015/12/05"));
     }
 
     @Test
@@ -154,7 +155,7 @@ public class CalendarTest {
         Month month = year.getMonths().get(3);
         Day day = month.getDays().get(11);
         
-        assertEquals(day, calendar.dateToDay("2024/04/12"));
+        assertEquals(day, calendar.dateToDay("2015/04/12"));
     }
 
     @Test
@@ -163,7 +164,7 @@ public class CalendarTest {
         Month month = year.getMonths().get(11);
         Day day = month.getDays().get(30);
         
-        assertEquals(day, calendar.dateToDay("2026/12/31"));
+        assertEquals(day, calendar.dateToDay("2035/12/31"));
     }
 
     @Test
@@ -172,7 +173,7 @@ public class CalendarTest {
         Month month = year.getMonths().get(0);
         Day day = month.getDays().get(0);
         
-        assertEquals(day, calendar.dateToDay("2024/01/01"));
+        assertEquals(day, calendar.dateToDay("2015/01/01"));
     }
 
     @Test
@@ -230,7 +231,7 @@ public class CalendarTest {
     }
 
     @Test
-    void setIds() {
+    void testSetIds() {
         Category throwCategory = new Category();
         Subcategory throwSubcategory = new Subcategory("");
         Event throwEvent = new Event(throwCategory, throwSubcategory, null, null, "hello", new ArrayList<Day>());
@@ -239,5 +240,68 @@ public class CalendarTest {
         assertTrue(calendar.getSubcategoryId() == (int)calendar.getSubcategoryId());
         assertTrue(calendar.getEventId() == (int)calendar.getEventId());
     }
+    
+    @Test
+    void testRemoveEvent() {
+        List<Day> days = new ArrayList<Day>();
+        days.add(new Day(calendar.getYears().get(0), calendar.getYears().get(0).getMonths().get(0), 1));
+        Event event = new Event(null, null, null, null, "hello", days);
+        calendar.addEvent(event);
+        assertEquals(1, calendar.getEvents().size());
+        calendar.removeEvent(event);
+        assertEquals(0, calendar.getEvents().size());
+    }
+
+    @Test
+    void testGetEvent() {
+        Event event = new Event(null, null, null, null, "Test Event", new ArrayList<>());
+        calendar.addEvent(event);
+        int id = event.getId();
+        assertEquals(event, calendar.getEvent(id));
+        assertNull(calendar.getEvent(-1));
+    }
+
+    @Test
+    void testGetCategory() {
+        Category category = new Category("Test Category");
+        calendar.addCategory(category);
+        int id = category.getId();
+        assertEquals(category, calendar.getCategory(id));
+        assertNull(calendar.getCategory(-1));
+    }
+
+    @Test
+    void testFromOffsetWithinMonth() {
+        Year lowestYear = calendar.getLowestYear();
+        Month january = lowestYear.getMonths().get(0);
+        Day janFirst = january.getDays().get(0);
+        Day janSecond = calendar.fromOffset(janFirst, 1);
+        Day expectedJanSecond = january.getDays().get(1);
+        assertEquals(expectedJanSecond, janSecond);
+    }
+
+    @Test
+    void testFromOffsetNextMonth() {
+        Year lowestYear = calendar.getLowestYear();
+        Month january = lowestYear.getMonths().get(0);
+        Day janFirst = january.getDays().get(0);
+        Day febFirst = calendar.fromOffset(janFirst, 31);
+        Month february = lowestYear.getMonths().get(1);
+        Day expectedFebFirst = february.getDays().get(0);
+        assertEquals(expectedFebFirst, febFirst);
+    }
+
+    @Test
+    void testFromOffsetMultipleYears() {
+        Year lowestYear = calendar.getLowestYear();
+        Month december = lowestYear.getMonths().get(11);
+        Day decLast = december.getDays().get(december.getDays().size() - 1);
+        Day nextDay = calendar.fromOffset(decLast, 1);
+        Year nextYear = calendar.getYears().get(1);
+        Month januaryNextYear = nextYear.getMonths().get(0);
+        Day expectedDay = januaryNextYear.getDays().get(1);
+        assertEquals(expectedDay, nextDay);
+    }
+
     
 }
