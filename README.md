@@ -18,3 +18,11 @@ My application will do the following:
 - As a user, I want to be able to view all the events scheduled for a specific day.
 - As a user, I want the option to save my calendar to a file so I can access my events later.
 - As a user, I want the option to load my saved calendar from a file so I can resume where I left off.
+
+# Instructions for End User
+
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by clicking the add Category button and typing in a name.
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by going into a day of your choosing, clicking add event, and entering the details there.
+- You can locate my visual component by going into any day.
+- You can save the state of my application by clicking file at the top left, and clicking save.
+- You can reload the state of my application by clicking file at the top left, and clicking load.
