@@ -64,6 +64,23 @@ public class Month {
         return days.get(days.size() - 1);
     }
 
+    // EFFECTS: increments the currentDayIndex
+    public void incrementDayIndex() {
+        if (currentDayIndex == days.size() - 1) {
+            return;
+        }
+        currentDayIndex++;
+    }
+
+    // EFFECTS: decrements the currentDayIndex
+    public void decrementDayIndex() {
+        if (currentDayIndex == 0) {
+            return;
+        }
+
+        currentDayIndex--;
+    }
+
     /*
      * GETTERS/SETTERS
      */
