@@ -162,4 +162,25 @@ public class DayTest {
         assertFalse(day.isBefore(testDay));
     }
 
+    @Test
+    void testSetYear() {
+        Year newYear = new Year(2030);
+        day.setYear(newYear);
+        assertEquals(newYear, day.getYear());
+    }
+
+    @Test
+    void testSetMonth() {
+        Month newMonth = new Month(year, 1);
+        day.setMonth(newMonth);
+        assertEquals(newMonth, day.getMonth());
+    }
+
+    @Test
+    void testSetDayNumber() {
+        day.setDayNumber(10);
+        assertEquals(10, day.getDayNumber());
+    }
+
+
 }

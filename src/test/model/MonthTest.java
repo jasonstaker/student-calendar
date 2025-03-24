@@ -71,4 +71,51 @@ public class MonthTest {
         Month leapMonth = new Month(new Year(2000), 1);
         assertEquals(29, leapMonth.getDays().size());
     }
+
+    @Test
+    void testIncrementDayIndex() {
+        int origIndex = 0;
+        assertEquals(month1.getDays().get(origIndex), month1.getCurrentDay());
+        month1.incrementDayIndex();
+        assertEquals(month1.getDays().get(origIndex + 1), month1.getCurrentDay());
+    }
+
+    @Test
+    void testIncrementDayIndexAtEnd() {
+        int lastIndex = month1.getDays().size() - 1;
+        month1.setCurrentDayIndex(lastIndex);
+        Day current = month1.getCurrentDay();
+        month1.incrementDayIndex();
+        assertEquals(current, month1.getCurrentDay());
+    }
+
+    @Test
+    void testDecrementDayIndex() {
+        month1.setCurrentDayIndex(2);
+        month1.decrementDayIndex();
+        assertEquals(month1.getDays().get(1), month1.getCurrentDay());
+    }
+
+    @Test
+    void testDecrementDayIndexAtZero() {
+        month1.setCurrentDayIndex(0);
+        Day current = month1.getCurrentDay();
+        month1.decrementDayIndex();
+        assertEquals(current, month1.getCurrentDay());
+    }
+
+    @Test
+    void testSetters() {
+        month1.setName("Test Month");
+        assertEquals("Test Month", month1.getName());
+        month1.setMonthNumber(7);
+        assertEquals(7, month1.getMonthNumber());
+        Year newYear = new Year(2030);
+        month1.setYear(newYear);
+        assertEquals(newYear, month1.getYear());
+        month1.setCurrentDayIndex(5);
+        assertEquals(month1.getDays().get(5), month1.getCurrentDay());
+    }
+
+
 }

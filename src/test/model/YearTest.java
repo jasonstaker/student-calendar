@@ -112,6 +112,12 @@ public class YearTest {
         Year leapYear = new Year(2000);
         assertTrue(leapYear.isLeapYear());
     }
+
+    @Test
+    void testCurrentMonthSetter() {
+        year1.setCurrentMonthIndex(6);
+        assertEquals(6, year1.getCurrentMonth().getMonthNumber());
+    }
     
 
 }
