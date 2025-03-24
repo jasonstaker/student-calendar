@@ -49,7 +49,7 @@ class JsonWriterTest extends JsonTest {
             writeEmptyCalendar();
 
             Year year = reader.read().getYears().get(0);
-            checkYear(2024, year.getMonths(), year.getMonths().get(0), 0, year);
+            checkYear(2015, year.getMonths(), year.getMonths().get(0), 0, year);
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
@@ -105,7 +105,7 @@ class JsonWriterTest extends JsonTest {
             writeGeneralCalendar();
             
             Year year = calendar.getYears().get(1);
-            checkYear(2025, year.getMonths(), year.getMonths().get(0), 0, year);
+            checkYear(2016, year.getMonths(), year.getMonths().get(0), 0, year);
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
