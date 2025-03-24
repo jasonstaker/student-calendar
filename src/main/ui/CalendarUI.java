@@ -147,19 +147,13 @@ class CalendarUI extends JFrame {
     JPanel categoryPanel = new JPanel();
     categoryPanel.setLayout(new BoxLayout(categoryPanel, BoxLayout.Y_AXIS));
 
-    // ==============================
-    // CATEGORY SECTION
-    // ==============================
     
-    // "Add Category" card
     JPanel addCategoryCard = new JPanel(new CardLayout());
     
-    // View for "Add Category" button
     JPanel addCategoryView = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JButton addCategoryButton = new JButton("Add Category");
     addCategoryView.add(addCategoryButton);
     
-    // Input form for adding a category
     JPanel addCategoryInput = new JPanel(new FlowLayout(FlowLayout.LEFT));
     addCategoryInput.add(new JLabel("Name: "));
     JTextField categoryNameField = new JTextField(15);
@@ -170,13 +164,11 @@ class CalendarUI extends JFrame {
     addCategoryCard.add(addCategoryView, "view");
     addCategoryCard.add(addCategoryInput, "input");
     
-    // When "Add Category" is clicked, switch to input view
     addCategoryButton.addActionListener(e -> {
         CardLayout cl = (CardLayout) addCategoryCard.getLayout();
         cl.show(addCategoryCard, "input");
     });
     
-    // When "Submit" is clicked, create the category and refresh UI
     submitCategoryButton.addActionListener(e -> {
         String categoryName = categoryNameField.getText().trim();
         if (!categoryName.isEmpty()) {
@@ -194,29 +186,31 @@ class CalendarUI extends JFrame {
     
     categoryPanel.add(addCategoryCard);
     
-    // Remove Category section
     JPanel removeCategoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     removeCategoryPanel.add(new JLabel("Remove Category: "));
     JComboBox<CategoryItem> removeCategoryDropdown = new JComboBox<>();
     for (Category category : calendar.getCategories()) {
         removeCategoryDropdown.addItem(new CategoryItem(category.getId(), category.getName()));
     }
+
+    removeCategoryDropdown.addActionListener(e -> {
+        int id = ((CategoryItem) removeCategoryDropdown.getSelectedItem()).getId();
+        calendar.removeCategory(calendar.getCategory(id));
+        getContentPane().removeAll();
+        initializeCalendarUI();
+        getContentPane().revalidate();
+        getContentPane().repaint();
+    });
+    
     removeCategoryPanel.add(removeCategoryDropdown);
     categoryPanel.add(removeCategoryPanel);
     
-    // ==============================
-    // SUBCATEGORY SECTION
-    // ==============================
-    
-    // "Add Subcategory" card (subcategories extend Category)
     JPanel addSubcategoryCard = new JPanel(new CardLayout());
     
-    // View for "Add Subcategory" button
     JPanel addSubcategoryView = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JButton addSubcategoryButton = new JButton("Add Subcategory");
     addSubcategoryView.add(addSubcategoryButton);
     
-    // Input form for adding a subcategory
     JPanel addSubcategoryInput = new JPanel(new FlowLayout(FlowLayout.LEFT));
     addSubcategoryInput.add(new JLabel("Name: "));
     JTextField subcategoryNameField = new JTextField(15);
@@ -227,23 +221,19 @@ class CalendarUI extends JFrame {
     addSubcategoryCard.add(addSubcategoryView, "view");
     addSubcategoryCard.add(addSubcategoryInput, "input");
     
-    // Switch to input form when "Add Subcategory" is clicked
     addSubcategoryButton.addActionListener(e -> {
         CardLayout cl = (CardLayout) addSubcategoryCard.getLayout();
         cl.show(addSubcategoryCard, "input");
     });
     
-    // When "Submit" is clicked, create the subcategory and refresh UI
     submitSubcategoryButton.addActionListener(e -> {
         String subcategoryName = subcategoryNameField.getText().trim();
         if (!subcategoryName.isEmpty()) {
-            // Assuming Subcategory extends Category
             calendar.addSubcategory(new Subcategory(subcategoryName));
         }
         subcategoryNameField.setText("");
         CardLayout cl = (CardLayout) addSubcategoryCard.getLayout();
         cl.show(addSubcategoryCard, "view");
-        // Optionally refresh UI here if needed:
         getContentPane().removeAll();
         initializeCalendarUI();
         getContentPane().revalidate();
@@ -252,13 +242,23 @@ class CalendarUI extends JFrame {
     
     categoryPanel.add(addSubcategoryCard);
     
-    // Remove Subcategory section
     JPanel removeSubcategoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     removeSubcategoryPanel.add(new JLabel("Remove Subcategory: "));
     JComboBox<CategoryItem> removeSubcategoryDropdown = new JComboBox<>();
+
     for (Subcategory subcategory : calendar.getSubcategories()) {
         removeSubcategoryDropdown.addItem(new CategoryItem(subcategory.getId(), subcategory.getName()));
     }
+
+    removeSubcategoryDropdown.addActionListener(e -> {
+        int id = ((CategoryItem) removeSubcategoryDropdown.getSelectedItem()).getId();
+        calendar.removeSubcategory(calendar.getSubcategory(id));
+        getContentPane().removeAll();
+        initializeCalendarUI();
+        getContentPane().revalidate();
+        getContentPane().repaint();
+    });
+
     removeSubcategoryPanel.add(removeSubcategoryDropdown);
     categoryPanel.add(removeSubcategoryPanel);
     
