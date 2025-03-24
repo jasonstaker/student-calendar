@@ -182,7 +182,6 @@ public class Category {
 
         for (Subcategory subcategory : subcategories) {
             jsonArray.put(subcategory.getId());
-            // TODO: if something goes wrong with null pointers and subcategories its likely here
         }
 
         return jsonArray;

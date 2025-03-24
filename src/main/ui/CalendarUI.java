@@ -3,13 +3,11 @@ package ui;
 import model.Calendar;
 import model.Category;
 import model.Subcategory;
-import oldui.EventUI;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;

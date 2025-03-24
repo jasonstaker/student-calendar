@@ -25,7 +25,7 @@ public class CalendarTest {
         List<Subcategory> subcategories = new ArrayList<Subcategory>();
 
         assertEquals("test", calendar.getTitle());
-        assertEquals(2024, calendar.getYears().get(0).getYearNumber());
+        assertEquals(2015, calendar.getYears().get(0).getYearNumber());
         assertEquals(2025, calendar.getYears().get(1).getYearNumber());
         assertEquals(2026, calendar.getYears().get(2).getYearNumber());
         assertEquals(calendar.getYears().get(1), calendar.getCurrentYear());
