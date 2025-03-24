@@ -206,6 +206,36 @@ public class Calendar {
         return subcategory;
     }
 
+    // REQUIRES: currentDay is in the calendar, margin > 0
+    // EFFECTS: returns the day that is margin days away from the current day, null if no such days exists
+    public Day fromOffset(Day currentDay, int margin) {
+        Year currentYear = currentDay.getYear();
+        Month currentMonth = currentDay.getMonth();
+
+        while (true) {
+            if (margin > currentMonth.getDays().size() - currentDay.getDayNumber()) {
+                if (currentMonth.getMonthNumber() == 11) {
+                    if (currentYear.equals(getHighestYear())) {
+                        return null;
+                    }
+                    margin -= currentMonth.getDays().size() - currentDay.getDayNumber();
+                    currentYear = years.get(currentYear.getYearNumber() - getLowestYear().getYearNumber() + 1);
+                    currentMonth = currentYear.getMonths().get(0);
+                    currentDay = currentMonth.getDays().get(0);
+                } else {
+                    margin -= currentMonth.getDays().size() - currentDay.getDayNumber() + 1;
+                    currentMonth = currentYear.getMonths().get(currentMonth.getMonthNumber() + 1);
+                    currentDay = currentMonth.getDays().get(0);
+                }
+            } else {
+                currentDay = currentMonth.getDays().get(currentDay.getDayNumber() + margin - 1);
+                break;
+            }
+        }
+
+        return currentDay;
+    }
+
     /*
      * GETTERS/SETTERS
      */
