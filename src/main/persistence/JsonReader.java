@@ -202,7 +202,7 @@ public class JsonReader {
         int yearNumber = jsonObject.getInt("yearNumber");
         int monthNumber = jsonObject.getInt("monthNumber");
         int dayNumber = jsonObject.getInt("dayNumber");
-        Year year =  calendar.getYears().get(calendar.getLowestYear().getYearNumber() - yearNumber);
+        Year year =  calendar.getYears().get(yearNumber - calendar.getLowestYear().getYearNumber());
         
         return year.getMonths().get(monthNumber).getDays().get(dayNumber - 1);
     }
