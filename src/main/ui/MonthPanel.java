@@ -48,7 +48,6 @@ public class MonthPanel extends JPanel {
 
         for (int day = 1; day <= month.getDays().size(); day++) {
             JButton dayButton = new JButton(String.valueOf(day));
-            // Use the day number as the action command.
             dayButton.setActionCommand(String.valueOf(day));
             dayButton.addActionListener(new DayAction());
             dayButton.setPreferredSize(new Dimension(50, 45));
@@ -69,7 +68,7 @@ public class MonthPanel extends JPanel {
         for (Year year : calendar.getYears()) {
             for (Month month : year.getMonths()) {
                 if (month.equals(calendar.getCurrentYear().getCurrentMonth())) {
-                    return total % 7;
+                    return (total + 4) % 7;
                 }
                 total += month.getDays().size();
             }

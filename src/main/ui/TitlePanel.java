@@ -17,7 +17,7 @@ public class TitlePanel extends JPanel {
 
     // constants
     private static final String[] MONTHS = { "January", "February", "March", "April", "May", "June",
-                                               "July", "August", "September", "October", "November", "December" };
+                                             "July", "August", "September", "October", "November", "December" };
 
     // fields
     private Calendar calendar;
@@ -28,7 +28,7 @@ public class TitlePanel extends JPanel {
     private Integer month;
     private Integer day;
 
-    // EFFECTS: Initializes TitlePanel fields with given calendar, calendarUI, and starting year; creates and adds the main panel.
+    // EFFECTS: Initializes TitlePanel fields with given calendar, calendarUI, and starting year
     public TitlePanel(Calendar calendar, CalendarUI calendarUI, int year) {
         this.calendar = calendar;
         this.calendarUI = calendarUI;
@@ -85,6 +85,7 @@ public class TitlePanel extends JPanel {
             month = calendar.getCurrentYear().getCurrentMonth().getMonthNumber();
             titleLabel.setText(calendarTitle + ": " + MONTHS[month] + " " + year);
         } else {
+            month = calendar.getCurrentYear().getCurrentMonth().getMonthNumber();
             day = calendar.getCurrentYear().getCurrentMonth().getCurrentDay().getDayNumber();
             titleLabel.setText(calendarTitle + ": " + MONTHS[month] + " " + day + ", " + year);
         }
@@ -120,20 +121,46 @@ public class TitlePanel extends JPanel {
         // EFFECTS: Navigates to the previous month or year, updates the calendar view, and refreshes the title
         @Override
         public void actionPerformed(ActionEvent evt) {
-            if (month == null) {
+            navigateLeft();
+        }
+    }
+
+    // MODIFIES: calendar, calendarUI
+    // EFFECTS: navigates to the previous month, year, or day, updates the calendar view, and refreshes the title
+    private void navigateLeft() {
+        if (month == null) {
+            calendar.decrementYearIndex();
+        } else if (day == null) {
+            int currMonth = calendar.getCurrentYear().getCurrentMonth().getMonthNumber();
+            if (currMonth == 0 && calendar.getLowestYear().getYearNumber() != year) {
                 calendar.decrementYearIndex();
+                calendar.getCurrentYear().setCurrentMonthIndex(11);
             } else {
-                if (calendar.getCurrentYear().getCurrentMonth().getMonthNumber() == 0 
-                        && calendar.getLowestYear().getYearNumber() != year) {
+                calendar.getCurrentYear().decrementMonthIndex();
+            }
+            calendarUI.displayMonthSelection();
+        } else {
+            int currDay = calendar.getCurrentYear().getCurrentMonth().getCurrentDay().getDayNumber();
+            int currMonth = calendar.getCurrentYear().getCurrentMonth().getMonthNumber();
+            if (currDay == 1) {
+                if (currMonth == 0 && calendar.getLowestYear().getYearNumber() != year) {
                     calendar.decrementYearIndex();
                     calendar.getCurrentYear().setCurrentMonthIndex(11);
-                } else {
+                    int lastDay = calendar.getCurrentYear().getCurrentMonth().getDays().size() - 1;
+                    calendar.getCurrentYear().getCurrentMonth().setCurrentDayIndex(lastDay);
+                } else if (currMonth != 0) {
                     calendar.getCurrentYear().decrementMonthIndex();
+                    int lastDay = calendar.getCurrentYear().getCurrentMonth().getDays().size() - 1;
+                    calendar.getCurrentYear().getCurrentMonth().setCurrentDayIndex(lastDay);
+                } else {
+                    calendar.getCurrentYear().getCurrentMonth().decrementDayIndex();
                 }
-                calendarUI.displayMonthSelection();
+            } else {
+                calendar.getCurrentYear().getCurrentMonth().decrementDayIndex();
             }
-            updateTitle();
+            calendarUI.displayDaySelection();
         }
+        updateTitle();
     }
 
     private class RightArrowAction extends AbstractAction {
@@ -146,20 +173,45 @@ public class TitlePanel extends JPanel {
         // EFFECTS: Navigates to the next month or year, updates the calendar view, and refreshes the title.
         @Override
         public void actionPerformed(ActionEvent evt) {
-            if (month == null) {
+            navigateRight();
+        }
+    }
+
+    // MODIFIES: calendar, calendarUI
+    // EFFECTS: navigates to the next month, year, or day, updates the calendar view, and refreshes the title.
+    private void navigateRight() {
+        if (month == null) {
+            calendar.incrementYearIndex();
+        } else if (day == null) {
+            int currMonth = calendar.getCurrentYear().getCurrentMonth().getMonthNumber();
+            if (currMonth == 11 && calendar.getHighestYear().getYearNumber() != year) {
                 calendar.incrementYearIndex();
+                calendar.getCurrentYear().setCurrentMonthIndex(0);
             } else {
-                if (calendar.getCurrentYear().getCurrentMonth().getMonthNumber() == 11 
-                        && calendar.getHighestYear().getYearNumber() != year) {
+                calendar.getCurrentYear().incrementMonthIndex();
+            }
+            calendarUI.displayMonthSelection();
+        } else {
+            int currDay = calendar.getCurrentYear().getCurrentMonth().getCurrentDay().getDayNumber();
+            int totalDays = calendar.getCurrentYear().getCurrentMonth().getDays().size();
+            int currMonth = calendar.getCurrentYear().getCurrentMonth().getMonthNumber();
+            if (currDay == totalDays) {
+                if (currMonth == 11 && calendar.getHighestYear().getYearNumber() != year) {
                     calendar.incrementYearIndex();
                     calendar.getCurrentYear().setCurrentMonthIndex(0);
-                } else {
+                    calendar.getCurrentYear().getCurrentMonth().setCurrentDayIndex(0);
+                } else if (currMonth != 11) {
                     calendar.getCurrentYear().incrementMonthIndex();
-                    calendarUI.displayMonthSelection();
+                    calendar.getCurrentYear().getCurrentMonth().setCurrentDayIndex(0);
+                } else {
+                    calendar.getCurrentYear().getCurrentMonth().incrementDayIndex();
                 }
+            } else {
+                calendar.getCurrentYear().getCurrentMonth().incrementDayIndex();
             }
-            updateTitle();
+            calendarUI.displayDaySelection();
         }
+        updateTitle();
     }
 
     // MODIFIES: this
@@ -174,7 +226,7 @@ public class TitlePanel extends JPanel {
 
     // MODIFIES: this
     // EFFECTS: Devances theh calendar view depth
-    protected void decrementtDepth() {
+    protected void decrementDepth() {
         // TODO: this method and overhaul of depth system
     }
 
