@@ -14,9 +14,9 @@ public class DayTimelinePanel extends JPanel {
 
     // fields
     private Day day;
-    private final int HOURS_IN_DAY = 24;
-    private final int LEFT_MARGIN = 50;
-    private final int RIGHT_MARGIN = 50;
+    private static final int HOURS_IN_DAY = 24;
+    private static final int LEFT_MARGIN = 50;
+    private static final int RIGHT_MARGIN = 50;
 
     // REQUIRES: day is a valid day in the calendar
     // EFFECTS: initializes the day timeline panel with day

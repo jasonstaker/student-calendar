@@ -90,9 +90,9 @@ public class DayPanel extends JPanel {
         leftPanel.add(add(Box.createVerticalStrut(10)));
         leftPanel.add(new JLabel("End Time: " + event.getEndTime().timeToString()));
         leftPanel.add(add(Box.createVerticalStrut(10)));
-        leftPanel.add(new JLabel("Category: " + (event.getCategory() == null ? "None" : event.getCategory().getName())));
+        leftPanel.add(new JLabel("Category: " + (calendar.getCategory(event.getCategory().getId()) == null ? "None" : event.getCategory().getName())));
         leftPanel.add(add(Box.createVerticalStrut(10)));
-        leftPanel.add(new JLabel("Subcategory: " + (event.getSubcategory() == null ? "None" : event.getSubcategory().getName())));
+        leftPanel.add(new JLabel("Subcategory: " + (calendar.getSubcategory(event.getSubcategory().getId())  == null ? "None" : event.getSubcategory().getName())));
 
         viewEventPanel.add(leftPanel, BorderLayout.WEST);
 

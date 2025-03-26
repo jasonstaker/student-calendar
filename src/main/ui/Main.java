@@ -13,7 +13,7 @@ public class Main {
         System.out.println();
 
         try {
-        new CalendarUI(calendar);
+            new CalendarUI(calendar);
         } catch (Exception e) {
             e.printStackTrace();
             return;

@@ -15,11 +15,9 @@ import model.Calendar;
 // TitlePanel displays the title portion of the calendar UI and provides navigation controls
 public class TitlePanel extends JPanel {
 
-    // constants
+    // fields
     private static final String[] MONTHS = { "January", "February", "March", "April", "May", "June",
                                              "July", "August", "September", "October", "November", "December" };
-
-    // fields
     private Calendar calendar;
     private CalendarUI calendarUI;
     private JLabel titleLabel;
@@ -74,7 +72,6 @@ public class TitlePanel extends JPanel {
         return titleUI;
     }
 
-    // REQUIRES: calendar, calendar.getCurrentYear(), and titleLabel are non-null
     // MODIFIES: this, titleLabel
     // EFFECTS: updates the title text based on the calendar's current year, month, and day
     public void updateTitle() {
