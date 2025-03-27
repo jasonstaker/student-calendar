@@ -53,9 +53,7 @@ public class TitlePanel extends JPanel {
         return titlePanel;
     }
 
-    // REQUIRES: 
-    // MODIFIES: 
-    // EFFECTS: 
+    // EFFECTS: creates the back button with its associated listener
     public JButton createBackButton() {
         JButton backButton = new JButton("X");
         backButton.addActionListener(new BackButtonAction());
