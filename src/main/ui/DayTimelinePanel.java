@@ -46,6 +46,13 @@ public class DayTimelinePanel extends JPanel {
             g2.setColor(Color.LIGHT_GRAY);
         }
 
+        paintEvents(g2, panelWidth, panelHeight, hourHeight);
+    }
+
+    // REQUIRES: 
+    // MODIFIES: 
+    // EFFECTS: 
+    public void paintEvents(Graphics2D g2, int panelWidth, int panelHeight, int hourHeight) {
         List<Event> events = day.getEvents();
         List<EventSlot> slots = computeEventSlots(events);
 
@@ -101,6 +108,15 @@ public class DayTimelinePanel extends JPanel {
             slots.add(newSlot);
         }
 
+        determineOverlaps(slots);
+
+        return slots;
+    }
+
+    // REQUIRES: slots is a valid list
+    // MODIFIES: slots
+    // EFFECTS: determines how many events overlap at a given time
+    public void determineOverlaps(List<EventSlot> slots) {
         for (EventSlot slot : slots) {
             int overlapCount = 0;
             double s1 = slot.event.getStartTime().getHour();
@@ -115,8 +131,6 @@ public class DayTimelinePanel extends JPanel {
             }
             slot.totalColumns = overlapCount;
         }
-
-        return slots;
     }
 
     // a custom class to keep track of how much space and event holds

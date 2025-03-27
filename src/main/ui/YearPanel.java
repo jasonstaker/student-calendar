@@ -54,8 +54,8 @@ public class YearPanel extends JPanel {
             int monthIndex = Integer.parseInt(e.getActionCommand());
             calendar.getCurrentYear().setCurrentMonthIndex(monthIndex);
             calendarUI.displayMonthSelection();
-            calendarController.incrementTitleDepth();
-            calendarController.updateAllViews();
+            calendarController.incrementDepth();
+            calendarController.updateTitlePanel();
         }
     }
 }

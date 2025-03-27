@@ -12,21 +12,20 @@ public class CalendarController {
     private YearPanel yearPanel;
     private MonthPanel monthPanel;
     private DayPanel dayPanel;
+    private int depth;
 
-    // EFFECTS: initializes a new CalendarController with the given calendar and calendarUI
+    // EFFECTS: initializes a new CalendarController with the given calendar and
+    // calendarUI
     public CalendarController(Calendar calendar, CalendarUI calendarUI) {
         this.calendar = calendar;
         this.calendarUI = calendarUI;
+        depth = 0;
     }
 
     // MODIFIES: this
     // EFFECTS: updates all views by updating the title panel
-    // TODO: MODIFY FOR ALL
-    public void updateAllViews() {
+    public void updateTitlePanel() {
         titlePanel.updateTitle();
-        //yearPanel.updateYearPanel();
-        //monthPanel.updateMonthPanel();
-        //dayPanel.updateDayPanel();
     }
 
     // MODIFIES: this
@@ -38,10 +37,33 @@ public class CalendarController {
     }
 
     // MODIFIES: this
-    // EFFECTS: increments the title depth, where:
-    //          0 = months, category; 1 = days; 2 = event
-    public void incrementTitleDepth() {
+    // EFFECTS: increments the program depth, where:
+    // 0 = months, category; 1 = days; 2 = event
+    public void incrementDepth() {
         titlePanel.incrementDepth();
+        depth++;
+        updateView();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: decrements the program depth, where:
+    // 0 = months, category; 1 = days; 2 = event
+    public void decrementDepth() {
+        depth--;
+        updateView();
+    }
+
+    // MODIFIES: calendarUI
+    // EFFECTS: updates the view based on the depth of the program
+    private void updateView() {
+        if (depth == 0) {
+            calendarUI.displayYearSelection();
+        } else if (depth == 1) {
+            calendarUI.displayMonthSelection();
+        } else if (depth == 2) {
+            calendarUI.displayDaySelection();
+        }
+        updateTitlePanel();
     }
 
     /*
@@ -79,19 +101,19 @@ public class CalendarController {
     public void setCalendarUI(CalendarUI calendarUI) {
         this.calendarUI = calendarUI;
     }
-    
+
     public void setTitlePanel(TitlePanel titlePanel) {
         this.titlePanel = titlePanel;
     }
-    
+
     public void setYearPanel(YearPanel yearPanel) {
         this.yearPanel = yearPanel;
     }
-    
+
     public void setMonthPanel(MonthPanel monthPanel) {
         this.monthPanel = monthPanel;
     }
-    
+
     public void setDayPanel(DayPanel dayPanel) {
         this.dayPanel = dayPanel;
     }

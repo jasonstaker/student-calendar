@@ -234,6 +234,7 @@ public class CalendarTest {
     void testSetIds() {
         Category throwCategory = new Category();
         Subcategory throwSubcategory = new Subcategory("");
+        @SuppressWarnings("unused")
         Event throwEvent = new Event(throwCategory, throwSubcategory, null, null, "hello", new ArrayList<Day>());
         calendar.setIds();
         assertTrue(calendar.getCategoryId() == (int)calendar.getCategoryId());

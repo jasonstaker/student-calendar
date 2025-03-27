@@ -10,8 +10,11 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 // Represents application's main window frame
@@ -62,14 +65,13 @@ class CalendarUI extends JFrame {
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        titlePanel = new TitlePanel(calendar, this, calendar.getCurrentYear().getYearNumber());
-        mainPanel.add(titlePanel, BorderLayout.NORTH);
-
         categoryPanel = new JPanel();
         categoryPanel.add(createCategoryPanel());
         mainPanel.add(categoryPanel, BorderLayout.SOUTH);
 
         calendarController = new CalendarController(calendar, this);
+        titlePanel = new TitlePanel(calendar, calendarController, this, calendar.getCurrentYear().getYearNumber());
+        mainPanel.add(titlePanel, BorderLayout.NORTH);
         yearPanel = new YearPanel(calendar, calendarController);
         monthPanel = new MonthPanel(calendar, calendarController);
         dayPanel = new DayPanel(calendar, calendarController);
@@ -99,6 +101,11 @@ class CalendarUI extends JFrame {
     // EFFECTS: finalizes UI setup by making the frame visible and revalidating/repainting panels
     private void finalizeUI() {
         setVisible(true);
+        try {
+            setIconImage(ImageIO.read(new File("bin/calendaricon.png")));
+        } catch (IOException ioe) {
+            // no image
+        }
         mainPanel.revalidate();
         contentPanel.revalidate();
         titlePanel.revalidate();
@@ -111,17 +118,17 @@ class CalendarUI extends JFrame {
     // EFFECTS: displays all months in the current year as buttons for the user to select
     public void displayYearSelection() {
         contentPanel.removeAll();
+        categoryPanel.setVisible(true);
         yearPanel = new YearPanel(calendar, calendarController);
         contentPanel.add(yearPanel, BorderLayout.CENTER);
-        revalidate();
-        repaint();
+        finalizeUI();
     }
 
     // MODIFIES: contentPanel, categoryPanel
     // EFFECTS: displays all days in the current month as buttons for the user to select
     public void displayMonthSelection() {
         contentPanel.removeAll();
-        categoryPanel.removeAll();
+        categoryPanel.setVisible(false);
         monthPanel = new MonthPanel(calendar, calendarController);
         contentPanel.add(monthPanel, BorderLayout.CENTER);
         revalidate();
@@ -147,11 +154,6 @@ class CalendarUI extends JFrame {
         categoryPanel.add(createAddSubcategoryCard());
         categoryPanel.add(createRemoveSubcategoryPanel());
         return categoryPanel;
-    }
-
-    // EFFECTS: displays the category/subcategory management menu
-    public void showCategoryManagementMenu() {
-        // TODO
     }
 
     // EFFECTS: creates and returns the add-category card panel
@@ -295,7 +297,7 @@ class CalendarUI extends JFrame {
     }
 
     // Inner classes for Save and Load actions
-
+    
     private class SaveMenuListener extends AbstractAction {
         // EFFECTS: handles saving the calendar
         @Override
