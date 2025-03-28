@@ -23,7 +23,8 @@ public class Calendar {
     private int eventId;
 
     // REQUIRES: currentYear corresponds to a valid year number
-    // EFFECTS: initializes a new Calendar with a given title, a current year, and a list of 3 years
+    // EFFECTS: initializes a new Calendar with a given title, a current year, and a
+    // list of years from -YEAR_RANGE TO YEAR_RANGE
     public Calendar(String title, int currentYear) {
         this.title = title;
         currentYearIndex = 1;
@@ -34,27 +35,29 @@ public class Calendar {
         categoryId = 0;
         subcategoryId = 0;
         eventId = 0;
-        
+
         for (int i = -YEAR_RANGE; i <= YEAR_RANGE; i++) {
             years.add(new Year(currentYear + i));
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: increments the Year index if it does not exceed the highest year, nothing otherwise
+    // EFFECTS: increments the Year index if it does not exceed the highest year,
+    // nothing otherwise
     public void incrementYearIndex() {
         currentYearIndex++;
-        
+
         if (currentYearIndex >= years.size()) {
             currentYearIndex = years.size() - 1;
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: decrements the year index if it does not go below 0, nothing otherwise
+    // EFFECTS: decrements the year index if it does not go below 0, nothing
+    // otherwise
     public void decrementYearIndex() {
         currentYearIndex--;
-        
+
         if (currentYearIndex < 0) {
             currentYearIndex = 0;
         }
@@ -73,7 +76,8 @@ public class Calendar {
     }
 
     // REQUIRES: for date to be a valid date it must be in the YYYY/MM/DD format
-    // EFFECTS: takes in a given string and determines whether it is a valid date in the calendar
+    // EFFECTS: takes in a given string and determines whether it is a valid date in
+    // the calendar
     public Boolean isInCalendar(String date) {
         int year;
         int month;
@@ -86,8 +90,8 @@ public class Calendar {
             year = Integer.parseInt(date.substring(0, 4));
             month = Integer.parseInt(date.substring(5, 7));
             day = Integer.parseInt(date.substring(8, 10));
-            if (!date.substring(4,5).equals("/")
-                    || !date.substring(7,8).equals("/")) {
+            if (!date.substring(4, 5).equals("/")
+                    || !date.substring(7, 8).equals("/")) {
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -99,7 +103,7 @@ public class Calendar {
                 return (day >= 1 && day <= years.get(i).getMonths().get(month - 1).getDays().size());
             }
         }
-        
+
         return false;
     }
 
@@ -141,19 +145,22 @@ public class Calendar {
     }
 
     // MODIFIES: this
-    // EFFECTS: remove the given event from the list of events if it is present, nothing otherwise
+    // EFFECTS: remove the given event from the list of events if it is present,
+    // nothing otherwise
     public void removeEvent(Event event) {
         events.remove(event);
     }
 
     // MODIFIES: this
-    // EFFECTS: remove the given category from the list of categories if it is present, nothing otherwise
+    // EFFECTS: remove the given category from the list of categories if it is
+    // present, nothing otherwise
     public void removeCategory(Category category) {
         categories.remove(category);
     }
 
     // MODIFIES: this
-    // EFFECTS: remove the given subcategory from the list of subcategories if it is present, nothing otherwise
+    // EFFECTS: remove the given subcategory from the list of subcategories if it is
+    // present, nothing otherwise
     public void removeSubcategory(Subcategory subcategory) {
         subcategories.remove(subcategory);
     }
@@ -178,7 +185,8 @@ public class Calendar {
         return event;
     }
 
-    // EFFECTS: returns the category with the given id, null if it is not in category
+    // EFFECTS: returns the category with the given id, null if it is not in
+    // category
     public Category getCategory(int id) {
         Category category = null;
 
@@ -192,7 +200,8 @@ public class Calendar {
         return category;
     }
 
-    // EFFECTS: returns the subcategory with the given id, null if it is not in subcategories
+    // EFFECTS: returns the subcategory with the given id, null if it is not in
+    // subcategories
     public Subcategory getSubcategory(int id) {
         Subcategory subcategory = null;
 
@@ -207,7 +216,8 @@ public class Calendar {
     }
 
     // REQUIRES: currentDay is in the calendar, margin > 0
-    // EFFECTS: returns the day that is margin days away from the current day, null if no such days exists
+    // EFFECTS: returns the day that is margin days away from the current day, null
+    // if no such days exists
     public Day fromOffset(Day currentDay, int margin) {
         Year currentYear = currentDay.getYear();
         Month currentMonth = currentDay.getMonth();
@@ -243,7 +253,7 @@ public class Calendar {
     public int getYearRange() {
         return YEAR_RANGE;
     }
-    
+
     public String getTitle() {
         return title;
     }
@@ -336,5 +346,5 @@ public class Calendar {
 
         return jsonArray;
     }
-    
+
 }

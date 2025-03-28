@@ -41,9 +41,10 @@ public class Category {
         idNumber++;
     }
 
-    // EFFECTS: initializes an empty Category with default values, a given name, and a given list of subcategories
-    public Category(String name, List<Subcategory> subcategories, 
-                    String location, List<String> links, List<String> notes) {
+    // EFFECTS: initializes an empty Category with default values, a given name, and
+    // a given list of subcategories
+    public Category(String name, List<Subcategory> subcategories,
+            String location, List<String> links, List<String> notes) {
         this.name = name;
         this.subcategories = subcategories;
         this.location = location;
@@ -54,13 +55,15 @@ public class Category {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds the given subcategory to the list of subcategories in this Category
+    // EFFECTS: adds the given subcategory to the list of subcategories in this
+    // Category
     public void addSubcategory(Subcategory newSubcategory) {
         subcategories.add(newSubcategory);
     }
 
     // MODIFIES: this
-    // EFFECTS: removes the given subcategory from the subcategories in this Category if it exists, nothing otherwise
+    // EFFECTS: removes the given subcategory from the subcategories in this
+    // Category if it exists, nothing otherwise
     public void removeSubcategory(Subcategory removedSubcategory) {
         subcategories.remove(removedSubcategory);
     }
@@ -72,7 +75,8 @@ public class Category {
     }
 
     // MODIFIES: this
-    // EFFECTS: removes the given URL from the links in this Category if it exists, nothing otherwise
+    // EFFECTS: removes the given URL from the links in this Category if it exists,
+    // nothing otherwise
     public void removeLink(String removedUrl) {
         links.remove(removedUrl);
     }
@@ -91,7 +95,8 @@ public class Category {
     }
 
     // MODIFIES: this
-    // EFFECTS: removes the given note from the notes in this Category if it exists, nothing otherwise
+    // EFFECTS: removes the given note from the notes in this Category if it exists,
+    // nothing otherwise
     public void removeNote(String removedNote) {
         notes.remove(removedNote);
     }
