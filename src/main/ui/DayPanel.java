@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+// DayPanel displays all the events in the currently selected day, with a view/remove/add event option
 public class DayPanel extends JPanel {
 
     // fields

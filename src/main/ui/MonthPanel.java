@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+// MonthPanel displays all the days for the current month in the current year in calendar
 public class MonthPanel extends JPanel {
 
     // fields
