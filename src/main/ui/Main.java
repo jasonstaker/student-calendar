@@ -13,6 +13,10 @@ public class Main {
         System.out.println();
 
         new CalendarUI(calendar);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            calendar.printLog(CalendarEventLog.getInstance());
+        }));
     }
 
 }
