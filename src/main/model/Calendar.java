@@ -130,18 +130,24 @@ public class Calendar {
     // EFFECTS: adds the given event to this Calendars list of events
     public void addEvent(Event event) {
         events.add(event);
+        String dayModifier = event.getRecurringDays().size() == 1 ? "day" : "days";
+        String eventDescription = "Event added to " + event.getRecurringDays().size() + " " + dayModifier
+                + " in the calendar.";
+        CalendarEventLog.getInstance().logEvent(new CalendarEvent(eventDescription));
     }
 
     // MODIFIES: this
     // EFFECTS: adds the given category to this Calendars list of categories
     public void addCategory(Category category) {
         categories.add(category);
+        CalendarEventLog.getInstance().logEvent(new CalendarEvent("Category added to calendar."));
     }
 
     // MODIFIES: this
     // EFFECTS: adds the given subcategory to this Calendars list of subcategories
     public void addSubcategory(Subcategory subcategory) {
         subcategories.add(subcategory);
+        CalendarEventLog.getInstance().logEvent(new CalendarEvent("Subcategory added to calendar."));
     }
 
     // MODIFIES: this
@@ -149,6 +155,10 @@ public class Calendar {
     // nothing otherwise
     public void removeEvent(Event event) {
         events.remove(event);
+        String dayModifier = event.getRecurringDays().size() == 1 ? "day" : "days";
+        String eventDescription = "Event removed from " + event.getRecurringDays().size() + " " + dayModifier
+                + " in the calendar.";
+        CalendarEventLog.getInstance().logEvent(new CalendarEvent(eventDescription));
     }
 
     // MODIFIES: this
@@ -156,6 +166,7 @@ public class Calendar {
     // present, nothing otherwise
     public void removeCategory(Category category) {
         categories.remove(category);
+        CalendarEventLog.getInstance().logEvent(new CalendarEvent("Category removed from calendar."));
     }
 
     // MODIFIES: this
@@ -163,6 +174,7 @@ public class Calendar {
     // present, nothing otherwise
     public void removeSubcategory(Subcategory subcategory) {
         subcategories.remove(subcategory);
+        CalendarEventLog.getInstance().logEvent(new CalendarEvent("Subcategory removed from calendar."));
     }
 
     // EFFECTS: grabs the static ids from category, subcategory, and event
@@ -244,6 +256,20 @@ public class Calendar {
         }
 
         return currentDay;
+    }
+
+    // EFFECTS: prints all CalendarEvent's in the CalendarEventLog, prints
+    // "Nothing." otherwise
+    public void printLog(CalendarEventLog el) {
+        System.out.println("Event Log:");
+
+        if (!el.iterator().hasNext()) {
+            System.out.print("  Nothing.");
+        }
+
+        for (CalendarEvent next : el) {
+            System.out.println("  " + next.toString() + "\n");
+        }
     }
 
     /*
