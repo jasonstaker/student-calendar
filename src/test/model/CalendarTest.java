@@ -32,6 +32,7 @@ public class CalendarTest {
         assertEquals(calendar.getYears().get(1), calendar.getCurrentYear());
         assertEquals(categories, calendar.getCategories());
         assertEquals(subcategories, calendar.getSubcategories());
+        assertEquals(10, calendar.getYearRange());
     }
 
     @Test
@@ -302,6 +303,15 @@ public class CalendarTest {
         Month januaryNextYear = nextYear.getMonths().get(0);
         Day expectedDay = januaryNextYear.getDays().get(1);
         assertEquals(expectedDay, nextDay);
+    }
+
+    @Test
+    void testFromOffsetNull() {
+        Year highestYear = calendar.getHighestYear();
+        Month december = highestYear.getMonths().get(11);
+        Day decLast = december.getDays().get(december.getDays().size() - 1);
+        Day nextDay = calendar.fromOffset(decLast, 1);
+        assertNull(nextDay);
     }
 
     

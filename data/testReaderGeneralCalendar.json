@@ -61,5 +61,24 @@
         }],
         "category": 0,
         "subcategory": 2
+    },
+    {
+        "name": "event",
+        "startTime": {
+            "hour": 12,
+            "minute": 0
+        },
+        "id": 1,
+        "endTime": {
+            "hour": 13,
+            "minute": 0
+        },
+        "recurringDays": [{
+            "monthNumber": 0,
+            "dayNumber": 1,
+            "yearNumber": 2024
+        }],
+        "category": null,
+        "subcategory": null
     }]
 }

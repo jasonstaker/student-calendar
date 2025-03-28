@@ -157,9 +157,21 @@ public class DayTest {
     }
 
     @Test
+    void testIsBeforeSameMonthPass() {
+        Day testDay = new Day(year, month, 6);
+        assertTrue(day.isBefore(testDay));
+    }
+
+    @Test
     void testIsBeforeYearFail() {
-        Day testDay = new Day(year, new Month(year, 0), 5);
+        Day testDay = new Day(year, month, 4);
         assertFalse(day.isBefore(testDay));
+    }
+
+    @Test
+    void testIsBeforeSameMonthFail() {
+        Day testDay = new Day(year, new Month(year, 1), 5);
+        assertTrue(day.isBefore(testDay));
     }
 
     @Test

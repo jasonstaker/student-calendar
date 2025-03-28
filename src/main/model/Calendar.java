@@ -240,7 +240,7 @@ public class Calendar {
      * GETTERS/SETTERS
      */
 
-    public static int getYearRange() {
+    public int getYearRange() {
         return YEAR_RANGE;
     }
     

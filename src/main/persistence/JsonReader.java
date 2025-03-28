@@ -127,10 +127,6 @@ public class JsonReader {
 
     // EFFECTS: parses category from JSON object and returns it
     private Category parseCategory(JSONObject jsonObject) {
-        if (jsonObject == null) {
-            return null;
-        }
-
         String name = jsonObject.getString("name");
         List<Subcategory> subcategories = new ArrayList<Subcategory>();
         for (Object jsonInt : jsonObject.getJSONArray("subcategories")) {
@@ -166,10 +162,6 @@ public class JsonReader {
 
     // EFFECTS: parses subcategory from JSON object and returns it
     private Subcategory parseSubcategory(JSONObject jsonObject) {
-        if (jsonObject == null) {
-            return null;
-        }
-
         Category parentCategory = jsonObject.isNull("parentCategory") 
                                     ? null 
                                     : calendar.getCategory(jsonObject.getInt("parentCategory"));
