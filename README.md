@@ -26,3 +26,35 @@ My application will do the following:
 - You can locate my visual component by going into any day.
 - You can save the state of my application by clicking file at the top left, and clicking save.
 - You can reload the state of my application by clicking file at the top left, and clicking load.
+
+# Phase 4: Task 2
+Event Log:
+  <br />Fri Mar 28 13:38:29 PDT 2025
+  <br />Category added to calendar.
+
+  Fri Mar 28 13:38:33 PDT 2025
+  <br />Subcategory added to calendar.
+
+  Fri Mar 28 13:38:34 PDT 2025
+  <br />Subcategory removed from calendar.
+
+  Fri Mar 28 13:38:51 PDT 2025
+  <br />Event added to 5 days in the calendar.
+
+  Fri Mar 28 13:39:06 PDT 2025
+  <br />Event added to 1 day in the calendar.
+
+  Fri Mar 28 13:39:28 PDT 2025
+  <br />Subcategory added to calendar.
+
+  Fri Mar 28 13:39:30 PDT 2025
+  <br />Subcategory removed from calendar.
+
+  Fri Mar 28 13:39:31 PDT 2025
+  <br />Category removed from calendar.
+
+  Fri Mar 28 13:39:50 PDT 2025
+  <br />Event removed from 5 days in the calendar.
+
+  Fri Mar 28 13:39:53 PDT 2025
+  <br />Event removed from 1 day in the calendar.
