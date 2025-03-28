@@ -6,9 +6,11 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import persistence.Writable;
+
 // A Category with a name and a list of subcategories
 // Also contains a location, important links, notes, and attachments that are all toggleable
-public class Category {
+public class Category implements Writable {
 
     // fields
     private static int idNumber = 0;

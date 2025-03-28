@@ -6,9 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import persistence.Writable;
 
 // A Calendar with a title that stores a list of years, categories, subcategories, and a current year
-public class Calendar {
+public class Calendar implements Writable {
 
     // fields
     private static final int YEAR_RANGE = 10;

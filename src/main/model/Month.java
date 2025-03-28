@@ -17,7 +17,6 @@ public class Month {
     private int monthNumber;
     private List<Day> days;
     private int currentDayIndex;
-    // TODO: IMPLEMENT
     
     // REQUIRES: 0 <= monthNumber <= 11
     // EFFECTS: initializes a Month with default values, a given monthNumber, and a given Year

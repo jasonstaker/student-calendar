@@ -5,8 +5,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import persistence.Writable;
+
 // An Event that has a Category and/or Subcategory, start time, end time, name, and reccuring days
-public class Event {
+public class Event implements Writable {
 
     // fields
     private static int idNumber = 0;

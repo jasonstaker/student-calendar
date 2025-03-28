@@ -2,8 +2,10 @@ package model;
 
 import org.json.JSONObject;
 
+import persistence.Writable;
+
 // A Time with an hour and minute
-public class Time {
+public class Time implements Writable {
 
     // fields
     private int hour;
