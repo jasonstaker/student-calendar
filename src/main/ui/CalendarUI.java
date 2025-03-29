@@ -74,7 +74,7 @@ class CalendarUI extends JFrame {
         mainPanel.add(titlePanel, BorderLayout.NORTH);
         yearPanel = new YearPanel(calendar, calendarController);
         monthPanel = new MonthPanel(calendar, calendarController);
-        dayPanel = new DayPanel(calendar, calendarController);
+        dayPanel = new DayPanel(calendar);
         calendarController.setFields(titlePanel, yearPanel, monthPanel);
 
         contentPanel.add(yearPanel, BorderLayout.CENTER);
@@ -139,7 +139,7 @@ class CalendarUI extends JFrame {
     // EFFECTS: displays day view for the current day in the calendar
     public void displayDaySelection() {
         contentPanel.removeAll();
-        dayPanel = new DayPanel(calendar, calendarController);
+        dayPanel = new DayPanel(calendar);
         contentPanel.add(dayPanel, BorderLayout.CENTER);
         revalidate();
         repaint();

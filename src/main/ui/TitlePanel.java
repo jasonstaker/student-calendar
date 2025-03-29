@@ -126,7 +126,7 @@ public class TitlePanel extends JPanel {
             super("⮜");
         }
 
-        // MODIFIES: calendar, calendarUI
+        // MODIFIES: calendar
         // EFFECTS: Navigates to the previous month or year, updates the calendar view, and refreshes the title
         @Override
         public void actionPerformed(ActionEvent evt) {

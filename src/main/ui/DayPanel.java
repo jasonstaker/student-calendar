@@ -16,16 +16,15 @@ public class DayPanel extends JPanel {
 
     // fields
     private Calendar calendar;
-    private CalendarController calendarController;
     private JPanel mainPanel;
     private JPanel rightPanel;
     private JPanel leftPanel;
+    private DayTimelinePanel dayTimelinePanel;
 
     // EFFECTS: constructs a DayPanel with the given calendar and controller;
     //          initializes the panel layout by creating and adding the main panel
-    public DayPanel(Calendar calendar, CalendarController calendarController) {
+    public DayPanel(Calendar calendar) {
         this.calendar = calendar;
-        this.calendarController = calendarController;
         this.add(createPanel());
     }
 
@@ -89,7 +88,8 @@ public class DayPanel extends JPanel {
         Day currentDay = calendar.getCurrentYear().getCurrentMonth().getCurrentDay();
 
         timelinePanel.setBorder(BorderFactory.createTitledBorder("Timeline Graphic"));
-        timelinePanel.add(new DayTimelinePanel(currentDay));
+        dayTimelinePanel = new DayTimelinePanel(currentDay);
+        timelinePanel.add(dayTimelinePanel);
         rightPanel.add(timelinePanel);
 
         mainPanel.add(rightPanel, BorderLayout.EAST);
