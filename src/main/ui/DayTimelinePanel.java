@@ -49,16 +49,17 @@ public class DayTimelinePanel extends JPanel {
     }
 
     // MODIFIES: g2
-    // EFFECTS: paints all events from the day onto the timeline panel, accounting for overlapping events
+    // EFFECTS: paints all events from the day onto the timeline panel, accounting
+    // for overlapping events
     public void paintEvents(Graphics2D g2, int panelWidth, int panelHeight, int hourHeight) {
         List<Event> events = day.getEvents();
         List<EventSlot> slots = computeEventSlots(events, hourHeight);
 
         for (EventSlot slot : slots) {
             Event event = slot.event;
-            double actualStart = event.getStartTime().getHour() 
+            double actualStart = event.getStartTime().getHour()
                     + event.getStartTime().getMinute() / 60.0;
-            double actualEnd = event.getEndTime().getHour() 
+            double actualEnd = event.getEndTime().getHour()
                     + event.getEndTime().getMinute() / 60.0;
             int startY = (int) (actualStart * hourHeight);
             int endY = (int) (actualEnd * hourHeight);
@@ -79,19 +80,17 @@ public class DayTimelinePanel extends JPanel {
         }
     }
 
-    // EFFECTS: computes the slots for events so that overlapping events are displayed side-by-side.
+    // EFFECTS: computes the slots for events so that overlapping events are
+    // displayed side-by-side.
     private List<EventSlot> computeEventSlots(List<Event> events, int hourHeight) {
         List<EventSlot> slots = new ArrayList<>();
         List<EventSlot> active = new ArrayList<>();
 
         for (Event event : events) {
-            double actualStart = event.getStartTime().getHour() 
-                    + event.getStartTime().getMinute() / 60.0;
-            double actualEnd = event.getEndTime().getHour() 
-                    + event.getEndTime().getMinute() / 60.0;
-            double effectiveDuration = actualEnd - actualStart;
+            double actualStart = event.getStartTime().getHour() + event.getStartTime().getMinute() / 60.0;
+            double actualEnd = event.getEndTime().getHour() + event.getEndTime().getMinute() / 60.0;
             double minDuration = (double) MIN_EVENT_HEIGHT / hourHeight;
-            double effectiveEnd = (effectiveDuration < minDuration) ? actualStart + minDuration : actualEnd;
+            double effectiveEnd = (actualEnd - actualStart < minDuration) ? actualStart + minDuration : actualEnd;
 
             active.removeIf(slot -> slot.effectiveEnd <= actualStart);
 
@@ -107,17 +106,24 @@ public class DayTimelinePanel extends JPanel {
             }
 
             EventSlot newSlot = new EventSlot(event, columnIndex, actualStart, effectiveEnd);
-            active.add(newSlot);
-            slots.add(newSlot);
+            addSlot(active, slots, newSlot);
         }
 
         determineOverlaps(slots);
 
         return slots;
     }
+    
+    // MODIFIES: active, slots
+    // EFFECTS: adds the newSlot to active and slots
+    public void addSlot(List<EventSlot> active, List<EventSlot> slots, EventSlot newSlot) {
+        active.add(newSlot);
+        slots.add(newSlot);
+    }
 
     // MODIFIES: slots
-    // EFFECTS: determines the number of overlapping events and sets totalColumns for each slot accordingly
+    // EFFECTS: determines the number of overlapping events and sets totalColumns
+    // for each slot accordingly
     public void determineOverlaps(List<EventSlot> slots) {
         for (EventSlot slot : slots) {
             int overlapCount = 0;
@@ -134,7 +140,8 @@ public class DayTimelinePanel extends JPanel {
         }
     }
 
-    // a custom class to keep track of how much space an event holds and its position (column) in the timeline
+    // a custom class to keep track of how much space an event holds and its
+    // position (column) in the timeline
     private class EventSlot {
         Event event;
         int column;
@@ -143,7 +150,8 @@ public class DayTimelinePanel extends JPanel {
         double effectiveEnd;
 
         // REQUIRES: column >= 0
-        // EFFECTS: initializes an EventSlot with a given event, its column index, and effective start/end times
+        // EFFECTS: initializes an EventSlot with a given event, its column index, and
+        // effective start/end times
         EventSlot(Event event, int column, double effectiveStart, double effectiveEnd) {
             this.event = event;
             this.column = column;

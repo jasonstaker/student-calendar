@@ -21,20 +21,22 @@ public class MonthPanel extends JPanel {
     private JPanel monthPanel;
     private CalendarController calendarController;
 
-    // EFFECTS: constructs a MonthPanel with the given calendar and calendar controller and adds the created panel to this
+    // EFFECTS: constructs a MonthPanel with the given calendar and calendar
+    // controller and adds the created panel to this
     public MonthPanel(Calendar calendar, CalendarController calendarController) {
         this.calendar = calendar;
         this.calendarController = calendarController;
         this.add(createPanel());
     }
 
-    // EFFECTS: creates and returns the month panel user interface using a grid layout and populates day names and day buttons
+    // EFFECTS: creates and returns the month panel user interface using a grid
+    // layout and populates day names and day buttons
     public JPanel createPanel() {
         monthPanel = new JPanel();
         monthPanel.setLayout(new GridLayout(7, 7));
         Month month = calendar.getCurrentYear().getCurrentMonth();
 
-        String[] dayNames = {"S", "M", "T", "W", "T", "F", "S"};
+        String[] dayNames = { "S", "M", "T", "W", "T", "F", "S" };
 
         for (String day : dayNames) {
             JButton button = new JButton(day);
@@ -61,7 +63,8 @@ public class MonthPanel extends JPanel {
         return monthPanel;
     }
 
-    // EFFECTS: returns the amount of whitespace needed before the first day of the month in the grid layout
+    // EFFECTS: returns the amount of whitespace needed before the first day of the
+    // month in the grid layout
     public int getWhiteSpace() {
         int total = 0;
 
@@ -76,7 +79,8 @@ public class MonthPanel extends JPanel {
         return -1;
     }
 
-    // EFFECTS: handles day selection by setting the current day index and updating the calendar view
+    // EFFECTS: handles day selection by setting the current day index and updating
+    // the calendar view
     private class DayAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
