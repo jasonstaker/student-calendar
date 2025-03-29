@@ -58,3 +58,10 @@ Event Log:
 
   Fri Mar 28 13:39:53 PDT 2025
   <br />Event removed from 1 day in the calendar.
+
+# Phase 4: Task 3
+The UML class diagram revealed to me that I have a lot of redundant references to other classes. For example, the calendar class is the primary one. There are so many references to it I had to combine them all into one arrow in the UI class just so it did not look terrible.
+
+If I had the chance I would completely overhaul how the CalendarController class is used. Since every important panel and the calendar is there, I simply could have used it better so they employ the CalendarController, which would centralize all the information in the program. This would make everything MUCH more concise and likely would have been much easier.
+
+Going forward, I think if I had more time I would take a look over my code to identify where I made a "patch job" and would take note of them. Then, I would use the CalendarController class to fix these issues, creating a more cohesive program overall.
