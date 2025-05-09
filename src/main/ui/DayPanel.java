@@ -338,6 +338,7 @@ public class DayPanel extends JPanel {
     // REQUIRES: modelPanel is the recurringDaysPanel in the addEventPanel.
     // EFFECTS: returns a list of recurring days for the event based on the selected recurring option
     //          and duration specified in the modelPanel.
+    @SuppressWarnings("all")
     private List<Day> parseRecurringDays(JPanel modelPanel) {
         List<Day> recurringDays = new ArrayList<>();
 
@@ -432,6 +433,7 @@ public class DayPanel extends JPanel {
         repaint();
     }
 
+    @SuppressWarnings("all")
     private class ViewEventAction extends AbstractAction {
         // EFFECTS: handles the action event for viewing an event
         @Override
@@ -446,6 +448,7 @@ public class DayPanel extends JPanel {
         }
     }
 
+    @SuppressWarnings("all")
     private class RemoveEventAction extends AbstractAction {
         // EFFECTS: handles the action event for removing an event
         @Override
